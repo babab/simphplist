@@ -19,7 +19,7 @@
 
 namespace Babab\Paulos;
 
-class Text
+class String
 {
     public static function get($var, $defaultValue='')
     {

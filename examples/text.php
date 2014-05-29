@@ -2,10 +2,10 @@
 
 require "vendor/autoload.php";
 
-use \Babab\Paulos\Text;
+use \Babab\Paulos\String;
 
-$inptext = Text::post('text');
-$text = Text::count($inptext);
+$inptext = String::post('text');
+$text = String::count($inptext);
 
 ?><!doctype html>
 <html>

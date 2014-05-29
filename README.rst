@@ -21,8 +21,8 @@ DB\\MysqlHandler
 DB\\Model
   A simplistic ORM with a beautiful API
 
-Text (static class)
-  Parse texts (paragraphs, (blank) lines, chars)
+String (static class)
+  Parse and filter strings (paragraphs, (blank) lines, chars)
 
 License
 *******
