@@ -33,27 +33,14 @@ class String
         return $filtered ?: $defaultValue;
     }
 
-    public static function filter($var, $castToType='string', $defaultValue='')
+    public static function filter($var, $castToType=False, $defaultValue='')
     {
         $filtered = filter_var($var, FILTER_SANITIZE_STRING);
         $ret = $filtered ?: $defaultValue;
-        switch ($castToType) {
-        case 'string':
+        if ($castToType)
+            return self::cast($ret, $castToType);
+        else
             return $ret;
-        case 'int':
-        case 'i':
-            return (int) $ret;
-        case 'float':
-        case 'double':
-        case 'f':
-        case 'd':
-            return (float) $ret;
-        case 'commafloat':
-        case 'cf':
-            return (float) str_replace(',', '.', $ret);
-        default:
-            throw new \Exception('Unknown/unsupported casting type');
-        }
     }
 
     public static function count($text)
@@ -108,5 +95,26 @@ class String
             'chars' => $nChars,
             'chars_list' => $chars,
         );
+    }
+
+    public static function cast($string, $castToType)
+    {
+        switch ($castToType) {
+        case 'string':
+            return (string) $string;
+        case 'int':
+        case 'i':
+            return (int) $string;
+        case 'float':
+        case 'double':
+        case 'f':
+        case 'd':
+            return (float) $string;
+        case 'commafloat':
+        case 'cf':
+            return (float) str_replace(',', '.', $string);
+        default:
+            throw new \Exception('Unknown/unsupported casting type');
+        }
     }
 }
