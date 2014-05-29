@@ -15,10 +15,10 @@ It is designed to be used as a minimalistic base for writing custom
 Features / Components
 *********************
 
-DB\MysqlHandler
+DB\\MysqlHandler
   A sophisticated MySQL handler with table prefix support
 
-DB\Model
+DB\\Model
   A simplistic ORM with a beautiful API
 
 Text (static class)
