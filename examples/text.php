@@ -1,6 +1,7 @@
 <?php
 
-require "vendor/autoload.php";
+/* require "vendor/autoload.php"; */
+require "../src/Babab/Paulos/String.php";
 
 use \Babab\Paulos\String;
 
@@ -43,7 +44,8 @@ $text = String::count($inptext) ?: array();
             <textarea id="text" name="text"><?= $inptext ?></textarea>
             <input class="btn btn-success" type="submit" value="Check" />
           </form>
-          <hr />
+          <br />
+          <br />
         </div>
         <div class="col-lg-3">
 
@@ -78,5 +80,8 @@ $text = String::count($inptext) ?: array();
         </div>
       </div>
     </div>
+
+    <pre><?php print_r($text); ?></pre>
+
   </body>
 </html>

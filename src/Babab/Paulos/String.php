@@ -49,7 +49,17 @@ class String
             return Null;
 
         /* Count words */
-        $nWords = str_word_count($text);
+        $nWords = str_word_count($text, 0);
+        $words_list = str_word_count($text, 1);
+
+        foreach ($words_list as $word) {
+            $word = strtolower($word);
+            if (ctype_alnum($word)) {
+                if (!isset($words[$word]))
+                    $words[$word] = 0;
+                $words[$word]++;
+            }
+        }
 
         /* Count (blank) lines and paragraphs */
         $lines = explode("\n", $text);
@@ -84,6 +94,7 @@ class String
             }
         }
 
+        arsort($words);
         arsort($chars);
 
         return array(
@@ -92,6 +103,7 @@ class String
             'lines_blank' => $blankLines,
             'lines_content' => $nLines - $blankLines,
             'words' => $nWords,
+            'words_list' => $words,
             'chars' => $nChars,
             'chars_list' => $chars,
         );
