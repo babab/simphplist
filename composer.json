@@ -1,0 +1,8 @@
+{
+    "name": "babab/paulos",
+    "version": "0.1.0-alpha",
+    "autoload": {
+        "psr-0": {"Babab\\Paulos": "src"}
+    }
+
+}
