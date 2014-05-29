@@ -11,15 +11,36 @@ $text = Text::count($inptext);
 <html>
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet"
+    href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <style>
+      .row {
+          margin-top: 25%;
+      }
+      textarea, input {
+          width: 100%;
+      }
+    </style>
     <title>Test page</title>
   </head>
   <body>
-    <form method="POST">
-      <textarea id="text" name="text" cols="30"
-                rows="10"><?= $inptext ?></textarea>
-      <input type="submit" />
-    </form>
-    <pre><?php var_dump(Text::filter($inptext, 'cf')) ?></pre>
-    <pre><?php print_r($text) ?></pre>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+
+          <form method="POST">
+            <textarea id="text" name="text" rows="16"><?= $inptext ?></textarea>
+          </form>
+          <hr />
+
+        </div>
+        <div class="col-lg-6">
+
+            <pre><?php print_r($text) ?></pre>
+
+        </div>
+      </div>
+    </div>
   </body>
 </html>
