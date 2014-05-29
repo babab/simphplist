@@ -1,0 +1,13 @@
+{
+    "name": "babab/paulos-examples",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:babab/paulos"
+        }
+    ],
+    "require": {
+        "babab/paulos": "dev-master"
+    }
+
+}
