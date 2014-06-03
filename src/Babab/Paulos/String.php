@@ -21,28 +21,6 @@ namespace Babab\Paulos;
 
 class String
 {
-    public static function get($var, $defaultValue='')
-    {
-        $filtered = filter_input(INPUT_GET, $var, FILTER_SANITIZE_STRING);
-        return $filtered ?: $defaultValue;
-    }
-
-    public static function post($var, $defaultValue='')
-    {
-        $filtered = filter_input(INPUT_POST, $var, FILTER_SANITIZE_STRING);
-        return $filtered ?: $defaultValue;
-    }
-
-    public static function filter($var, $castToType=False, $defaultValue='')
-    {
-        $filtered = filter_var($var, FILTER_SANITIZE_STRING);
-        $ret = $filtered ?: $defaultValue;
-        if ($castToType)
-            return self::cast($ret, $castToType);
-        else
-            return $ret;
-    }
-
     public static function count($text)
     {
         if (trim($text) === '')
