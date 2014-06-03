@@ -1,11 +1,13 @@
 <?php
 
 /* require "vendor/autoload.php"; */
+require "../src/Babab/Paulos/Request.php";
 require "../src/Babab/Paulos/String.php";
 
+use \Babab\Paulos\Request;
 use \Babab\Paulos\String;
 
-$inptext = String::post('text');
+$inptext = Request::post('text');
 $text = String::count($inptext) ?: array();
 
 ?><!doctype html>
