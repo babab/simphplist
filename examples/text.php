@@ -52,7 +52,7 @@ $text = String::count($inptext) ?: array();
             <table class="table table-hover table-striped">
 
               <?php foreach ($text as $k => $v): ?>
-                <?php if ($k != 'chars_list'): ?>
+                <?php if ($k != 'chars_list' && $k != 'words_list'): ?>
                   <tr>
                     <th><?= $k ?></th>
                     <td><?= $v ?></td>
@@ -70,8 +70,7 @@ $text = String::count($inptext) ?: array();
                     $perc = (string) ($count / $text['chars']) * 100;
                     echo "<tr><td>`$char`</td><td>$count</td>";
                     echo "<td>" . substr($perc, 0, 6) . "%</td></tr>";
-                    $i++;
-                    if ($i == 12)
+                    if ($i++ == 12)
                         break;
                 }
             ?>
