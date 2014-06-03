@@ -105,7 +105,7 @@ class MysqlHandler
         return $this->query($query);
     }
 
-    /*
+    /**
      * Execute a query and return results as a (multi-dimensonal)
      * associative array
      *
