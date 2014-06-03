@@ -38,7 +38,7 @@ class Validate
             return is_bool($var);
         else {
             $string = strtolower(trim($var));
-            return $var == 'false' || $var == 'true' ? true : false;
+            return ($string == 'false' || $string == 'true') ? true : false;
         }
     }
 
@@ -53,7 +53,8 @@ class Validate
      */
     public static function isTimeString($var)
     {
-        return (is_object(DateTime::createFromFormat('h:i a', $var))
-                || is_object(DateTime::createFromFormat('h:i', $var)));
+        return (is_object(\DateTime::createFromFormat('h:i a', $var))
+            || is_object(\DateTime::createFromFormat('h:i', $var))
+            || is_object(\DateTime::createFromFormat('hi', $var)));
     }
 }

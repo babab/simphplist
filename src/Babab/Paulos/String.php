@@ -21,6 +21,17 @@ namespace Babab\Paulos;
 
 class String
 {
+    /**
+     * Truncate a string if necessary
+     */
+    public static function truncate($string, $nChars, $suffix = '...')
+    {
+        if (strlen($string) <= $nChars)
+            return $string;
+        else
+            return substr($string, 0, ($nChars - strlen($suffix))) . $suffix;
+    }
+
     public static function count($text)
     {
         if (trim($text) === '')

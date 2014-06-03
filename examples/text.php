@@ -3,9 +3,11 @@
 /* require "vendor/autoload.php"; */
 require "../src/Babab/Paulos/Request.php";
 require "../src/Babab/Paulos/String.php";
+require "../src/Babab/Paulos/Validate.php";
 
 use \Babab\Paulos\Request;
 use \Babab\Paulos\String;
+use \Babab\Paulos\Validate;
 
 $inptext = Request::post('text');
 $text = String::count($inptext) ?: array();
@@ -81,6 +83,17 @@ $text = String::count($inptext) ?: array();
         </div>
       </div>
     </div>
+
+    <pre><?php
+            echo "Validate::isBool('$inptext', false) ::: ";
+            var_dump(Validate::isBool($inptext, false));
+
+            echo "Validate::isTimeString('$inptext') ::: ";
+            var_dump(Validate::isTimeString($inptext));
+
+            echo "String::truncate('$inptext', 15) ::: ";
+            var_dump(String::truncate($inptext, 15));
+    ?></pre>
 
     <pre><?php print_r($text); ?></pre>
 
