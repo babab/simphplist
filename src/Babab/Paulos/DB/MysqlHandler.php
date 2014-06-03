@@ -81,6 +81,10 @@ class MysqlHandler
 
     /**
      * Execute query after substituting prefix
+     *
+     * @param string $query Query string (optionally prefixed with
+     *                      $this->_prefixReplaceString)
+     * @return \mysqli::query Query result
      */
     public function query($query)
     {
@@ -91,12 +95,27 @@ class MysqlHandler
 
     /**
      * Execute query after substituting prefix; Alias for this::query()
+     *
+     * @param string $query Query string (optionally prefixed with
+     *                      $this->_prefixReplaceString)
+     * @return \mysqli::query Query result
      */
     public function q($query)
     {
         return $this->query($query);
     }
 
+    /*
+     * Execute a query and return results as a (multi-dimensonal)
+     * associative array
+     *
+     * @param string $query Query string (optionally prefixed with
+     *                      $this->_prefixReplaceString)
+     * @param bool $order Sort results
+     * @param bool $reverse_order Reverse sort results
+     *
+     * @return array
+     */
     public function qfetch($query, $order=False, $reverse_order=False)
     {
         $result = $this->query($query);
