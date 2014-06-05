@@ -39,9 +39,21 @@ $text = String::count($inptext) ?: array();
   <body>
     <div class="container">
       <h1>
+        Paulos anti-framework
+        <small>Example usage of filtering user input</small>
+      </h1>
+      <h3>
+        <span class="namespace">\Babab\Paulos\</span>Request
+        <small>Filter REQUEST (GET/POST/COOKIE) vars</small>
+        <br />
+
         <span class="namespace">\Babab\Paulos\</span>String
         <small>Parse and filter strings</small>
-      </h1>
+        <br />
+
+        <span class="namespace">\Babab\Paulos\</span>Validate
+        <small>Straight forward validation API</small>
+      </h3>
       <div class="row">
         <div class="col-lg-9">
           <form method="POST">
@@ -85,17 +97,17 @@ $text = String::count($inptext) ?: array();
     </div>
 
     <pre><?php
-            echo "Validate::isBool('$inptext', false) ::: ";
+            echo "Validate::isBool ::: ";
             var_dump(Validate::isBool($inptext, false));
 
-            echo "Validate::isTimeString('$inptext') ::: ";
+            echo "Validate::isTimeString ::: ";
             var_dump(Validate::isTimeString($inptext));
 
-            echo "String::truncate('$inptext', 15) ::: ";
+            echo "String::truncate ::: ";
             var_dump(String::truncate($inptext, 15));
     ?></pre>
 
-    <pre><?php print_r($text); ?></pre>
+    <pre><?php /*print_r($text); */ ?></pre>
 
   </body>
 </html>
