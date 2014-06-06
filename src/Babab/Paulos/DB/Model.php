@@ -57,7 +57,7 @@ abstract class Model implements ModelInterface
 
         foreach ($this as $key => $conf)
             if (is_array($conf))
-                $this->_fields["$key"] = array_merge($defaultOrmConf, $conf);
+                $this->_fields[$key] = array_merge($defaultOrmConf, $conf);
 
         foreach ($this->_fields as $var => $conf)
             $this->$var = $conf['default'];

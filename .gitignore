@@ -1,4 +1,5 @@
-docs
+docs/html/*
+docs/latex/*
 vendor
 
 composer.lock

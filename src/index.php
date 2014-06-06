@@ -31,7 +31,7 @@ $model = new ModelTest(new MysqlHandler(array(
     'prefix' => 'paulos_',
 )));
 
-$model->id = 34;
+/* $model->id = 34; */
 
 if ($model->isValid())
     $model->printInfo();

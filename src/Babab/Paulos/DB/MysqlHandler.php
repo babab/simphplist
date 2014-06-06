@@ -19,6 +19,10 @@
 
 namespace Babab\Paulos\DB;
 
+/**
+ * \class MysqlHandler
+ * \brief Paulos MySQL Handler class
+ */
 class MysqlHandler
 {
     /**
@@ -39,7 +43,8 @@ class MysqlHandler
     /**
      * Constructor for MysqlHandler
      *
-     * @param \mysqli | array $mysqli optional mysqli instance
+     * @param \mysqli | array $mysqli_or_settings mysqli instance or
+     *                                            settings array
      */
     public function __construct($mysqli_or_settings=Null)
     {

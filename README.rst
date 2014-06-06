@@ -3,14 +3,15 @@ Paulos
 
 Paulos is a PHP Authentication of Users Library and Other Stuff.
 
-It is a collection of losely coupled components (or mini-framework)
-that helps you with shortcuts and clean API's for writing the most
-common idioms when developing web applications in PHP (MySQL handling,
-Authentication, Validation, Typechecking).
+It is a mini-framework with anti-framework features or in other words a
+collection of losely coupled components that helps you with shortcuts
+and clean API's for writing the most common idioms when developing
+web applications in PHP (MySQL handling, Simple ORM, Authentication,
+Validation, Typechecking).
 
 It is designed to be used as a minimalistic base for writing custom
-(frameworks for) applications and to be used alongside any other
-(custom) framework.
+(frameworks for) applications. Paulos is carefully designed to allow
+using it alongside any other (custom) framework.
 
 Features / Components
 *********************
@@ -20,6 +21,8 @@ DB\\MysqlHandler
 
 DB\\Model
   A simplistic ORM with a beautiful API
+
+String (static class)
 
 String (static class)
   Parse and filter strings (paragraphs, (blank) lines, chars)

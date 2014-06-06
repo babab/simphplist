@@ -47,7 +47,7 @@ PROJECT_NUMBER         = 0.1.0
 # should give viewer a quick idea about the purpose of the project. Keep
 # the description short.
 
-PROJECT_BRIEF          = "A PHP anti framework"
+PROJECT_BRIEF          = "A PHP mini-framework"
 
 # With the PROJECT_LOGO tag one can specify an logo or icon that is
 # included in the documentation. The maximum height of the logo should
@@ -749,7 +749,7 @@ WARN_LOGFILE =
 # or directories with spaces. Note: If this tag is empty the current
 # directory is searched.
 
-INPUT = ../src
+INPUT = ..
 
 # This tag can be used to specify the character encoding of the
 # source files that doxygen parses. Internally doxygen uses the
@@ -769,7 +769,7 @@ INPUT_ENCODING = UTF-8
 # *.phtml, *.inc, *.m, *.markdown, *.md, *.mm, *.dox, *.py, *.f90, *.f,
 # *.for, *.tcl, *.vhd, *.vhdl, *.ucf, *.qsf, *.as and *.js.
 
-FILE_PATTERNS = *.php
+FILE_PATTERNS = *.php *.dox
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories
 # should be searched for input files as well. The default value is: NO.
@@ -1045,7 +1045,7 @@ HTML_FILE_EXTENSION = .html
 # and block names see the documentation. This tag requires that the tag
 # GENERATE_HTML is set to YES.
 
-HTML_HEADER =
+HTML_HEADER = header.html
 
 # The HTML_FOOTER tag can be used to specify a user-defined HTML footer
 # for each generated HTML page. If the tag is left blank doxygen will
@@ -1055,7 +1055,7 @@ HTML_HEADER =
 # how to generate the default footer that doxygen normally uses. This
 # tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_FOOTER =
+HTML_FOOTER = footer.html
 
 # The HTML_STYLESHEET tag can be used to specify a user-defined
 # cascading style sheet that is used by each HTML page. It can be used
@@ -1079,7 +1079,7 @@ HTML_STYLESHEET =
 # documentation. This tag requires that the tag GENERATE_HTML is set to
 # YES.
 
-HTML_EXTRA_STYLESHEET =
+HTML_EXTRA_STYLESHEET = custom.css
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra
 # images or other source files which should be copied to the HTML output
