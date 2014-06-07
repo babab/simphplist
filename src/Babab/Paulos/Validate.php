@@ -19,6 +19,10 @@
 
 namespace Babab\Paulos;
 
+/**
+ * @class Validate
+ * @brief Clean static API for type checking and validation
+ */
 class Validate
 {
     /**

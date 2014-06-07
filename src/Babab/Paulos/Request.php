@@ -19,6 +19,11 @@
 
 namespace Babab\Paulos;
 
+/**
+ * @class Request
+ * @brief Static methods for secure user input handling via REQUEST superglobal(s):
+ *        (GET, POST, COOKIE)
+ */
 class Request
 {
     public static function get($var, $defaultValue='')

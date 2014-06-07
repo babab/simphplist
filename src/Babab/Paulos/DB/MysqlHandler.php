@@ -20,8 +20,8 @@
 namespace Babab\Paulos\DB;
 
 /**
- * \class MysqlHandler
- * \brief Paulos MySQL Handler class
+ * @class MysqlHandler
+ * @brief MySQL Handler class
  */
 class MysqlHandler
 {

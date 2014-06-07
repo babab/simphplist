@@ -1,6 +1,6 @@
 <?php
 /*
- * Paulos Text
+ * Paulos String
  *
  * Copyright (c) 2014 Benjamin Althues <benjamin@babab.nl>
  *
@@ -19,6 +19,10 @@
 
 namespace Babab\Paulos;
 
+/**
+ * @class String
+ * @brief Static methods for common string manipulation / parsing tasks
+ */
 class String
 {
     /**

@@ -19,6 +19,10 @@
 
 namespace Babab\Paulos\DB;
 
+/**
+ * @class ModelInterface
+ * @brief PHP Interface for abstract base class Model
+ */
 interface ModelInterface
 {
     public function __construct(MysqlHandler $db);
@@ -27,6 +31,15 @@ interface ModelInterface
     public function printInfo();
 }
 
+/**
+ * @class Model
+ * @brief Object Mapper -- Abstract base class for writing Models that
+ *                         will be mapped to database tables.
+ *
+ * It acts like most ORM's but does not handle relations and has
+ * a unique DRY approach to defining model properties and interacting
+ * with the exposed API.
+ */
 abstract class Model implements ModelInterface
 {
     public $_tableName;

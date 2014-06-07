@@ -19,6 +19,10 @@
 
 namespace Babab\Paulos\DB;
 
+/**
+ * @class ModelTest
+ * @brief Test model used as code example / for unit testing
+ */
 class ModelTest extends Model
 {
     /* public $_tableName = 'ModelTest'; */

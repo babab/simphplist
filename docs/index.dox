@@ -1,18 +1,18 @@
 /**
- * \namespace Babab
- * \brief Vendor namespace (developer Benjamin Althues)
+ * @namespace Babab
+ * @brief Vendor namespace of developer Benjamin Althues (babab.nl)
  *
- * \namespace Babab::Paulos
- * \brief Framework namespace
+ * @namespace Babab::Paulos
+ * @brief Framework namespace
  *
- * \namespace Babab::Paulos::Auth
- * \brief Authentication of Users Library
+ * @namespace Babab::Paulos::Auth
+ * @brief Authentication of Users Library
  *
- * \namespace Babab::Paulos::DB
- * \brief Paulos MySQL Handling and simplistic ORM with a clean API
+ * @namespace Babab::Paulos::DB
+ * @brief MySQL Handling and simplistic Object Mapper with a clean API
  */
 
-/** \mainpage Overview
+/** @mainpage Overview
  *
  * Paulos is a PHP Authentication of Users Library and Other Stuff.
  *
@@ -26,23 +26,37 @@
  * (frameworks for) applications. Paulos is carefully designed to allow
  * using it alongside any other (custom) framework.
  *
- * \section features Features / Components
+ * @section features Features / Components
  *
- *   Paulos currently consists of the following components
+ * Paulos currently consists of the following components
  *
- *   \subsection mysqlhandler DB::MysqlHandler
- *     A sophisticated MySQL handler with table prefix support
+ * @subsection mysqlhandler DB\MysqlHandler
  *
- *   \subsection model DB::Model
+ * Set up database handling by creating a new link with MySQL or use
+ * an existing link by injecting a \\mysqli instance in the
+ * constructor.
  *
- *     A simplistic ORM with a beautiful API
+ * It exposes certain parts of the MySQLi API and adds to it with
+ * high-level methods for common queries.
  *
- * @note Requires DB::MysqlHandler (via dependency injection)
+ * @subsection model DB\Model
  *
- *   \subsection string String (static class)
- *     Parse and filter strings (paragraphs, (blank) lines, chars)
+ * @note Requires DB\\MysqlHandler (via dependency injection)
  *
- * \section license License
+ * @subsection string String
+ *
+ * Static methods for common string manipulation / parsing tasks
+ *
+ * @subsection request Request
+ *
+ * Static methods for secure user input handling via REQUEST superglobal(s):
+ * (GET, POST, COOKIE)
+ *
+ * @subsection validate Validate
+ *
+ * Clean static API for type checking and validation
+ *
+ * @section license License
  *
  * Copyright (c) 2014  Benjamin Althues <benjamin@babab.nl>
  *

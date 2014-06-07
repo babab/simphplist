@@ -3,8 +3,8 @@
 namespace Babab\Paulos\Auth;
 
 /**
- * \class CookieAuth
- * \brief Authenticate a user with a persistent login token cookie
+ * @class CookieAuth
+ * @brief Authenticate a user with a persistent login token cookie
  */
 class CookieAuth
 {
