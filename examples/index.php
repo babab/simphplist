@@ -2,7 +2,7 @@
  <html>
    <head>
      <meta charset="UTF-8" />
-     <title>Paulos Examples</title>
+     <title>Simphplist Examples</title>
    </head>
    <body>
       <h1>Examples</h1>

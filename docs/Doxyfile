@@ -34,7 +34,7 @@ DOXYFILE_ENCODING      = UTF-8
 # This name is used in the title of most generated pages and in a few
 # other places. The default value is: My Project.
 
-PROJECT_NAME           = "Paulos"
+PROJECT_NAME           = "Simphplist"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision
 # number. This could be handy for archiving the generated documentation
@@ -47,7 +47,7 @@ PROJECT_NUMBER         = 0.1.0
 # should give viewer a quick idea about the purpose of the project. Keep
 # the description short.
 
-PROJECT_BRIEF          = "A PHP mini-framework"
+PROJECT_BRIEF          = "PHP mini-framework"
 
 # With the PROJECT_LOGO tag one can specify an logo or icon that is
 # included in the documentation. The maximum height of the logo should

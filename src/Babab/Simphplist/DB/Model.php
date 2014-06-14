@@ -1,6 +1,6 @@
 <?php
 /*
- * Paulos Model interface class
+ * Simphplist Model
  *
  * Copyright (c) 2014 Benjamin Althues <benjamin@babab.nl>
  *
@@ -17,7 +17,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace Babab\Paulos\DB;
+namespace Babab\Simphplist\DB;
 
 /**
  * @class ModelInterface

@@ -2,33 +2,31 @@
  * @namespace Babab
  * @brief Vendor namespace of developer Benjamin Althues (babab.nl)
  *
- * @namespace Babab::Paulos
+ * @namespace Babab::Simphplist
  * @brief Framework namespace
  *
- * @namespace Babab::Paulos::Auth
+ * @namespace Babab::Simphplist::Auth
  * @brief Authentication of Users Library
  *
- * @namespace Babab::Paulos::DB
+ * @namespace Babab::Simphplist::DB
  * @brief MySQL Handling and simplistic Object Mapper with a clean API
  */
 
 /** @mainpage Overview
  *
- * Paulos is a PHP Authentication of Users Library and Other Stuff.
- *
- * It is a mini-framework with anti-framework features or in other words a
- * collection of losely coupled components that helps you with shortcuts
- * and clean API's for writing the most common idioms when developing
- * web applications in PHP (MySQL handling, Simple ORM, Authentication,
- * Validation, Typechecking).
+ * Simphplist is a mini-framework with anti-framework features or in
+ * other words a collection of losely coupled components, that helps you
+ * with shortcuts and clean API's for writing the most common idioms
+ * when developing web applications in PHP (MySQL handling, object mapper,
+ * authentication, validation, typechecking).
  *
  * It is designed to be used as a minimalistic base for writing custom
- * (frameworks for) applications. Paulos is carefully designed to allow
+ * (frameworks for) applications. Simphplist is carefully designed to allow
  * using it alongside any other (custom) framework.
  *
  * @section features Features / Components
  *
- * Paulos currently consists of the following components
+ * Simphplist currently consists of the following components
  *
  * @subsection mysqlhandler DB\MysqlHandler
  *

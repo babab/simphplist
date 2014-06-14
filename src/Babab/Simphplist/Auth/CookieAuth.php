@@ -1,6 +1,6 @@
 <?php
 
-namespace Babab\Paulos\Auth;
+namespace Babab\Simphplist\Auth;
 
 /**
  * @class CookieAuth
@@ -10,7 +10,7 @@ class CookieAuth
 {
     protected $Db;
 
-    public function __construct(\Babab\Paulos\DB\MySQLHandler $db)
+    public function __construct(\Babab\Simphplist\DB\MySQLHandler $db)
     {
         $this->Db = $db;
         /* echo "CookieAuth<br />\n"; */

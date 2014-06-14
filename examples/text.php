@@ -1,13 +1,13 @@
 <?php
 
 /* require "vendor/autoload.php"; */
-require "../src/Babab/Paulos/Request.php";
-require "../src/Babab/Paulos/String.php";
-require "../src/Babab/Paulos/Validate.php";
+require "../src/Babab/Simphplist/Request.php";
+require "../src/Babab/Simphplist/String.php";
+require "../src/Babab/Simphplist/Validate.php";
 
-use \Babab\Paulos\Request;
-use \Babab\Paulos\String;
-use \Babab\Paulos\Validate;
+use \Babab\Simphplist\Request;
+use \Babab\Simphplist\String;
+use \Babab\Simphplist\Validate;
 
 $inptext = Request::post('text');
 $text = String::count($inptext) ?: array();
@@ -39,19 +39,19 @@ $text = String::count($inptext) ?: array();
   <body>
     <div class="container">
       <h1>
-        Paulos anti-framework
+        Simphplist anti-framework
         <small>Example usage of filtering user input</small>
       </h1>
       <h3>
-        <span class="namespace">\Babab\Paulos\</span>Request
+        <span class="namespace">\Babab\Simphplist\</span>Request
         <small>Filter REQUEST (GET/POST/COOKIE) vars</small>
         <br />
 
-        <span class="namespace">\Babab\Paulos\</span>String
+        <span class="namespace">\Babab\Simphplist\</span>String
         <small>Parse and filter strings</small>
         <br />
 
-        <span class="namespace">\Babab\Paulos\</span>Validate
+        <span class="namespace">\Babab\Simphplist\</span>Validate
         <small>Straight forward validation API</small>
       </h3>
       <div class="row">

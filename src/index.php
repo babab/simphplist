@@ -16,19 +16,19 @@ function autoload($className)
     require $fileName;
 }
 
-autoload('\Babab\Paulos\DB\MysqlHandler');
-autoload('\Babab\Paulos\DB\Model');
-autoload('\Babab\Paulos\DB\ModelTest');
+autoload('\Babab\Simphplist\DB\MysqlHandler');
+autoload('\Babab\Simphplist\DB\Model');
+autoload('\Babab\Simphplist\DB\ModelTest');
 
-use \Babab\Paulos\DB\MysqlHandler;
-use \Babab\Paulos\DB\ModelTest;
+use \Babab\Simphplist\DB\MysqlHandler;
+use \Babab\Simphplist\DB\ModelTest;
 
 $model = new ModelTest(new MysqlHandler(array(
     'host' => 'localhost',
     'user' => 'root',
-    'name' => 'paulos',
+    'name' => 'simphplist',
     'pw' => '',
-    'prefix' => 'paulos_',
+    'prefix' => 'simphplist_',
 )));
 
 /* $model->id = 34; */

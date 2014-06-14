@@ -1,6 +1,6 @@
 <?php
 /*
- * Paulos Validate
+ * Simphplist Validate
  *
  * Copyright (c) 2014 Benjamin Althues <benjamin@babab.nl>
  *
@@ -17,7 +17,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace Babab\Paulos;
+namespace Babab\Simphplist;
 
 /**
  * @class Validate
@@ -29,8 +29,8 @@ class Validate
      * Checks if variable is a true boolean
      *
      * This is an alias for PHP's `is_bool` function adapted with a
-     * non strict test to allow case-insensitive strings of "True" and
-     * "False"
+     * non strict test to allow case-insensitive strings of "true" and
+     * "false" to evaluate as true.
      *
      * @param mixed $var The variable to test
      * @param bool $strict The variable to test
@@ -42,7 +42,8 @@ class Validate
             return is_bool($var);
         else {
             $string = strtolower(trim($var));
-            return ($string == 'false' || $string == 'true') ? true : false;
+            return (is_bool($var) || $string == 'false' || $string == 'true')
+                ? true : false;
         }
     }
 

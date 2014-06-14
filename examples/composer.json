@@ -1,13 +1,13 @@
 {
-    "name": "babab/paulos-examples",
+    "name": "babab/simphplist-examples",
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@bitbucket.org:babab/paulos"
+            "url": "git@bitbucket.org:babab/simphplist"
         }
     ],
     "require": {
         "twig/twig": "1.*",
-        "babab/paulos": "dev-master"
+        "babab/simphplist": "dev-master"
     }
 }

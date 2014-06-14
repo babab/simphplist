@@ -1,16 +1,14 @@
-Paulos
-######
+Simphplist
+##########
 
-Paulos is a PHP Authentication of Users Library and Other Stuff.
-
-It is a mini-framework with anti-framework features or in other words a
-collection of losely coupled components that helps you with shortcuts
-and clean API's for writing the most common idioms when developing
-web applications in PHP (MySQL handling, Simple ORM, Authentication,
-Validation, Typechecking).
+Simphplist is a mini-framework with anti-framework features or in
+other words a collection of losely coupled components, that helps you
+with shortcuts and clean API's for writing the most common idioms
+when developing web applications in PHP (MySQL handling, object mapper,
+authentication, validation, typechecking).
 
 It is designed to be used as a minimalistic base for writing custom
-(frameworks for) applications. Paulos is carefully designed to allow
+(frameworks for) applications. Simphplist is carefully designed to allow
 using it alongside any other (custom) framework.
 
 Features / Components
