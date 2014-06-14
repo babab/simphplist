@@ -1,0 +1,7 @@
+#!/bin/sh
+
+phpunit_exec="../vendor/phpunit/phpunit/phpunit"
+
+run="${phpunit_exec} --bootstrap ../vendor/autoload.php ${PWD}"
+$run
+echo runtests: Done running "$run"

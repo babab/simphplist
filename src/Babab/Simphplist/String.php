@@ -44,6 +44,12 @@ class String
             return substr($string, 0, ($nChars - strlen($suffix))) . $suffix;
     }
 
+    public static function filter($var, $defaultValue='')
+    {
+        $filtered = filter_var($var, FILTER_SANITIZE_STRING);
+        return $filtered ?: $defaultValue;
+    }
+
     public static function count($text)
     {
         if (trim($text) === '')

@@ -17,13 +17,15 @@
 
 namespace Babab\SimphplistTests;
 
+use \Babab\Simphplist\String;
 
-class StringTest
+
+class StringTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter()
     {
         $str = String::filter('<?php $foo = bar?> and also <script>alert("!!!")'
                               . '</script> stuff');
-        $this->assertEqual($str, 'and also stuff');
+        $this->assertEquals(' and also alert(&#34;!!!&#34;) stuff', $str);
     }
 }
