@@ -12,6 +12,10 @@ use \Babab\Simphplist\Validate;
 $inptext = Request::post('text');
 $text = String::count($inptext) ?: array();
 
+$replaceArray = array(
+    array('', ''),
+);
+
 ?><!doctype html>
 <html>
   <head>
@@ -124,6 +128,8 @@ $text = String::count($inptext) ?: array();
     ?></pre>
 
     <pre><?php /*print_r($text); */ ?></pre>
+
+    <pre><?php echo wordwrap(String::replace($inptext, $replaceArray), 80); ?></pre>
 
   </body>
 </html>

@@ -50,6 +50,23 @@ class String
         return $filtered ?: $defaultValue;
     }
 
+    public static function replace($string, $replaceArray)
+    {
+        $search = array();
+        $replace = array();
+        foreach ($replaceArray as $repl) {
+            $search[] = $repl[0];
+            $replace[] = $repl[1];
+        }
+        return str_replace($search, $replace, $string);
+    }
+
+    public static function type($string)
+    {
+        if (self::count($string)['words'] == 1) {
+        }
+    }
+
     public static function count($text)
     {
         if (trim($text) === '')
