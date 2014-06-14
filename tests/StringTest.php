@@ -15,7 +15,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace Babab\Simphplist\Tests;
+namespace Babab\SimphplistTests;
 
 
 class StringTest

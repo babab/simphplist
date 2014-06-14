@@ -3,6 +3,8 @@
     "version": "0.1.0-alpha",
     "autoload": {
         "psr-0": {"Babab\\Simphplist": "src"}
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.*"
     }
-
 }
