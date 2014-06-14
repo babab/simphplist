@@ -26,7 +26,15 @@ namespace Babab\Simphplist;
 class String
 {
     /**
-     * Truncate a string if necessary
+     * Truncate a string if it exceeds a certain length
+     *
+     * The string length of $suffix is taken into account for the
+     * maximum number of chars $nChars this method will return.
+     *
+     * @param string $string The string that is subject to truncation
+     * @param int $nChars The maximum number of chars to return
+     * @param string $suffix A suffix string to indicate the truncation
+     * @retval string A truncated version of $string
      */
     public static function truncate($string, $nChars, $suffix = '...')
     {

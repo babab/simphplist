@@ -10,6 +10,9 @@
  *
  * @namespace Babab::Simphplist::DB
  * @brief MySQL Handling and simplistic Object Mapper with a clean API
+
+ * @namespace Babab::Simphplist::Tests
+ * @brief Unit tests
  */
 
 /** @mainpage Overview

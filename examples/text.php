@@ -78,29 +78,31 @@ $text = String::count($inptext) ?: array();
 
             </table>
 
-            <p><strong>most used chars</strong></p>
-            <table class="table table-hover table-striped table-condensed">
-            <?php
-                $i = 0;
-                foreach ($text['chars_list'] as $char => $count) {
-                    $perc = (string) ($count / $text['chars']) * 100;
-                    echo "<tr><td>`$char`</td><td>$count</td>";
-                    echo "<td>" . substr($perc, 0, 6) . "%</td></tr>";
-                    if ($i++ == 12)
-                        break;
-                }
-            ?>
-            </table>
+            <?php if ($text): ?>
+                <p><strong>most used chars</strong></p>
+                <table class="table table-hover table-striped table-condensed">
+                <?php
+                    $i = 0;
+                    foreach ($text['chars_list'] as $char => $count) {
+                        $perc = ($count / $text['chars']) * 100;
+                        echo "<tr><td>`$char`</td><td>$count</td>";
+                        echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
+                        if ($i++ == 12)
+                            break;
+                    }
+                ?>
+                </table>
+            <?php endif; ?>
 
         </div>
       </div>
     </div>
 
     <pre><?php
-            echo "Validate::isBool ::: ";
+            echo "Validate::isBool(\$input, false) ::: ";
             var_dump(Validate::isBool($inptext, false));
 
-            echo "Validate::isTimeString ::: ";
+            echo "Validate::isTimeString(\$input) ::: ";
             var_dump(Validate::isTimeString($inptext));
 
             echo "String::truncate ::: ";
