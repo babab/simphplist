@@ -79,6 +79,20 @@ $text = String::count($inptext) ?: array();
             </table>
 
             <?php if ($text): ?>
+                <p><strong>most used words</strong></p>
+                <table class="table table-hover table-striped table-condensed">
+                <?php
+                    $i = 0;
+                    foreach ($text['words_list'] as $word => $count) {
+                        $perc = ($count / $text['words']) * 100;
+                        echo "<tr><td>`$word`</td><td>$count</td>";
+                        echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
+                        if ($i++ == 5)
+                            break;
+                    }
+                ?>
+                </table>
+
                 <p><strong>most used chars</strong></p>
                 <table class="table table-hover table-striped table-condensed">
                 <?php
@@ -87,7 +101,7 @@ $text = String::count($inptext) ?: array();
                         $perc = ($count / $text['chars']) * 100;
                         echo "<tr><td>`$char`</td><td>$count</td>";
                         echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
-                        if ($i++ == 12)
+                        if ($i++ == 5)
                             break;
                     }
                 ?>
