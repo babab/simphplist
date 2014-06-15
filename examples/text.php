@@ -25,7 +25,7 @@ $replaceArray = array(
     <!--<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>-->
     <style>
       .container {
-          margin-top: 60px;
+          margin-top: 20px;
       }
       textarea, input {
           width: 100%;
@@ -43,23 +43,35 @@ $replaceArray = array(
   <body>
     <div class="container">
       <h1>
-        Simphplist anti-framework
-        <small>Example usage of filtering user input</small>
+        Simphplist mini-framework
+        <small>demonstration</small>
       </h1>
+<!--
       <h3>
         <span class="namespace">\Babab\Simphplist\</span>Request
         <small>Filter REQUEST (GET/POST/COOKIE) vars</small>
         <br />
-
         <span class="namespace">\Babab\Simphplist\</span>String
         <small>Parse and filter strings</small>
-        <br />
-
-        <span class="namespace">\Babab\Simphplist\</span>Validate
-        <small>Straight forward validation API</small>
       </h3>
+-->
+
       <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-6">
+        </div>
+        <div class="col-lg-6">
+          <h3>
+            String::count($input)
+            <br />
+            <small>
+              Count and differentiate paragraphs, lines, words and chars
+            </small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
           <form method="POST">
             <textarea id="text" name="text"><?= $inptext ?></textarea>
             <input class="btn btn-success" type="submit" value="Check" />
@@ -67,52 +79,55 @@ $replaceArray = array(
           <br />
           <br />
         </div>
-        <div class="col-lg-3">
 
-            <table class="table table-hover table-striped">
+<?php if ($text): ?>
+        <div class="col-lg-6">
 
-              <?php foreach ($text as $k => $v): ?>
-                <?php if ($k != 'chars_list' && $k != 'words_list'): ?>
-                  <tr>
-                    <th><?= $k ?></th>
-                    <td><?= $v ?></td>
-                  </tr>
-                <?php endif; ?>
-              <?php endforeach; ?>
 
-            </table>
+          <table class="table table-hover table-striped table-condensed">
 
-            <?php if ($text): ?>
-                <p><strong>most used words</strong></p>
-                <table class="table table-hover table-striped table-condensed">
-                <?php
-                    $i = 0;
-                    foreach ($text['words_list'] as $word => $count) {
-                        $perc = ($count / $text['words']) * 100;
-                        echo "<tr><td>`$word`</td><td>$count</td>";
-                        echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
-                        if ($i++ == 5)
-                            break;
-                    }
-                ?>
-                </table>
+            <?php foreach ($text as $k => $v): ?>
+              <?php if ($k != 'chars_list' && $k != 'words_list'): ?>
+                <tr>
+                  <th><?= $k ?></th>
+                  <td><?= $v ?></td>
+                </tr>
+              <?php endif; ?>
+            <?php endforeach; ?>
 
-                <p><strong>most used chars</strong></p>
-                <table class="table table-hover table-striped table-condensed">
-                <?php
-                    $i = 0;
-                    foreach ($text['chars_list'] as $char => $count) {
-                        $perc = ($count / $text['chars']) * 100;
-                        echo "<tr><td>`$char`</td><td>$count</td>";
-                        echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
-                        if ($i++ == 5)
-                            break;
-                    }
-                ?>
-                </table>
-            <?php endif; ?>
+          </table>
+
+          <p><strong>most used words</strong></p>
+          <table class="table table-hover table-striped table-condensed">
+          <?php
+              $i = 0;
+              foreach ($text['words_list'] as $word => $count) {
+                  $perc = ($count / $text['words']) * 100;
+                  echo "<tr><td>`$word`</td><td>$count</td>";
+                  echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
+                  if ($i++ == 5)
+                      break;
+              }
+          ?>
+          </table>
+
+          <p><strong>most used chars</strong></p>
+          <table class="table table-hover table-striped table-condensed">
+          <?php
+              $i = 0;
+              foreach ($text['chars_list'] as $char => $count) {
+                  $perc = ($count / $text['chars']) * 100;
+                  echo "<tr><td>`$char`</td><td>$count</td>";
+                  echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
+                  if ($i++ == 5)
+                      break;
+              }
+          ?>
+          </table>
 
         </div>
+<?php endif; ?>
+
       </div>
     </div>
 

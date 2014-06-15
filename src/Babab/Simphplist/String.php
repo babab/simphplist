@@ -128,8 +128,10 @@ class String
             'lines_content' => $nLines - $blankLines,
             'words' => $nWords,
             'words_list' => $words,
+            'words_unique' => count($words),
             'chars' => $nChars,
             'chars_list' => $chars,
+            'chars_unique' => count($chars),
         );
     }
 
