@@ -17,45 +17,15 @@
 
 /** @mainpage Overview
  *
- * Simphplist is a mini-framework with anti-framework features or in
- * other words a collection of losely coupled components, that helps you
- * with shortcuts and clean API's for writing the most common idioms
- * when developing web applications in PHP (MySQL handling, object mapper,
- * authentication, validation, typechecking).
+ * Simphplist is a mini-framework with anti-framework features. A
+ * collection of losely coupled components, that helps you with shortcuts
+ * and clean API's for writing the most common idioms when developing web
+ * applications in PHP (MySQL handling, object mapper, authentication,
+ * validation, typechecking).
  *
- * It is designed to be used as a minimalistic base for writing custom
- * (frameworks for) applications. Simphplist is carefully designed to allow
- * using it alongside any other (custom) framework.
- *
- * @section features Features / Components
- *
- * Simphplist currently consists of the following components
- *
- * @subsection mysqlhandler DB\MysqlHandler
- *
- * Set up database handling by creating a new link with MySQL or use
- * an existing link by injecting a \\mysqli instance in the
- * constructor.
- *
- * It exposes certain parts of the MySQLi API and adds to it with
- * high-level methods for common queries.
- *
- * @subsection model DB\Model
- *
- * @note Requires DB\\MysqlHandler (via dependency injection)
- *
- * @subsection string String
- *
- * Static methods for common string manipulation / parsing tasks
- *
- * @subsection request Request
- *
- * Static methods for secure user input handling via REQUEST superglobal(s):
- * (GET, POST, COOKIE)
- *
- * @subsection validate Validate
- *
- * Clean static API for type checking and validation
+ * You can use it as a minimalistic base for writing custom (frameworks
+ * for) applications. Simphplist is carefully designed to allow using it
+ * alongside any other (custom) framework.
  *
  * @section license License
  *

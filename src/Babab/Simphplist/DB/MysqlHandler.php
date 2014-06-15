@@ -21,7 +21,7 @@ namespace Babab\Simphplist\DB;
 
 /**
  * @class MysqlHandler
- * @brief MySQL Handler class
+ * @brief MySQL Handler with table prefix support
  */
 class MysqlHandler
 {
