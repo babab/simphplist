@@ -25,6 +25,12 @@ namespace Babab\Simphplist;
  */
 class String
 {
+    const WORD_LOWERCASE    = 1;
+    const WORD_CAPITALIZED  = 2;
+    const WORD_CAMELCASE    = 3;
+    const WORD_MIXEDCASE    = 4;
+    const WORD_UPPERCASE    = 5;
+
     /**
      * Truncate a string if it exceeds a certain length
      *
@@ -61,9 +67,29 @@ class String
         return str_replace($search, $replace, $string);
     }
 
-    public static function type($string)
+
+    public static function wordType($word)
     {
-        if (self::count($string)['words'] == 1) {
+        if (self::count($string)['words'] != 1)
+            return False;
+
+        if (ctype_lower($word))
+            return self::WORD_LOWERCASE;
+        elseif (ctype_upper($word))
+            return self::WORD_UPPERCASE;
+        elseif (ctype_upper(substr($word, 0, 1))
+                && ctype_lower(substr($word, 1)))
+            return self::WORD_CAPITALIZED;
+
+        $lower = 0;
+        $upper = 0;
+        foreach (str_split($word) as $char) {
+            if (!ctype_cntrl($char)) {
+                if (ctype_lower($chars[$char]))
+                    $lower++;
+                else
+                    $upper++;
+            }
         }
     }
 
