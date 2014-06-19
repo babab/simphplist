@@ -19,22 +19,24 @@ $twig = (new Twig_Environment(
 /* Simphplist
 ** ------------------------------------------------------------------------ */
 
-// Filter user input
+// Sanitize POST input
 $text = Request::post('text');
 
-// Analyze user input
+// Count and differentiate paragraphs, lines, words and chars
 $info = String::count($text) ?: array();
 
-$info['words_list_perc'] = array();
-foreach ($info['words_list'] as $word => $count) {
-    $perc = ($count / $info['words']) * 100;
-    $info['words_list_perc'][$word] = String::truncate($perc, 6, '') . '%';
-}
+if ($info) {
+    $info['words_list_perc'] = array();
+    foreach ($info['words_list'] as $word => $count) {
+        $perc = ($count / $info['words']) * 100;
+        $info['words_list_perc'][$word] = String::truncate($perc, 6, '') . '%';
+    }
 
-$info['chars_list_perc'] = array();
-foreach ($info['chars_list'] as $char => $count) {
-    $perc = ($count / $info['chars']) * 100;
-    $info['chars_list_perc'][$char] = String::truncate($perc, 6, '') . '%';
+    $info['chars_list_perc'] = array();
+    foreach ($info['chars_list'] as $char => $count) {
+        $perc = ($count / $info['chars']) * 100;
+        $info['chars_list_perc'][$char] = String::truncate($perc, 6, '') . '%';
+    }
 }
 
 $keys_to_skip = array('words_list', 'chars_list',
