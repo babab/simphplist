@@ -4,7 +4,8 @@
 /* Init composer autoloader and import Simphplist components into namespace
 ** ------------------------------------------------------------------------ */
 
-(@include "vendor/autoload.php") or die ('Please run `composer install`.');
+(@include dirname(__DIR__) . "/vendor/autoload.php")
+    or die ('Please run `composer install`.');
 
 use \Babab\Simphplist\Request;
 use \Babab\Simphplist\String;
@@ -13,7 +14,7 @@ use \Babab\Simphplist\String;
 ** ------------------------------------------------------------------------ */
 
 $twig = (new Twig_Environment(
-    new Twig_Loader_Filesystem(__DIR__ . '/tpl')
+    new Twig_Loader_Filesystem(dirname(__DIR__) . '/tpl')
 ))->loadTemplate('text.tpl');
 
 /* Simphplist
