@@ -4,8 +4,9 @@
 /* Init composer autoloader and import Simphplist components into namespace
 ** ------------------------------------------------------------------------ */
 
-(@include dirname(__DIR__) . "/vendor/autoload.php")
-    or die ('Please run `composer install`.');
+if (!defined('SIMPHPLIST_EXAMPLES_NO_LOADER') || !SIMPHPLIST_EXAMPLES_NO_LOADER)
+    (@include dirname(__DIR__) . "/vendor/autoload.php")
+        || die ('Please run `composer install`.');
 
 use \Babab\Simphplist\Request;
 use \Babab\Simphplist\String;
