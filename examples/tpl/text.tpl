@@ -48,7 +48,7 @@
     <div class="col-lg-6">
       <form method="POST">
         <textarea id="text" name="text"
-                  placeholder="Start typing..."><?= $inptext ?></textarea>
+                  placeholder="Start typing...">{{ text }}</textarea>
         <input class="btn btn-success" type="submit" value="Check" />
       </form>
       <br />
@@ -61,7 +61,7 @@
         <table class="table table-hover table-striped table-condensed">
 
           {% for item, value in info %}
-            {% if item != "chars_list" and item != "words_list" %}
+            {% if item not in keys_to_skip %}
               <tr>
                 <th>{{ item }}</th>
                 <td>{{ value }}</td>
@@ -73,30 +73,20 @@
 
         <p><strong>most used words</strong></p>
         <table class="table table-hover table-striped table-condensed">
-        <?php
-            $i = 0;
-            foreach ($text['words_list'] as $word => $count) {
-                $perc = ($count / $text['words']) * 100;
-                echo "<tr><td>`$word`</td><td>$count</td>";
-                echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
-                if ($i++ == 5)
-                    break;
-            }
-        ?>
+
+          {% for word, perc in info.words_list_perc|slice(0, 5) %}
+            <tr><td>{{ word }}</td><td>{{ perc }}</td></tr>
+          {% endfor %}
+
         </table>
 
         <p><strong>most used chars</strong></p>
         <table class="table table-hover table-striped table-condensed">
-        <?php
-            $i = 0;
-            foreach ($text['chars_list'] as $char => $count) {
-                $perc = ($count / $text['chars']) * 100;
-                echo "<tr><td>`$char`</td><td>$count</td>";
-                echo "<td>" . String::truncate($perc, 6, '') . "%</td></tr>";
-                if ($i++ == 5)
-                    break;
-            }
-        ?>
+
+          {% for char, perc in info.chars_list_perc|slice(0, 5) %}
+            <tr><td>{{ char }}</td><td>{{ perc }}</td></tr>
+          {% endfor %}
+
         </table>
 
       </div>
