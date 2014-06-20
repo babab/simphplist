@@ -1,5 +1,6 @@
 docs/html/*
 docs/latex/*
-vendor
+dist/*
+vendor/*
 
 composer.lock
