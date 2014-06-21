@@ -10,9 +10,9 @@
 <div class="row">
   <div class="col-lg-5">
     <h2>
-      Text example <br />
+      Text example 1 <br />
       <small>
-        Visit <a href="text.php">text.php</a>
+        Visit <a href="/text-1/">/text-1/</a>
         for an example of the following libraries
       </small>
     </h2>

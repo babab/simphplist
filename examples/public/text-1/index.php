@@ -5,7 +5,7 @@
 ** ------------------------------------------------------------------------ */
 
 if (!defined('SIMPHPLIST_EXAMPLES_NO_LOADER') || !SIMPHPLIST_EXAMPLES_NO_LOADER)
-    (@include dirname(__DIR__) . "/vendor/autoload.php")
+    (@include dirname(dirname(__DIR__)) . "/vendor/autoload.php")
         || die ('Please run `composer install`.');
 
 use \Babab\Simphplist\Request;
@@ -15,7 +15,7 @@ use \Babab\Simphplist\String;
 ** ------------------------------------------------------------------------ */
 
 $twig = (new Twig_Environment(
-    new Twig_Loader_Filesystem(dirname(__DIR__) . '/tpl')
+    new Twig_Loader_Filesystem(dirname(dirname(__DIR__)) . '/tpl')
 ))->loadTemplate('text.tpl');
 
 /* Simphplist
