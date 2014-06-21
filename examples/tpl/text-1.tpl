@@ -118,8 +118,12 @@
         <p><strong>most used words</strong></p>
         <table class="table table-hover table-striped table-condensed">
 
-          {% for word, perc in info.words_list_perc|slice(0, 5) %}
-            <tr><td>{{ word }}</td><td class="col-lg-1">{{ perc }}</td></tr>
+          {% for word, count in info.words_list|slice(0, 5) %}
+            <tr>
+              <td>{{ word }}</td>
+              <td class="col-lg-1">{{ count|slice(0) }}</td>
+              <td class="col-lg-1">{{ count|slice(1) }}</td>
+            </tr>
           {% endfor %}
 
         </table>

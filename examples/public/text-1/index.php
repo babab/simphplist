@@ -28,11 +28,11 @@ $text = Request::post('text');
 $info = String::count($text) ?: array();
 
 if ($info) {
-    $info['words_list_perc'] = array();
-    foreach ($info['words_list'] as $word => $count) {
-        $perc = ($count / $info['words']) * 100;
-        $info['words_list_perc'][$word] = String::truncate($perc, 6, '') . '%';
-    }
+    /* $info['words_list_perc'] = array(); */
+    /* foreach ($info['words_list'] as $word => $count) { */
+    /*     $perc = ($count / $info['words']) * 100; */
+    /*     $info['words_list_perc'][$word] = String::truncate($perc, 6, '') . '%'; */
+    /* } */
 
     $info['chars_list_perc'] = array();
     foreach ($info['chars_list'] as $char => $count) {

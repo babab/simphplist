@@ -144,8 +144,18 @@ class String
             }
         }
 
+        /* Reverse sort lists */
         arsort($words);
         arsort($chars);
+
+        /* Calculate percentages for words in $words */
+        $wordsWithPercentage = array();
+        foreach ($words as $word => $count) {
+            $perc = ($count / $nWords) * 100;
+            $wordsWithPercentage[$word] = array($count, $perc);
+        }
+
+
 
         return array(
             'paragraphs' => $paragraphs,
@@ -153,7 +163,7 @@ class String
             'lines_blank' => $blankLines,
             'lines_content' => $nLines - $blankLines,
             'words' => $nWords,
-            'words_list' => $words,
+            'words_list' => $wordsWithPercentage,
             'words_unique' => count($words),
             'chars' => $nChars,
             'chars_list' => $chars,
