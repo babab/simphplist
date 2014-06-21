@@ -18,8 +18,7 @@
     #paras {
         width: 50px;
     }
-
-    .words-hidden {
+    .words-hidden, .chars-hidden {
         display: none;
     }
   </style>
@@ -29,6 +28,10 @@
         $('.words-toggle').click(function (){
             $(this).hide('slow');
             $('.words-hidden').show('slow');
+        });
+        $('.chars-toggle').click(function (){
+            $(this).hide('slow');
+            $('.chars-hidden').show('slow');
         });
 
         // Bacon Ipsum API call
@@ -156,11 +159,29 @@
       <div class="col-lg-4">
 
         <p><strong>most used chars</strong></p>
-        <table class="table table-hover table-striped table-condensed">
+        <table class="table table-striped table-condensed">
 
-          {% for char, perc in info.chars_list_perc|slice(0, 5) %}
-            <tr><td>{{ char }}</td><td class="col-lg-1">{{ perc }}</td></tr>
+          {% for char, count in info.chars_list %}
+            {% if loop.index > 7 %}
+              <tr class="chars-hidden">
+            {% else %}
+              <tr>
+            {% endif %}
+                <td>{{ char }}</td>
+                <td class="col-lg-1">{{ count.0 }}</td>
+                <td class="col-lg-1">{{ count.1[0:6] }}%</td>
+              </tr>
           {% endfor %}
+
+          {% if info.chars_list|length > 7 %}
+            <tr class="chars-toggle">
+              <td colspan="3">
+                <a class="pull-right" href="javascript:;">
+                  Show remaining {{ info.chars_list|length - 7 }} chars
+                </a>
+              </td>
+            </tr>
+          {% endif %}
 
         </table>
 

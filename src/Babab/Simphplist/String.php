@@ -149,13 +149,18 @@ class String
         arsort($chars);
 
         /* Calculate percentages for words in $words */
-        $wordsWithPercentage = array();
+        $wordsWithPercentages = array();
         foreach ($words as $word => $count) {
             $perc = ($count / $nWords) * 100;
-            $wordsWithPercentage[$word] = array($count, $perc);
+            $wordsWithPercentages[$word] = array($count, $perc);
         }
 
-
+        /* Calculate percentages for chars in $chars */
+        $charsWithPercentages = array();
+        foreach ($chars as $char => $count) {
+            $perc = ($count / $nChars) * 100;
+            $charsWithPercentages[$char] = array($count, $perc);
+        }
 
         return array(
             'paragraphs' => $paragraphs,
@@ -163,10 +168,10 @@ class String
             'lines_blank' => $blankLines,
             'lines_content' => $nLines - $blankLines,
             'words' => $nWords,
-            'words_list' => $wordsWithPercentage,
+            'words_list' => $wordsWithPercentages,
             'words_unique' => count($words),
             'chars' => $nChars,
-            'chars_list' => $chars,
+            'chars_list' => $charsWithPercentages,
             'chars_unique' => count($chars),
         );
     }
