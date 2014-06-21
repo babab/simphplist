@@ -18,10 +18,20 @@
     #paras {
         width: 50px;
     }
+
+    .words-hidden {
+        display: none;
+    }
   </style>
   <script>
-    // Bacon Ipsum API call
     $(document).ready(function() {
+        // Show hidden divs
+        $('.words-toggle').click(function (){
+            $(this).hide('slow');
+            $('.words-hidden').show('slow');
+        });
+
+        // Bacon Ipsum API call
         $("#paras").change(function() {
             var paras = parseInt($('#paras').val());
 
@@ -101,7 +111,7 @@
 
         <p><strong>totals</strong></p>
 
-        <table class="table table-hover table-striped table-condensed">
+        <table class="table table-striped table-condensed">
           {% for item, value in info %}
             {% if item not in keys_to_skip %}
               <tr>
@@ -116,15 +126,29 @@
       <div class="col-lg-4">
 
         <p><strong>most used words</strong></p>
-        <table class="table table-hover table-striped table-condensed">
+        <table class="table table-striped table-condensed">
 
-          {% for word, count in info.words_list|slice(0, 5) %}
-            <tr>
-              <td>{{ word }}</td>
-              <td class="col-lg-1">{{ count|slice(0) }}</td>
-              <td class="col-lg-1">{{ count|slice(1) }}</td>
-            </tr>
+          {% for word, count in info.words_list %}
+            {% if loop.index > 7 %}
+              <tr class="words-hidden">
+            {% else %}
+              <tr>
+            {% endif %}
+                <td>{{ word }}</td>
+                <td class="col-lg-1">{{ count.0 }}</td>
+                <td class="col-lg-1">{{ count.1[0:6] }}%</td>
+              </tr>
           {% endfor %}
+
+          {% if info.words_list|length > 7 %}
+            <tr class="words-toggle">
+              <td colspan="3">
+                <a class="pull-right" href="javascript:;">
+                  Show remaining {{ info.words_list|length - 7 }} words
+                </a>
+              </td>
+            </tr>
+          {% endif %}
 
         </table>
 

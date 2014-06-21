@@ -46,7 +46,7 @@ $keys_to_skip = array('words_list', 'chars_list',
 
 // Render template
 echo $twig->render(array(
-    'subtitle' => 'Request and String',
+    'subtitle' => 'Text example 1',
     'text' => $text,
     'info' => $info,
     'keys_to_skip' => $keys_to_skip
