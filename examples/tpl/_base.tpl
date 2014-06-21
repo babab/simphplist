@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet"
     href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css">
-    <!--<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     {% block head %}
     {% endblock %}
     <title>{{ subtitle }} - Simphplist examples</title>

@@ -15,7 +15,33 @@
     .namespace {
         opacity: 0.2;
     }
+    #paras {
+        width: 50px;
+    }
   </style>
+  <script>
+    // Bacon Ipsum API call
+    $(document).ready(function() {
+        $("#paras").change(function() {
+            var paras = parseInt($('#paras').val());
+
+            if (paras >= 1 && paras <= 100) {
+                $.getJSON(
+                    'http://baconipsum.com/api/?callback=?',
+                    {'type':'meat-and-filler', 'paras': paras},
+                    function(bacon) {
+                        console.log(bacon);
+                        var text = '';
+                        if (bacon && bacon.length > 0) {
+                            for (var i = 0; i < bacon.length; i++)
+                                text += bacon[i] + "\n\n";
+                            $('#text').val(text);
+                        }
+                });
+            }
+        });
+    });
+  </script>
 {% endblock %}
 
 {% block content %}
@@ -27,14 +53,23 @@
 
   <div class="row">
     <div class="col-lg-3">
-      <h3>
 
+      <h3>
         Request::post()
         <br />
         <small>
         Sanitize POST input
         </small>
       </h3>
+
+      <br />
+
+      <p>
+        You can also fill the textarea with
+        <input type="number" id="paras" value="3" min="1" />
+        paragraphs using the
+        <a id="bacon" href="http://baconipsum.com/api/">Bacon Ipsum</a> API
+      </p>
 
     </div>
     <div class="col-lg-9">
@@ -64,7 +99,7 @@
     <div class="row">
       <div class="col-lg-4">
 
-        <p class="pull-right"><strong>totals</strong></p>
+        <p><strong>totals</strong></p>
 
         <table class="table table-hover table-striped table-condensed">
           {% for item, value in info %}
@@ -80,7 +115,7 @@
       </div><!-- .col-lg-4 -->
       <div class="col-lg-4">
 
-        <p class="pull-right"><strong>most used words</strong></p>
+        <p><strong>most used words</strong></p>
         <table class="table table-hover table-striped table-condensed">
 
           {% for word, perc in info.words_list_perc|slice(0, 5) %}
@@ -92,7 +127,7 @@
       </div><!-- .col-lg-4 -->
       <div class="col-lg-4">
 
-        <p class="pull-right"><strong>most used chars</strong></p>
+        <p><strong>most used chars</strong></p>
         <table class="table table-hover table-striped table-condensed">
 
           {% for char, perc in info.chars_list_perc|slice(0, 5) %}
