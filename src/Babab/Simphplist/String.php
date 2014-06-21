@@ -98,19 +98,6 @@ class String
         if (trim($text) === '')
             return Null;
 
-        /* Count words */
-        $nWords = str_word_count($text, 0);
-        $words_list = str_word_count($text, 1);
-
-        foreach ($words_list as $word) {
-            $word = strtolower($word);
-            if (ctype_alnum($word)) {
-                if (!isset($words[$word]))
-                    $words[$word] = 0;
-                $words[$word]++;
-            }
-        }
-
         /* Count (blank) lines and paragraphs */
         $lines = explode("\n", $text);
         $nLines = count($lines);
@@ -132,6 +119,19 @@ class String
         if (trim($lines[count($lines) - 1]) != '')
             $paragraphs++;
 
+        /* Count words */
+        $nWords = str_word_count($text, 0);
+        $words_list = str_word_count($text, 1);
+
+        foreach ($words_list as $word) {
+            $word = strtolower($word);
+            if (ctype_alnum($word)) {
+                if (!isset($words[$word]))
+                    $words[$word] = 0;
+                $words[$word]++;
+            }
+        }
+
         /* Count chars */
         $chars = array();
         $nChars = 0;
@@ -144,8 +144,10 @@ class String
             }
         }
 
-        /* Reverse sort lists */
+        /* Sort words and chars: Highest to lowest then alphabetically */
+        krsort($words);
         arsort($words);
+        krsort($chars);
         arsort($chars);
 
         /* Calculate percentages for words in $words */

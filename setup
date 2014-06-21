@@ -26,9 +26,9 @@ _clean()
 
 _composer()
 {
-    composer install
+    composer update
     cd examples
-    composer install
+    composer update
 }
 
 _dist()
