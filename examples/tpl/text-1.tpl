@@ -18,20 +18,23 @@
     #paras {
         width: 50px;
     }
-    .words-hidden, .chars-hidden {
+    .words-hidden, .chars-hidden, .text-hidden {
         display: none;
     }
   </style>
   <script>
     $(document).ready(function() {
         // Show hidden divs
-        $('.words-toggle').click(function (){
+        $('.words-show').click(function (){
             $(this).hide('slow');
             $('.words-hidden').show('slow');
         });
-        $('.chars-toggle').click(function (){
+        $('.chars-show').click(function (){
             $(this).hide('slow');
             $('.chars-hidden').show('slow');
+        });
+        $('.text-toggle').click(function (){
+            $('.text-hidden').toggle('slow');
         });
 
         // Bacon Ipsum API call
@@ -144,7 +147,7 @@
           {% endfor %}
 
           {% if info.words_list|length > 7 %}
-            <tr class="words-toggle">
+            <tr class="words-show">
               <td colspan="3">
                 <a class="pull-right" href="javascript:;">
                   Show remaining {{ info.words_list|length - 7 }} words
@@ -174,7 +177,7 @@
           {% endfor %}
 
           {% if info.chars_list|length > 7 %}
-            <tr class="chars-toggle">
+            <tr class="chars-show">
               <td colspan="3">
                 <a class="pull-right" href="javascript:;">
                   Show remaining {{ info.chars_list|length - 7 }} chars
@@ -186,6 +189,15 @@
         </table>
 
       </div><!-- .col-lg-4 -->
+    </div><!-- .row -->
+
+    <div class="row">
+      <div class="col-lg-12">
+
+        <a class="text-toggle" href="javascript:;">Show/hide full text input</a>
+        <pre class="text-hidden">{{ text }}</pre>
+
+      </div><!-- .col-lg-12 -->
     </div><!-- .row -->
 
   {% else %}
