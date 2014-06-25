@@ -32,6 +32,7 @@ $keys_to_skip = array('words_list', 'chars_list',
 
 // Render template
 echo $twig->render(array(
+    'section' => 'text-1',
     'subtitle' => 'Text example 1',
     'text' => $text,
     'info' => $info,

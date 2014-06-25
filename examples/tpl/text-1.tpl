@@ -1,68 +1,11 @@
 {% extends "_base.tpl" %}
 
 {% block head %}
-  <style>
-    .container {
-        margin-top: 20px;
-    }
-    textarea, input {
-        width: 100%;
-    }
-    textarea {
-        height: 200px;
-        resize: none;
-    }
-    .namespace {
-        opacity: 0.2;
-    }
-    #paras {
-        width: 50px;
-    }
-    .words-hidden, .chars-hidden, .text-hidden {
-        display: none;
-    }
-  </style>
-  <script>
-    $(document).ready(function() {
-        // Show hidden divs
-        $('.words-show').click(function (){
-            $(this).hide('slow');
-            $('.words-hidden').show('slow');
-        });
-        $('.chars-show').click(function (){
-            $(this).hide('slow');
-            $('.chars-hidden').show('slow');
-        });
-        $('.text-toggle').click(function (){
-            $('.text-hidden').toggle('slow');
-        });
-
-        // Bacon Ipsum API call
-        $("#paras").change(function() {
-            var paras = parseInt($('#paras').val());
-
-            if (paras >= 1 && paras <= 100) {
-                $.getJSON(
-                    'http://baconipsum.com/api/?callback=?',
-                    {'type':'meat-and-filler', 'paras': paras},
-                    function(bacon) {
-                        console.log(bacon);
-                        var text = '';
-                        if (bacon && bacon.length > 0) {
-                            for (var i = 0; i < bacon.length; i++)
-                                text += bacon[i] + "\n\n";
-                            $('#text').val(text);
-                        }
-                });
-            }
-        });
-    });
-  </script>
+  <link rel="stylesheet" href="main.css" />
+  <script src="main.js"></script>
 {% endblock %}
 
 {% block content %}
-
-  <hr />
 
   <h2 class="pull-right">Input</h2>
   <div class="clearfix"></div>
@@ -84,7 +27,9 @@
         You can also fill the textarea with
         <input type="number" id="paras" value="3" min="1" />
         paragraphs using the
-        <a id="bacon" href="http://baconipsum.com/api/">Bacon Ipsum</a> API
+        <a id="bacon" href="http://baconipsum.com/api/" target="_blank">
+          Bacon Ipsum
+        </a> API
       </p>
 
     </div>

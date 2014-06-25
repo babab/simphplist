@@ -1,0 +1,19 @@
+.container {
+    margin-top: 20px;
+}
+textarea, input {
+    width: 100%;
+}
+textarea {
+    height: 200px;
+    resize: none;
+}
+.namespace {
+    opacity: 0.2;
+}
+#paras {
+    width: 50px;
+}
+.words-hidden, .chars-hidden, .text-hidden {
+    display: none;
+}
