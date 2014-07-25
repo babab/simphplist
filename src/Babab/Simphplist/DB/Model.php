@@ -66,10 +66,10 @@ abstract class Model implements ModelInterface
             'auto_increment' => False,
         );
 
-        $ormProps = array('_tableName', '_db', '_validationErrors');
+        $ormProps = array('_tableName', '_db', '_validationErrors', '_fields');
 
         foreach ($this as $key => $conf)
-            if (is_array($conf))
+            if (!in_array($key, $ormProps, true))
                 $this->_fields[$key] = array_merge($defaultOrmConf, $conf);
 
         foreach ($this->_fields as $var => $conf)

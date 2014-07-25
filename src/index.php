@@ -31,7 +31,7 @@ $model = new ModelTest(new MysqlHandler(array(
     'prefix' => 'simphplist_',
 )));
 
-/* $model->id = 34; */
+$model->id = 1;
 
 if ($model->isValid())
     $model->printInfo();

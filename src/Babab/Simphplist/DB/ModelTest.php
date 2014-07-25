@@ -45,10 +45,6 @@ class ModelTest extends Model
         'type' => 'text',
     );
 
-    public $randomKey = array(
-        'type' => 'text',
-    );
-
     public $newsletter = array(
         'type' => 'boolean',
         'default' => True,
@@ -57,6 +53,6 @@ class ModelTest extends Model
     public $sortId = array(
         'type' => 'int',
         'length' => '11',
-        'default' => 999,
+        'default' => -1,
     );
 }
