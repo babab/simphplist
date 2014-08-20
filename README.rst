@@ -14,21 +14,39 @@ alongside any other (custom) framework.
 Features / Components
 *********************
 
+Simphplist is in the initial stages of development. Some components may
+be actually useful already though.
+
+Checkout the API documentation here: http://simphplist.org/annotated.html
+
 DB\\MysqlHandler
   MySQL handler with table prefix support
+  [25% done of which 50% documented]
 
 DB\\Model
   Simplistic MySQL Object Mapper
+  [20% done of which 0% documented]
+
+Debug
+  Static methods for dumping vars to a file or screen (html or text)
+  [100% done of which 100% documented]
+
+Json
+  Shortcuts for common idioms in JSON interaction
+  [50% done of which 0% documented]
 
 Request
   Static methods for secure user input handling via REQUEST superglobal(s):
   (GET, POST, COOKIE)
+  [30% done of which 0% documented]
 
 String
   Static methods for common string manipulation / parsing tasks
+  [60% done of which 20% documented]
 
 Validate
   Clean static API for type checking and validation
+  [10% done of which 100% documented]
 
 
 License
