@@ -44,52 +44,72 @@ class Debug
     /**
      * Debug value, can be a boolean or a string with the method used
      * for overriding debug method calls.
-     */
+    **/
     public static $debug = false;
 
     /**
      * String with the complete path to the dumpfile used in Debug::file
      * method calls.
-     */
+    **/
     public static $file = '/tmp/simphplist-debug.log';
+
+    /**
+     * A 2-item array with the start and end tags to use when dumping
+     * variables with the `html` method
+    **/
+    public static $tags = ['<pre>', '</pre>'];
 
     /**
      * Echo variable as a simple text string
      *
-     * @param mixed $var The variable to dump.
-     * @retval bool Returns true if the dump was actually done, else false.
+     * @param one or more variables to dump
+     * @retval void | string Returns a string when there are errors, else void
     **/
-    public static function text($var)
+    public static function text() # variable argument list
     {
         if (!self::$debug)
             return false;
-        if (self::override($var, 'text'))
-            return true;
 
-        echo self::dump($var);
-        return true;
+        if (!$n_args = func_num_args())
+            return 'Debug::text(): Please pass one or more variables';
+
+        $str = '';
+        $a_args = func_get_args();
+        for ($i = 0; $i < $n_args; $i++) {
+            if (!self::override($a_args[$i], 'text'))
+                $str .= self::dump($a_args[$i]);
+        }
+        echo $str;
     }
 
     /**
-     * Echo variable html formatted text string (<pre> block by default)
+     * Echo variable dumps in a html formatted text string
+     * (`pre` block by default)
      *
-     * @param mixed $var The variable to dump.
-     * @param array $tags A 2-item array with the start and end html tags.
-     * @retval bool Returns true if the dump was actually done, else false.
+     * @param one or more variables to dump
+     * @retval void | string Returns a string when there are errors, else void
     **/
-    public static function html($var, $tags = ['<pre>', '</pre>'])
+    public static function html() # variable argument list
     {
         if (!self::$debug)
-            return false;
-        if (self::override($var, 'html'))
-            return true;
+            return;
 
-        echo $tags[0];
-        echo self::dump($var);
+        if (isset(self::$tags[0]) && self::$tags[0])
+            echo self::$tags[0];
 
-        if (isset($tags[1]) && $tags[1])
-            echo $tags[1];
-        return true;
+        if (!$n_args = func_num_args())
+            return 'Debug::html(): Please pass one or more variables';
+
+        $str = '';
+        $a_args = func_get_args();
+        for ($i = 0; $i < $n_args; $i++) {
+            if (!self::override($a_args[$i], 'html'))
+                $str .= self::dump($a_args[$i]);
+        }
+        echo $str;
+
+        if (isset(self::$tags[1]) && self::$tags[1])
+            echo self::$tags[1];
     }
 
     /**
@@ -97,44 +117,58 @@ class Debug
      *
      * You can override the file to use by overriding `Debug::$file`.
      *
-     * @param mixed $var The variable to dump.
-     * @param bool $resetFile Set to true to clear the file initially.
-     * @retval bool Returns true if the dump was actually done, else false.
+     * @param one or more variables to dump
+     * @retval void | string Returns a string when there are errors, else void
     **/
-    public static function file($var, $resetFile = false)
+    public static function file() # variable argument list
     {
         if (!self::$debug)
-            return false;
-        if (self::override($var, 'file'))
-            return true;
+            return;
 
-        $content = "Added at " . date('r') . "\n" . self::dump($var) . "\n\n";
+        if (!$n_args = func_num_args())
+            return 'Debug::file(): Please pass one or more variables';
 
-        if ($resetFile)
-            file_put_contents(self::$file, $content, LOCK_EX);
-        else
-            file_put_contents(self::$file, $content, LOCK_EX | FILE_APPEND);
-        return true;
+        $str = '';
+        $a_args = func_get_args();
+        for ($i = 0; $i < $n_args; $i++) {
+            if (!self::override($a_args[$i], 'file')) {
+                $str .= self::dump($a_args[$i]);
+            }
+        }
+
+        $content = "Added at " . date('r') . "\n$str\n\n";
+        file_put_contents(self::$file, $content, LOCK_EX | FILE_APPEND);
     }
 
     /**
-     * Return a string representation of $var
-     *
-     * This may be useful to dump a $var to a different stream/variable,
-     * or if you don't want it be echoed out. The main public methods
-     * `text`, `html` and `file` all make use of this method.
-     *
-     * @param mixed $var The variable to dump.
-     * @retval string Representation of $var
+    ** Return a string representation of variables
+    **
+    ** This may be useful to dump a $var to a different stream/variable,
+    ** or if you don't want it be echoed out. The main public methods
+    ** `text`, `html` and `file` all make use of this method.
+    **
+    ** @param one or more variables to dump
+    ** @retval string Representation of variables
     **/
-    public static function dump($var)
+    public static function dump() # variable argument list
     {
-        if (is_array($var) || is_object($var))
-            return print_r($var, true);
+        $dump_single_var = function($var) {
+            if (is_array($var) || is_object($var))
+                return print_r($var, true);
 
-        ob_start();
-        var_dump($var);
-        return ob_get_clean();
+            ob_start();
+            var_dump($var);
+            return ob_get_clean();
+        };
+
+        if (!$n_args = func_num_args())
+            return 'Debug::dump(): Please pass one or more variables';
+
+        $str = '';
+        $a_args = func_get_args();
+        for ($i = 0; $i < $n_args; $i++)
+            $str .= $dump_single_var($a_args[$i]);
+        return $str;
     }
 
     /**
@@ -150,8 +184,10 @@ class Debug
         if (!self::$debug || !in_array(self::$debug, $types, true))
             return false;
 
-        if (self::$debug !== $type)
-            return self::{self::$debug}($var);
+        if (self::$debug !== $type) {
+            self::{self::$debug}($var);
+            return true;
+        }
         return false;
     }
 }
