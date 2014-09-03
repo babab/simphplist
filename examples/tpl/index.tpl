@@ -11,7 +11,7 @@
       Text example 1 <br />
       <small>
         Visit <a href="/text-1/">/text-1/</a>
-        for an example of the following libraries
+        for an example of the following library functions:
       </small>
     </h2>
   </div>
@@ -36,14 +36,51 @@
         String::parse() - Count and differentiate paragraphs, lines,
         words and chars
       </li>
-      <li>
-        String::truncate() - Truncate a string if it exceeds a certain length
-      </li>
     </ul>
 
   </div>
 </div>
 
+<hr />
+<div class="row">
+  <div class="col-lg-5">
+    <h2>
+      Database Model example 1<br />
+      <small>
+        Visit <a href="/db-model-1/">/db-model-1/</a>
+        for an example of the following library functions:
+      </small>
+    </h2>
+  </div>
+  <div class="col-lg-7">
+
+    <h3>
+      <span class="namespace">\Babab\Simphplist\</span>Debug
+      <small>Static methods for dumping vars to a file or screen
+        (html or text)</small>
+    </h3>
+    <h3>
+      <span class="namespace">\Babab\Simphplist\</span>Model
+      <small>Object Mapper – Abstract base class for writing Models that will
+        be mapped to database tables</small>
+    </h3>
+    <h3>
+      <span class="namespace">\Babab\Simphplist\</span>ModelTest
+      <small>Test model used as code example</small>
+    </h3>
+    <h3>
+      <span class="namespace">\Babab\Simphplist\</span>MysqlHandler
+      <small>MySQL Handler with table prefix support</small>
+    </h3>
+    <ul class="list-unstyled">
+      <li>
+        Model::isValid() - Checks
+        words and chars
+      </li>
+    </ul>
+
+  </div>
+</div>
 
 
 <hr />

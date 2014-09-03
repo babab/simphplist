@@ -1,13 +1,7 @@
 {
     "name": "babab/simphplist-examples",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:babab/simphplist"
-        }
-    ],
     "require": {
         "twig/twig": "1.*",
-        "babab/simphplist": "dev-master"
+        "simphplist/simphplist": "dev-master"
     }
 }
