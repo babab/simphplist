@@ -25,6 +25,16 @@ namespace Babab\Simphplist;
  */
 
 class Json {
+
+    /* input methods */
+
+    public static function input()
+    {
+        return json_decode(file_get_contents('php://input'));
+    }
+
+    /* output methods */
+
     public static function stringify($obj)
     {
         return print_r(json_encode($obj), true);
