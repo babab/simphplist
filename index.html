@@ -100,22 +100,21 @@ be actually useful already though.</p>
 <a name="routing" class="anchor" href="#routing"><span class="octicon octicon-link"></span></a>Routing</h3>
 
 <p>When a route is valid the closure function will be run with any
-identifier (<code>{identifier}</code>) matches made available to the closure /
-anonymous function as function arguments.</p>
+identifier <code>/url/:identifier/edit/</code> matches made available to the
+closure / anonymous function as function arguments.</p>
 
 <p>When a route is matched, any subsequent calls to <code>when()</code> or
-<code>other()</code> will have no effect. The <code>setPrefix()</code>, <code>when()</code> and <code>other()</code>
-methods can be chained together like below, which will read somewhat
-like a typical <code>if..elseif..else</code> construct.</p>
+<code>otherwise()</code> will have no effect. The <code>setPrefix()</code>, <code>when()</code> and
+<code>otherwise()</code> methods can be chained together like below, which will
+read somewhat like a typical if..elseif..else construct.</p>
 
-<p>The API design is inspired by:</p>
+<p>The API syntax is inspired by:</p>
 
 <ul>
-<li>Laravel Routing        : the closure function</li>
-<li>AngularJS' ngRoute     : <code>when..other</code> and <code>/url/:identifier</code> syntax</li>
-<li>AngularJS' ngController: dependency injection based on
-                       postional arguments</li>
-</ul><p>An <code>$uri</code> can have identifiers, which are marked with <code>{}</code>.
+<li>Laravel Routing      : using a closure function</li>
+<li>AngularJS' Route     : <code>when..otherwise</code> and <code>/url/:identifier</code> syntax</li>
+<li>AngularJS' Controller: dependency injection based on postional arguments</li>
+</ul><p>An <code>$uri</code> can have identifiers, which are marked with a leading <code>:</code>.
 In the following example there is an 'id' identifier
 for a blog article.</p>
 
@@ -144,7 +143,7 @@ arguments of the closure, after the identifier arguments.</p>
 
 <span class="p">})</span>
 <span class="c1">// The identifier is made available to the closure function</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/{id}/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/:id/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="k">echo</span> <span class="s1">'This is article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
 
@@ -157,15 +156,15 @@ arguments of the closure, after the identifier arguments.</p>
 
 <span class="p">})</span>
 <span class="c1">// Here $foo is injected into the closure after the identifiers</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/{y}/{m}/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:y/:m/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="k">echo</span> <span class="s2">"This is the archive&lt;br&gt;year: </span><span class="si">$y</span><span class="s2">&lt;br&gt;month: </span><span class="si">$m</span><span class="s2">"</span><span class="p">;</span>
     <span class="k">echo</span> <span class="s2">"&lt;br&gt;Also, foo = </span><span class="si">$foo</span><span class="s2">"</span><span class="p">;</span>
 
 <span class="p">})</span>
-<span class="c1">// Here any value for {void} is matched, but not used in the closure,</span>
+<span class="c1">// Here any value for `:void` is matched, but not used in the closure,</span>
 <span class="c1">// the user is redirected to the current year/month instead.</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/{void}/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:void/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
 
     <span class="nv">$y</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'y'</span><span class="p">);</span>
     <span class="nv">$m</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'m'</span><span class="p">);</span>
@@ -173,8 +172,9 @@ arguments of the closure, after the identifier arguments.</p>
 
 <span class="p">})</span>
 <span class="c1">// When no previous matches are found, redirect to /articles/.</span>
-<span class="c1">// You could also show a 404 error page here.</span>
-<span class="o">-&gt;</span><span class="na">other</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="c1">// You could also show a 404 error page here. Otherwise can</span>
+<span class="c1">// alternatively also accept positional closure arguments, like $foo</span>
+<span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
 
     <span class="nx">\Babab\Simphplist\Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/route.php/articles/"</span><span class="p">);</span>
 
@@ -199,10 +199,9 @@ arguments of the closure, after the identifier arguments.</p>
 
 <p>And running <code>composer install</code>.</p>
 
-<ul>
-<li>Packagist: <a href="https://packagist.org/packages/simphplist/simphplist">https://packagist.org/packages/simphplist/simphplist</a>
-</li>
-</ul><h2>
+<p>Packagist: <a href="https://packagist.org/packages/simphplist/simphplist">https://packagist.org/packages/simphplist/simphplist</a></p>
+
+<h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Copyright (c) 2014  Benjamin Althues <a href="mailto:benjamin@babab.nl">benjamin@babab.nl</a></p>
