@@ -46,7 +46,7 @@ class Route {
      * @param callable $func A closure or variable function to run
      * @retval bool | array Match success or matched identifier pair
      */
-    public function other($func)
+    public function otherwise($func)
     {
         if ($this->_matched)
             return $this;
@@ -83,7 +83,7 @@ class Route {
      *          echo 'This is article: ' . $id;
      *     })
      *
-     *     ->other(function() {
+     *     ->otherwise(function() {
      *         \Babab\Simphplist\Route::redirect('/articles/');
      *     });
      *

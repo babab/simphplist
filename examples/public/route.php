@@ -14,15 +14,14 @@ function manual_load()
 // anonymous function as function arguments.
 //
 // When a route is matched, any subsequent calls to `when()` or
-// `other()` will have no effect. The `setPrefix()`, `when()` and `other()`
-// methods can be chained together like below, which will read somewhat
-// like a typical if..elseif..else construct.
+// `otherwise()` will have no effect. The `setPrefix()`, `when()` and
+// `otherwise()` methods can be chained together like below, which will
+// read somewhat like a typical if..elseif..else construct.
 //
 // The API design is inspired by:
 //
 // - Laravel Routing        : the closure function
-// - AngularJS' ngRoute     : when..other syntax and `:identifier`
-//                            for matching identifiers
+// - AngularJS' ngRoute     : `when..otherwise` and `/url/:identifier` syntax
 // - AngularJS' ngController: dependency injection based on
 //                            postional arguments
 //
@@ -80,7 +79,7 @@ $foo = 'bar'; // A string that is used in some routes
 })
 // When no previous matches are found, redirect to /articles/.
 // You could also show a 404 error page here.
-->other(function() {
+->otherwise(function() {
 
     \Babab\Simphplist\Route::redirect("/route.php/articles/");
 
