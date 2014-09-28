@@ -17,36 +17,44 @@ be actually useful already though.
 
 Checkout the API documentation here: http://simphplist.org/annotated.html
 
-DB\MysqlHandler
+- DB\MysqlHandler
+
   MySQL handler with table prefix support
   [25% done of which 50% documented]
 
-DB\Model
+- DB\Model
+
   Simplistic MySQL Object Mapper
   [20% done of which 0% documented]
 
-Debug
+- Debug
+
   Static methods for dumping vars to a file or screen (html or text)
   [100% done of which 100% documented]
 
-Json
+- Json
+
   Shortcuts for common idioms in JSON interaction
   [50% done of which 0% documented]
 
-Request
+- Request
+
   Static methods for secure user input handling via REQUEST superglobal(s):
   (GET, POST, COOKIE)
   [30% done of which 0% documented]
 
-Route
+- Route
+
   Minimalistic, flexible and extensible routing
   [50% done of which 80% documented]
 
-String
+- String
+
   Static methods for common string manipulation / parsing tasks
   [60% done of which 20% documented]
 
-Validate
+- Validate
+
   Clean static API for type checking and validation
   [10% done of which 100% documented]
 
