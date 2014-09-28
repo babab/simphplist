@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Simphplist by babab</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Simphplist</h1>
+        <h2>PHP mini-framework with anti-framework features</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/babab/simphplist/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/babab/simphplist/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/babab/simphplist" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="simphplist" class="anchor" href="#simphplist"><span class="octicon octicon-link"></span></a>Simphplist</h1>
+
+<p>Simphplist is a mini-framework with anti-framework features. A
+collection of losely coupled components, that helps you with shortcuts
+and clean API's for writing the most common idioms when developing web
+applications in PHP (MySQL handling, object mapper, authentication,
+validation, typechecking).</p>
+
+<p>You can use it as a minimalistic base for writing custom (frameworks
+for) applications. Simphplist is carefully designed to allow using it
+alongside any other (custom) framework.</p>
+
+<h2>
+<a name="features--components" class="anchor" href="#features--components"><span class="octicon octicon-link"></span></a>Features / Components</h2>
+
+<p>Simphplist is in the initial stages of development. Some components may
+be actually useful already though.</p>
+
+<p>Checkout the API documentation here: <a href="http://simphplist.org/annotated.html">http://simphplist.org/annotated.html</a></p>
+
+<ul>
+<li>
+<p>DB\MysqlHandler</p>
+
+<p>MySQL handler with table prefix support
+[25% done of which 50% documented]</p>
+</li>
+<li>
+<p>DB\Model</p>
+
+<p>Simplistic MySQL Object Mapper
+[20% done of which 0% documented]</p>
+</li>
+<li>
+<p>Debug</p>
+
+<p>Static methods for dumping vars to a file or screen (html or text)
+[100% done of which 100% documented]</p>
+</li>
+<li>
+<p>Json</p>
+
+<p>Shortcuts for common idioms in JSON interaction
+[50% done of which 0% documented]</p>
+</li>
+<li>
+<p>Request</p>
+
+<p>Static methods for secure user input handling via REQUEST superglobal(s):
+(GET, POST, COOKIE)
+[30% done of which 0% documented]</p>
+</li>
+<li>
+<p>Route</p>
+
+<p>Minimalistic, flexible and extensible routing
+[50% done of which 80% documented]</p>
+</li>
+<li>
+<p>String</p>
+
+<p>Static methods for common string manipulation / parsing tasks
+[60% done of which 20% documented]</p>
+</li>
+<li>
+<p>Validate</p>
+
+<p>Clean static API for type checking and validation
+[10% done of which 100% documented]</p>
+</li>
+</ul><h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<h3>
+<a name="routing" class="anchor" href="#routing"><span class="octicon octicon-link"></span></a>Routing</h3>
+
+<p>index.php:</p>
+
+<div class="highlight highlight-php"><pre>
+   <span class="o">&lt;?</span><span class="nx">php</span>
+   <span class="c1">// -- Include composer for autoloading Simphplist</span>
+
+   <span class="p">(</span><span class="k">new</span> <span class="nx">\Babab\Simphplist\Route</span><span class="p">)</span>
+
+   <span class="c1">// Set a prefix to test in PHP's built in webserver</span>
+   <span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/index.php'</span><span class="p">)</span>
+
+   <span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/archive/{year}/{month}/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="s1">'Archives: year "'</span> <span class="o">.</span> <span class="nv">$args</span><span class="o">-&gt;</span><span class="na">year</span> <span class="o">.</span> <span class="s1">'"'</span><span class="p">;</span>
+      <span class="k">echo</span> <span class="s1">'Month "'</span> <span class="o">.</span> <span class="nv">$args</span><span class="o">-&gt;</span><span class="na">month</span> <span class="o">.</span> <span class="s1">'"'</span><span class="p">;</span>
+   <span class="p">})</span>
+   <span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/{id}/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="s1">'Welcome to article "'</span> <span class="o">.</span> <span class="nv">$args</span><span class="o">-&gt;</span><span class="na">id</span> <span class="o">.</span> <span class="s1">'"'</span><span class="p">;</span>
+   <span class="p">})</span>
+   <span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="s1">'Welcome to the article list'</span><span class="p">;</span>
+   <span class="p">})</span>
+   <span class="o">-&gt;</span><span class="na">other</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="s1">'No other matches found, this could be a 404 page'</span><span class="p">;</span>
+      <span class="c1">// or a redirect</span>
+      <span class="c1">// \Babab\Simphplist\Route::redirect('/index.php/articles/');</span>
+   <span class="p">});</span>
+</pre></div>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright (c) 2014  Benjamin Althues <a href="mailto:benjamin@babab.nl">benjamin@babab.nl</a></p>
+
+<p>Permission to use, copy, modify, and distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
