@@ -123,18 +123,40 @@ class Route {
             return $this;
 
         // Check for arguments and load them, argument 1
-        // should always be the path
+        // should always be a string with path, or an array
+        // with path (and an array of) method(s)
         if (!$n_args = func_num_args())
             return $this;
 
         $a_args = func_get_args();
-        $path = $a_args[0];
+        $methods = 'all';
 
-        if (!is_string($path))
-            return $this;
+        if (is_array($a_args[0])) {
+            $methods = [];
+
+            if (!isset($a_args[0][0]) || !isset($a_args[0][1]))
+                return $this;
+
+            $path = $a_args[0][0];
+
+            if (!is_string($path))
+                return $this;
+
+            if (is_array($a_args[0][1]))
+                $methods = array_merge($methods, $a_args[0][1]);
+            elseif (is_string($a_args[0][1]))
+                $methods[] = $a_args[0][1];
+            else
+                return $this;
+        }
+        else {
+            if (!is_string($a_args[0]))
+                return $this;
+            $path = $a_args[0];
+        }
 
         // parse path and save closure arguments in $closureArgs
-        if (!$closureArgs = $this->parseURI($path))
+        if (!$closureArgs = $this->parseURI($path, $methods))
             return $this;
 
         // if $closureArgs is true it means there are no arguments
@@ -184,17 +206,41 @@ class Route {
      * matching (useful for developing without rewriting rules, with
      * PHP's built in webserver for example)
      *
+     * If $methods is not 'all', but an array of method names, it will
+     * return false when the REQUEST_METHOD does not exist in that
+     * array.
+     *
      * Returns an asscoitative array with matched identifier pairs when
      * applicable;
      * Returns true then a match is found without identifiers;
      * Returns false when no match is found
      *
      * @param string $referencePath The URI format to match for
+     * @param string | array $methods String 'all' or an array of methods
      * @retval bool | array Match success or matched identifier pair
      */
-    public function parseURI($referencePath)
+    public function parseURI($referencePath, $methods = 'all')
     {
         $uri = htmlentities($_SERVER['REQUEST_URI']);
+        $valid_method = false;
+
+        if ($methods === 'all') {
+            $valid_method = true;
+        }
+        else {
+            if (!is_array($methods))
+                return false;
+
+            foreach ($methods as $method) {
+                if (strtolower($_SERVER['REQUEST_METHOD'])
+                    == strtolower($method)) {
+                    $valid_method = true;
+                }
+            }
+        }
+
+        if (!$valid_method)
+            return false;
 
         if ($pln = strlen($this->_prefix))
             $uri = substr($uri, $pln);
