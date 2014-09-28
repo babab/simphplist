@@ -10,7 +10,7 @@ function manual_load()
 
 
 // When a route is valid the closure function will be run with any
-// identifier `/url/{identifier}/edit/` matches made available to the
+// identifier `/url/:identifier/edit/` matches made available to the
 // closure / anonymous function as function arguments.
 //
 // When a route is matched, any subsequent calls to `when()` or
@@ -24,7 +24,7 @@ function manual_load()
 // - AngularJS' Route     : `when..otherwise` and `/url/:identifier` syntax
 // - AngularJS' Controller: dependency injection based on postional arguments
 //
-// An `$uri` can have identifiers, which are marked with `{}`.
+// An `$uri` can have identifiers, which are marked with a leading `:`.
 // In the following example there is an 'id' identifier
 // for a blog article.
 //
@@ -48,7 +48,7 @@ $foo = 'bar'; // A string that is used in some routes
 
 })
 // The identifier is made available to the closure function
-->when('/articles/{id}/', function($id) {
+->when('/articles/:id/', function($id) {
 
     echo 'This is article: ' . $id;
 
@@ -61,15 +61,15 @@ $foo = 'bar'; // A string that is used in some routes
 
 })
 // Here $foo is injected into the closure after the identifiers
-->when('/archive/{y}/{m}/', $foo, function($y, $m, $foo) {
+->when('/archive/:y/:m/', $foo, function($y, $m, $foo) {
 
     echo "This is the archive<br>year: $y<br>month: $m";
     echo "<br>Also, foo = $foo";
 
 })
-// Here any value for {void} is matched, but not used in the closure,
+// Here any value for `:void` is matched, but not used in the closure,
 // the user is redirected to the current year/month instead.
-->when('/archive/{void}/', function() {
+->when('/archive/:void/', function() {
 
     $y = date('y');
     $m = date('m');

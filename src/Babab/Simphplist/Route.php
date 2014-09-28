@@ -78,7 +78,7 @@ class Route {
     /**
      * Run a closure when the visited URL matches the defined URI format
      *
-     * An $uri can have identifiers, which are marked with `{}`.
+     * An $uri can have identifiers, which are marked with a leading `:`.
      * In the following example there is an 'id' identifier
      * for a blog article:
      *
@@ -86,7 +86,7 @@ class Route {
      *
      *     (new \Babab\Simphplist\Routing\Route)
      *
-     *     ->when('/articles/{id}/, function($id) {
+     *     ->when('/articles/:id/, function($id) {
      *          echo 'This is article: ' . $id;
      *     })
      *
@@ -94,7 +94,7 @@ class Route {
      *          echo 'This is the article list';
      *     })
      *
-     *     ->when('/archive/{y}/{m}/, $foo, function($y, $m, foo) {
+     *     ->when('/archive/:y/:m/, $foo, function($y, $m, foo) {
      *          echo 'This is article: ' . $id;
      *     })
      *
@@ -213,13 +213,12 @@ class Route {
             if (!isset($uri[$i]))
                 return false;
 
-            $d1 = strpos($p, '{');
-            $d2 = strpos($p, '}');
+            $identifier = strpos($p, ':');
 
-            if ($d1 !== false && $d2 !== false) {
+            if ($identifier !== false) {
                 // add to closure
                 $value = filter_var($uri[$i], FILTER_SANITIZE_STRING);
-                $closure_args[substr($p, 1, $d2 - 1)] = $value;
+                $closure_args[substr($p, 1)] = $value;
             }
             else {
                 // continue on string match, else end it here
