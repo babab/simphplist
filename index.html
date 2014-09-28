@@ -34,8 +34,8 @@
 <p>Simphplist is a mini-framework with anti-framework features. A
 collection of losely coupled components, that helps you with shortcuts
 and clean API's for writing the most common idioms when developing web
-applications in PHP (MySQL handling, object mapper, authentication,
-validation, typechecking).</p>
+applications in PHP (routing, MySQL handling, object mapper,
+authentication, validation, typechecking).</p>
 
 <p>You can use it as a minimalistic base for writing custom (frameworks
 for) applications. Simphplist is carefully designed to allow using it
@@ -106,14 +106,13 @@ anonymous function as function arguments.</p>
 <p>When a route is matched, any subsequent calls to <code>when()</code> or
 <code>other()</code> will have no effect. The <code>setPrefix()</code>, <code>when()</code> and <code>other()</code>
 methods can be chained together like below, which will read somewhat
-like a typical if..elseif..else construct.</p>
+like a typical <code>if..elseif..else</code> construct.</p>
 
 <p>The API design is inspired by:</p>
 
 <ul>
 <li>Laravel Routing        : the closure function</li>
-<li>AngularJS' ngRoute     : when..other syntax and <code>:identifier</code>
-                       for matching identifiers</li>
+<li>AngularJS' ngRoute     : <code>when..other</code> and <code>/url/:identifier</code> syntax</li>
 <li>AngularJS' ngController: dependency injection based on
                        postional arguments</li>
 </ul><p>An <code>$uri</code> can have identifiers, which are marked with <code>{}</code>.
@@ -128,7 +127,8 @@ arguments of the closure, after the identifier arguments.</p>
 
 <div class="highlight highlight-php"><pre>
 <span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// -- Include composer autoloader or require src/Babab/Simphplist/Route.php;</span>
+<span class="c1">// -- Include composer autoloader</span>
+<span class="c1">//    or require 'src/Babab/Simphplist/Route.php'</span>
 
 <span class="nv">$foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span> <span class="c1">// A string that is used in some routes</span>
 
