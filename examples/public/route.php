@@ -10,6 +10,7 @@ function manual_load()
 
 (new \Babab\Simphplist\Route)
 
+// set a prefix
 ->setPrefix('/route.php')
 
 ->when('/articles/archive/{year}/{month}/', function($args) {

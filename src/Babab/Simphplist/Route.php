@@ -21,7 +21,7 @@ namespace Babab\Simphplist;
 
 /**
  * @class Route
- * @brief Flexible route handling
+ * @brief Minimalistic, flexible and extensible routing
  */
 
 class Route {
