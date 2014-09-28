@@ -42,98 +42,167 @@ for) applications. Simphplist is carefully designed to allow using it
 alongside any other (custom) framework.</p>
 
 <h2>
+<a name="api-reference" class="anchor" href="#api-reference"><span class="octicon octicon-link"></span></a>API Reference</h2>
+
+<p>See: <a href="http://simphplist.org/annotated.html">http://simphplist.org/annotated.html</a></p>
+
+<h2>
 <a name="features--components" class="anchor" href="#features--components"><span class="octicon octicon-link"></span></a>Features / Components</h2>
 
 <p>Simphplist is in the initial stages of development. Some components may
 be actually useful already though.</p>
 
-<p>Checkout the API documentation here: <a href="http://simphplist.org/annotated.html">http://simphplist.org/annotated.html</a></p>
-
-<ul>
-<li>
-<p>DB\MysqlHandler</p>
+<p><strong>DB\MysqlHandler</strong></p>
 
 <p>MySQL handler with table prefix support
 [25% done of which 50% documented]</p>
-</li>
-<li>
-<p>DB\Model</p>
+
+<p><strong>DB\Model</strong></p>
 
 <p>Simplistic MySQL Object Mapper
 [20% done of which 0% documented]</p>
-</li>
-<li>
-<p>Debug</p>
+
+<p><strong>Debug</strong></p>
 
 <p>Static methods for dumping vars to a file or screen (html or text)
 [100% done of which 100% documented]</p>
-</li>
-<li>
-<p>Json</p>
+
+<p><strong>Json</strong></p>
 
 <p>Shortcuts for common idioms in JSON interaction
 [50% done of which 0% documented]</p>
-</li>
-<li>
-<p>Request</p>
+
+<p><strong>Request</strong></p>
 
 <p>Static methods for secure user input handling via REQUEST superglobal(s):
 (GET, POST, COOKIE)
 [30% done of which 0% documented]</p>
-</li>
-<li>
-<p>Route</p>
+
+<p><strong>Route</strong></p>
 
 <p>Minimalistic, flexible and extensible routing
-[50% done of which 80% documented]</p>
-</li>
-<li>
-<p>String</p>
+[70% done of which 80% documented]</p>
+
+<p><strong>String</strong></p>
 
 <p>Static methods for common string manipulation / parsing tasks
 [60% done of which 20% documented]</p>
-</li>
-<li>
-<p>Validate</p>
+
+<p><strong>Validate</strong></p>
 
 <p>Clean static API for type checking and validation
 [10% done of which 100% documented]</p>
-</li>
-</ul><h2>
+
+<h2>
 <a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
 
 <h3>
 <a name="routing" class="anchor" href="#routing"><span class="octicon octicon-link"></span></a>Routing</h3>
 
-<p>index.php:</p>
+<p>When a route is valid the closure function will be run with any
+identifier (<code>{identifier}</code>) matches made available to the closure /
+anonymous function as function arguments.</p>
+
+<p>When a route is matched, any subsequent calls to <code>when()</code> or
+<code>other()</code> will have no effect. The <code>setPrefix()</code>, <code>when()</code> and <code>other()</code>
+methods can be chained together like below, which will read somewhat
+like a typical if..elseif..else construct.</p>
+
+<p>The API design is inspired by:</p>
+
+<ul>
+<li>Laravel Routing        : the closure function</li>
+<li>AngularJS' ngRoute     : when..other syntax and <code>:identifier</code>
+                       for matching identifiers</li>
+<li>AngularJS' ngController: dependency injection based on
+                       postional arguments</li>
+</ul><p>An <code>$uri</code> can have identifiers, which are marked with <code>{}</code>.
+In the following example there is an 'id' identifier
+for a blog article.</p>
+
+<p>When the url is matched, any values that are matched with
+identifiers are made available as arguments of the closure, in
+left-to-right order. Any extra arguments passed between the
+URI string and the closure function are also made available as
+arguments of the closure, after the identifier arguments.</p>
 
 <div class="highlight highlight-php"><pre>
-   <span class="o">&lt;?</span><span class="nx">php</span>
-   <span class="c1">// -- Include composer for autoloading Simphplist</span>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="c1">// -- Include composer autoloader or require src/Babab/Simphplist/Route.php;</span>
 
-   <span class="p">(</span><span class="k">new</span> <span class="nx">\Babab\Simphplist\Route</span><span class="p">)</span>
+<span class="nv">$foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span> <span class="c1">// A string that is used in some routes</span>
 
-   <span class="c1">// Set a prefix to test in PHP's built in webserver</span>
-   <span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/index.php'</span><span class="p">)</span>
+<span class="p">(</span><span class="k">new</span> <span class="nx">\Babab\Simphplist\Route</span><span class="p">)</span>
 
-   <span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/archive/{year}/{month}/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">echo</span> <span class="s1">'Archives: year "'</span> <span class="o">.</span> <span class="nv">$args</span><span class="o">-&gt;</span><span class="na">year</span> <span class="o">.</span> <span class="s1">'"'</span><span class="p">;</span>
-      <span class="k">echo</span> <span class="s1">'Month "'</span> <span class="o">.</span> <span class="nv">$args</span><span class="o">-&gt;</span><span class="na">month</span> <span class="o">.</span> <span class="s1">'"'</span><span class="p">;</span>
-   <span class="p">})</span>
-   <span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/{id}/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">echo</span> <span class="s1">'Welcome to article "'</span> <span class="o">.</span> <span class="nv">$args</span><span class="o">-&gt;</span><span class="na">id</span> <span class="o">.</span> <span class="s1">'"'</span><span class="p">;</span>
-   <span class="p">})</span>
-   <span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">echo</span> <span class="s1">'Welcome to the article list'</span><span class="p">;</span>
-   <span class="p">})</span>
-   <span class="o">-&gt;</span><span class="na">other</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">echo</span> <span class="s1">'No other matches found, this could be a 404 page'</span><span class="p">;</span>
-      <span class="c1">// or a redirect</span>
-      <span class="c1">// \Babab\Simphplist\Route::redirect('/index.php/articles/');</span>
-   <span class="p">});</span>
+<span class="c1">// Use a prefix for developing without rewrite support</span>
+<span class="c1">// (for example with PHP's excellent built in webserver)</span>
+<span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/route.php'</span><span class="p">)</span>
+
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">'This is the article list'</span><span class="p">;</span>
+
+<span class="p">})</span>
+<span class="c1">// The identifier is made available to the closure function</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/{id}/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">'This is article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+
+<span class="p">})</span>
+<span class="c1">// Here $foo is injected into the closure and used</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">'This is the archive main page'</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"&lt;br&gt;Also, foo = </span><span class="si">$foo</span><span class="s2">"</span><span class="p">;</span>
+
+<span class="p">})</span>
+<span class="c1">// Here $foo is injected into the closure after the identifiers</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/{y}/{m}/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s2">"This is the archive&lt;br&gt;year: </span><span class="si">$y</span><span class="s2">&lt;br&gt;month: </span><span class="si">$m</span><span class="s2">"</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"&lt;br&gt;Also, foo = </span><span class="si">$foo</span><span class="s2">"</span><span class="p">;</span>
+
+<span class="p">})</span>
+<span class="c1">// Here any value for {void} is matched, but not used in the closure,</span>
+<span class="c1">// the user is redirected to the current year/month instead.</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/{void}/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nv">$y</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'y'</span><span class="p">);</span>
+    <span class="nv">$m</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'m'</span><span class="p">);</span>
+    <span class="nx">\Babab\Simphplist\Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/route.php/articles/</span><span class="si">$y</span><span class="s2">/</span><span class="si">$m</span><span class="s2">/"</span><span class="p">);</span>
+
+<span class="p">})</span>
+<span class="c1">// When no previous matches are found, redirect to /articles/.</span>
+<span class="c1">// You could also show a 404 error page here.</span>
+<span class="o">-&gt;</span><span class="na">other</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nx">\Babab\Simphplist\Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/route.php/articles/"</span><span class="p">);</span>
+
+<span class="p">});</span>
+
 </pre></div>
 
 <h2>
+<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
+
+<p>Install from packagist using composer, by adding a composer.json file:</p>
+
+<div class="highlight highlight-json"><pre>
+<span class="p">{</span>
+    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"myProject"</span><span class="p">,</span>
+    <span class="nt">"require"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"simphplist/simphplist"</span><span class="p">:</span> <span class="s2">"dev-master"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</pre></div>
+
+<p>And running <code>composer install</code>.</p>
+
+<ul>
+<li>Packagist: <a href="https://packagist.org/packages/simphplist/simphplist">https://packagist.org/packages/simphplist/simphplist</a>
+</li>
+</ul><h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Copyright (c) 2014  Benjamin Althues <a href="mailto:benjamin@babab.nl">benjamin@babab.nl</a></p>
