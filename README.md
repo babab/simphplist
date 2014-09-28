@@ -1,5 +1,4 @@
-Simphplist
-==============================================================================
+# Simphplist
 
 Simphplist is a mini-framework with anti-framework features. A
 collection of losely coupled components, that helps you with shortcuts
@@ -11,19 +10,18 @@ You can use it as a minimalistic base for writing custom (frameworks
 for) applications. Simphplist is carefully designed to allow using it
 alongside any other (custom) framework.
 
-Features / Components
-------------------------------------------------------------------------------
+## Features / Components
 
 Simphplist is in the initial stages of development. Some components may
 be actually useful already though.
 
 Checkout the API documentation here: http://simphplist.org/annotated.html
 
-DB\\MysqlHandler
+DB\MysqlHandler
   MySQL handler with table prefix support
   [25% done of which 50% documented]
 
-DB\\Model
+DB\Model
   Simplistic MySQL Object Mapper
   [20% done of which 0% documented]
 
@@ -53,13 +51,13 @@ Validate
   [10% done of which 100% documented]
 
 
-Overview
-------------------------------------------------------------------------------
+## Overview
 
-Routing
-#######
+### Routing
 
-index.php::
+index.php:
+
+```php
 
    <?php
    // -- Include composer for autoloading Simphplist
@@ -70,32 +68,23 @@ index.php::
    ->setPrefix('/index.php')
 
    ->when('/articles/archive/{year}/{month}/', function($args) {
-
-      echo '<h1>Archives: year "' . $args->year . '"</h1>';
-      echo '<h2>Month "' . $args->month . '"</h2>';
-
+      echo 'Archives: year "' . $args->year . '"';
+      echo 'Month "' . $args->month . '"';
    })
    ->when('/articles/{id}/', function($args) {
-
-      echo '<h1>Welcome to article "' . $args->id . '"</h1>';
-
+      echo 'Welcome to article "' . $args->id . '"';
    })
    ->when('/articles/', function($args) {
-
-      echo '<h1>Welcome to the article list</h1>';
-
+      echo 'Welcome to the article list';
    })
    ->other(function() {
-
-      echo '<h1>No other matches found, this could be a 404 page</h1>';
+      echo 'No other matches found, this could be a 404 page';
       // or a redirect
       // \Babab\Simphplist\Route::redirect('/index.php/articles/');
-
    });
+```
 
-
-License
-------------------------------------------------------------------------------
+## License
 
 Copyright (c) 2014  Benjamin Althues <benjamin@babab.nl>
 
