@@ -63,29 +63,38 @@ class Route {
      * In the following example there is an 'id' identifier
      * for a blog article:
      *
+     *     $foo = 'bar';
+     *
      *     (new \Babab\Simphplist\Routing\Route)
      *
-     *     ->when('/blog/articles/{id}/, function($someArray) {
-     *          echo 'This is article: ' . $someArray['id'];
+     *     ->when('/articles/{id}/, function($id) {
+     *          echo 'This is article: ' . $id;
      *     })
      *
-     *     ->when('/blog/articles/, function($void) {
+     *     ->when('/articles/, function() {
      *          echo 'This is the article list';
      *     })
      *
+     *     ->when('/archive/{y}/{m}/, $foo, function($y, $m, foo) {
+     *          echo 'This is article: ' . $id;
+     *     })
+     *
+     *     ->when('/archive/, $foo, function(foo) {
+     *          echo 'This is article: ' . $id;
+     *     })
+     *
      *     ->other(function() {
-     *         \Babab\Simphplist\Route::redirect('/blog/articles/');
+     *         \Babab\Simphplist\Route::redirect('/articles/');
      *     });
      *
      * When the url is matched, any values that are matched with
-     * identifiers are added to an object (with the identifiers as
-     * property names), which is in turn passed to the closure.
-     *
-     * The closure should therefore always accept an (object as)
-     * argument.
+     * identifiers are made available as arguments of the closure, in
+     * left-to-right order. Any extra arguments passed between the
+     * URI string and the closure function are also made available as
+     * arguments of the closure, after the identifier arguments.
      *
      * @param string $uri The URI format to match for
-     * @param ... optional arguments to pass to closure (N/A yet)
+     * @param ... optional arguments to pass to closure
      * @param callable $func A closure or variable function to run
      * @retval bool | array Match success or matched identifier pair
      */
@@ -109,7 +118,7 @@ class Route {
         if (!$match = $this->parseURI($path))
             return $this;
 
-        // if match is true it means there are no arguments but there
+        // if $match is true it means there are no arguments but there
         // still is a valid match; make sure to pass an array to the
         // closure
         if ($match === true)
@@ -124,8 +133,13 @@ class Route {
         for ($i = 1; $i < $n_args; $i++) {
             // the closure should always be last
             if (is_callable($a_args[$i])) {
-                $a_args[$i]($match);
+                $function = new \ReflectionFunction($a_args[$i]);
+                $function->invokeArgs($match);
                 return $this;
+            }
+            else {
+                // add to closure argument list
+                $match[] = $a_args[$i];
             }
         }
     }
@@ -143,7 +157,8 @@ class Route {
      * matching (useful for developing without rewriting rules, with
      * PHP's built in webserver for example)
      *
-     * Returns an object with matched identifier pairs when applicable;
+     * Returns an asscoitative array with matched identifier pairs when
+     * applicable;
      * Returns true then a match is found without identifiers;
      * Returns false when no match is found
      *
@@ -166,7 +181,7 @@ class Route {
 
         // parse referencePath and add identifier matches to closure_args
         $i = 0;
-        $closure_args = new \stdClass;
+        $closure_args = [];
         foreach ($referencePathComponents as $p) {
             if (!isset($uri[$i]))
                 return false;
@@ -177,7 +192,7 @@ class Route {
             if ($d1 !== false && $d2 !== false) {
                 // add to closure
                 $value = filter_var($uri[$i], FILTER_SANITIZE_STRING);
-                $closure_args->{substr($p, 1, $d2 - 1)} = $value;
+                $closure_args[substr($p, 1, $d2 - 1)] = $value;
             }
             else {
                 // continue on string match, else end it here
