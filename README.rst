@@ -59,14 +59,39 @@ Overview
 Routing
 #######
 
-index.php:
+index.php::
 
-.. raw:: html
+   <?php
+   // -- Include composer for autoloading Simphplist
 
-   <code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;--&nbsp;Include&nbsp;composer&nbsp;for&nbsp;autoloading&nbsp;Simphplist<br /><br /></span>
-   <span style="color: #007700">(new&nbsp;\</span><span style="color: #0000BB">Babab</span><span style="color: #007700">\</span><span style="color: #0000BB">Simphplist</span><span style="color: #007700">\</span><span style="color: #0000BB">Route</span><span style="color: #007700">)<br /><br /></span><span style="color: #FF8000">//&nbsp;Set&nbsp;a&nbsp;prefix&nbsp;to&nbsp;test&nbsp;in&nbsp;PHP's&nbsp;built&nbsp;in&nbsp;webserver<br /></span>
-   <span style="color: #007700">-&gt;</span><span style="color: #0000BB">setPrefix</span><span style="color: #007700">(</span><span style="color: #DD0000">'/index.php'</span><span style="color: #007700">)<br /><br />-&gt;</span><span style="color: #0000BB">when</span><span style="color: #007700">(</span><span style="color: #DD0000">'/articles/archive/{year}/{month}/'</span><span style="color: #007700">,&nbsp;function(</span><span style="color: #0000BB">$args</span><span style="color: #007700">)&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;h1&gt;Archives:&nbsp;year&nbsp;"'&nbsp;</span>
-   <span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$args</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">year&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'"&lt;/h1&gt;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;h2&gt;Month&nbsp;"'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$args</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">month&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'"&lt;/h2&gt;'</span><span style="color: #007700">;<br /><br />})<br />-&gt;</span><span style="color: #0000BB">when</span><span style="color: #007700">(</span><span style="color: #DD0000">'/articles/{id}/'</span><span style="color: #007700">,&nbsp;function(</span><span style="color: #0000BB">$args</span><span style="color: #007700">)&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;h1&gt;Welcome&nbsp;to&nbsp;article&nbsp;"'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$args</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">id&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'"&lt;/h1&gt;'</span><span style="color: #007700">;<br /><br />})<br />-&gt;</span><span style="color: #0000BB">when</span><span style="color: #007700">(</span><span style="color: #DD0000">'/articles/'</span><span style="color: #007700">,&nbsp;function(</span><span style="color: #0000BB">$args</span><span style="color: #007700">)&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;h1&gt;Welcome&nbsp;to&nbsp;the&nbsp;article&nbsp;list&lt;/h1&gt;'</span><span style="color: #007700">;<br /><br />})<br />-&gt;</span><span style="color: #0000BB">other</span><span style="color: #007700">(function()&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;h1&gt;No&nbsp;other&nbsp;matches&nbsp;found,&nbsp;this&nbsp;could&nbsp;be&nbsp;a&nbsp;404&nbsp;page&lt;/h1&gt;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;or&nbsp;a&nbsp;redirect<br />&nbsp;&nbsp;&nbsp;//&nbsp;\Babab\Simphplist\Route::redirect('/index.php/articles/');<br /><br /></span><span style="color: #007700">});<br /></span></span></code>
+   (new \Babab\Simphplist\Route)
+
+   // Set a prefix to test in PHP's built in webserver
+   ->setPrefix('/index.php')
+
+   ->when('/articles/archive/{year}/{month}/', function($args) {
+
+      echo '<h1>Archives: year "' . $args->year . '"</h1>';
+      echo '<h2>Month "' . $args->month . '"</h2>';
+
+   })
+   ->when('/articles/{id}/', function($args) {
+
+      echo '<h1>Welcome to article "' . $args->id . '"</h1>';
+
+   })
+   ->when('/articles/', function($args) {
+
+      echo '<h1>Welcome to the article list</h1>';
+
+   })
+   ->other(function() {
+
+      echo '<h1>No other matches found, this could be a 404 page</h1>';
+      // or a redirect
+      // \Babab\Simphplist\Route::redirect('/index.php/articles/');
+
+   });
 
 
 License
