@@ -3,8 +3,8 @@
 Simphplist is a mini-framework with anti-framework features. A
 collection of losely coupled components, that helps you with shortcuts
 and clean API's for writing the most common idioms when developing web
-applications in PHP (MySQL handling, object mapper, authentication,
-validation, typechecking).
+applications in PHP (routing, MySQL handling, object mapper,
+authentication, validation, typechecking).
 
 You can use it as a minimalistic base for writing custom (frameworks
 for) applications. Simphplist is carefully designed to allow using it
@@ -74,13 +74,12 @@ anonymous function as function arguments.
 When a route is matched, any subsequent calls to `when()` or
 `other()` will have no effect. The `setPrefix()`, `when()` and `other()`
 methods can be chained together like below, which will read somewhat
-like a typical if..elseif..else construct.
+like a typical `if..elseif..else` construct.
 
 The API design is inspired by:
 
 - Laravel Routing        : the closure function
-- AngularJS' ngRoute     : when..other syntax and `:identifier`
-                           for matching identifiers
+- AngularJS' ngRoute     : `when..other` and `/url/:identifier` syntax
 - AngularJS' ngController: dependency injection based on
                            postional arguments
 
@@ -97,7 +96,8 @@ arguments of the closure, after the identifier arguments.
 ```php
 
 <?php
-// -- Include composer autoloader or require src/Babab/Simphplist/Route.php;
+// -- Include composer autoloader
+//    or require 'src/Babab/Simphplist/Route.php'
 
 $foo = 'bar'; // A string that is used in some routes
 
