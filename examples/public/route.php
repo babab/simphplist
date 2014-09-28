@@ -8,31 +8,80 @@ function manual_load()
 
 ##############################################################################
 
+
+// When a route is valid the closure function will be run with any
+// identifier (`{identifier}`) matches made available to the closure /
+// anonymous function as function arguments.
+//
+// When a route is matched, any subsequent calls to `when()` or
+// `other()` will have no effect. The `setPrefix()`, `when()` and `other()`
+// methods can be chained together like below, which will read somewhat
+// like a typical if..elseif..else construct.
+//
+// The API design is inspired by:
+//
+// - Laravel Routing        : the closure function
+// - AngularJS' ngRoute     : when..other syntax and `:identifier`
+//                            for matching identifiers
+// - AngularJS' ngController: dependency injection based on
+//                            postional arguments
+//
+// An `$uri` can have identifiers, which are marked with `{}`.
+// In the following example there is an 'id' identifier
+// for a blog article.
+//
+// When the url is matched, any values that are matched with
+// identifiers are made available as arguments of the closure, in
+// left-to-right order. Any extra arguments passed between the
+// URI string and the closure function are also made available as
+// arguments of the closure, after the identifier arguments.
+
+$foo = 'bar'; // A string that is used in some routes
+
 (new \Babab\Simphplist\Route)
 
-// set a prefix
+// Use a prefix for developing without rewrite support
+// (for example with PHP's excellent built in webserver)
 ->setPrefix('/route.php')
 
-->when('/articles/archive/{year}/{month}/', function($args) {
+->when('/articles/', function() {
 
-    echo '<h1>Archives: year "' . $args->year . '"</h1>';
-    echo '<h2>Month "' . $args->month . '"</h2>';
-
-})
-->when('/articles/{id}/', function($args) {
-
-    echo '<h1>Welcome to article "' . $args->id . '"</h1>';
+    echo 'This is the article list';
 
 })
-->when('/articles/', function($args) {
+// The identifier is made available to the closure function
+->when('/articles/{id}/', function($id) {
 
-    echo '<h1>Welcome to the article list</h1>';
+    echo 'This is article: ' . $id;
 
 })
+// Here $foo is injected into the closure and used
+->when('/archive/', $foo, function($foo) {
+
+    echo 'This is the archive main page';
+    echo "<br>Also, foo = $foo";
+
+})
+// Here $foo is injected into the closure after the identifiers
+->when('/archive/{y}/{m}/', $foo, function($y, $m, $foo) {
+
+    echo "This is the archive<br>year: $y<br>month: $m";
+    echo "<br>Also, foo = $foo";
+
+})
+// Here any value for {void} is matched, but not used in the closure,
+// the user is redirected to the current year/month instead.
+->when('/archive/{void}/', function() {
+
+    $y = date('y');
+    $m = date('m');
+    \Babab\Simphplist\Route::redirect("/route.php/articles/$y/$m/");
+
+})
+// When no previous matches are found, redirect to /articles/.
+// You could also show a 404 error page here.
 ->other(function() {
 
-    echo '<h1>No other matches found, this could be a 404 page</h1>';
-    // or a redirect
-    // \Babab\Simphplist\Route::redirect('/route.php/articles/');
+    \Babab\Simphplist\Route::redirect("/route.php/articles/");
 
 });

@@ -10,87 +10,166 @@ You can use it as a minimalistic base for writing custom (frameworks
 for) applications. Simphplist is carefully designed to allow using it
 alongside any other (custom) framework.
 
+
+## API Reference
+
+See: http://simphplist.org/annotated.html
+
 ## Features / Components
 
 Simphplist is in the initial stages of development. Some components may
 be actually useful already though.
 
-Checkout the API documentation here: http://simphplist.org/annotated.html
 
-- DB\MysqlHandler
+**DB\MysqlHandler**
 
-  MySQL handler with table prefix support
-  [25% done of which 50% documented]
+MySQL handler with table prefix support
+[25% done of which 50% documented]
 
-- DB\Model
+**DB\Model**
 
-  Simplistic MySQL Object Mapper
-  [20% done of which 0% documented]
+Simplistic MySQL Object Mapper
+[20% done of which 0% documented]
 
-- Debug
+**Debug**
 
-  Static methods for dumping vars to a file or screen (html or text)
-  [100% done of which 100% documented]
+Static methods for dumping vars to a file or screen (html or text)
+[100% done of which 100% documented]
 
-- Json
+**Json**
 
-  Shortcuts for common idioms in JSON interaction
-  [50% done of which 0% documented]
+Shortcuts for common idioms in JSON interaction
+[50% done of which 0% documented]
 
-- Request
+**Request**
 
-  Static methods for secure user input handling via REQUEST superglobal(s):
-  (GET, POST, COOKIE)
-  [30% done of which 0% documented]
+Static methods for secure user input handling via REQUEST superglobal(s):
+(GET, POST, COOKIE)
+[30% done of which 0% documented]
 
-- Route
+**Route**
 
-  Minimalistic, flexible and extensible routing
-  [50% done of which 80% documented]
+Minimalistic, flexible and extensible routing
+[70% done of which 80% documented]
 
-- String
+**String**
 
-  Static methods for common string manipulation / parsing tasks
-  [60% done of which 20% documented]
+Static methods for common string manipulation / parsing tasks
+[60% done of which 20% documented]
 
-- Validate
+**Validate**
 
-  Clean static API for type checking and validation
-  [10% done of which 100% documented]
+Clean static API for type checking and validation
+[10% done of which 100% documented]
 
 
 ## Overview
 
 ### Routing
 
-index.php:
+When a route is valid the closure function will be run with any
+identifier (`{identifier}`) matches made available to the closure /
+anonymous function as function arguments.
+
+When a route is matched, any subsequent calls to `when()` or
+`other()` will have no effect. The `setPrefix()`, `when()` and `other()`
+methods can be chained together like below, which will read somewhat
+like a typical if..elseif..else construct.
+
+The API design is inspired by:
+
+- Laravel Routing        : the closure function
+- AngularJS' ngRoute     : when..other syntax and `:identifier`
+                           for matching identifiers
+- AngularJS' ngController: dependency injection based on
+                           postional arguments
+
+An `$uri` can have identifiers, which are marked with `{}`.
+In the following example there is an 'id' identifier
+for a blog article.
+
+When the url is matched, any values that are matched with
+identifiers are made available as arguments of the closure, in
+left-to-right order. Any extra arguments passed between the
+URI string and the closure function are also made available as
+arguments of the closure, after the identifier arguments.
 
 ```php
 
-   <?php
-   // -- Include composer for autoloading Simphplist
+<?php
+// -- Include composer autoloader or require src/Babab/Simphplist/Route.php;
 
-   (new \Babab\Simphplist\Route)
+$foo = 'bar'; // A string that is used in some routes
 
-   // Set a prefix to test in PHP's built in webserver
-   ->setPrefix('/index.php')
+(new \Babab\Simphplist\Route)
 
-   ->when('/articles/archive/{year}/{month}/', function($args) {
-      echo 'Archives: year "' . $args->year . '"';
-      echo 'Month "' . $args->month . '"';
-   })
-   ->when('/articles/{id}/', function($args) {
-      echo 'Welcome to article "' . $args->id . '"';
-   })
-   ->when('/articles/', function($args) {
-      echo 'Welcome to the article list';
-   })
-   ->other(function() {
-      echo 'No other matches found, this could be a 404 page';
-      // or a redirect
-      // \Babab\Simphplist\Route::redirect('/index.php/articles/');
-   });
+// Use a prefix for developing without rewrite support
+// (for example with PHP's excellent built in webserver)
+->setPrefix('/route.php')
+
+->when('/articles/', function() {
+
+    echo 'This is the article list';
+
+})
+// The identifier is made available to the closure function
+->when('/articles/{id}/', function($id) {
+
+    echo 'This is article: ' . $id;
+
+})
+// Here $foo is injected into the closure and used
+->when('/archive/', $foo, function($foo) {
+
+    echo 'This is the archive main page';
+    echo "<br>Also, foo = $foo";
+
+})
+// Here $foo is injected into the closure after the identifiers
+->when('/archive/{y}/{m}/', $foo, function($y, $m, $foo) {
+
+    echo "This is the archive<br>year: $y<br>month: $m";
+    echo "<br>Also, foo = $foo";
+
+})
+// Here any value for {void} is matched, but not used in the closure,
+// the user is redirected to the current year/month instead.
+->when('/archive/{void}/', function() {
+
+    $y = date('y');
+    $m = date('m');
+    \Babab\Simphplist\Route::redirect("/route.php/articles/$y/$m/");
+
+})
+// When no previous matches are found, redirect to /articles/.
+// You could also show a 404 error page here.
+->other(function() {
+
+    \Babab\Simphplist\Route::redirect("/route.php/articles/");
+
+});
+
 ```
+
+## Installing
+
+Install from packagist using composer, by adding a composer.json file:
+
+```json
+
+{
+    "name": "myProject",
+    "require": {
+        "simphplist/simphplist": "dev-master"
+    }
+}
+
+```
+
+And running `composer install`.
+
+- Packagist: https://packagist.org/packages/simphplist/simphplist
+
 
 ## License
 
