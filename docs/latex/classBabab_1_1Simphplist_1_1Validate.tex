@@ -1,0 +1,67 @@
+\hypertarget{classBabab_1_1Simphplist_1_1Validate}{\section{Babab\textbackslash{}Simphplist\textbackslash{}Validate Class Reference}
+\label{classBabab_1_1Simphplist_1_1Validate}\index{Babab\textbackslash{}\+Simphplist\textbackslash{}\+Validate@{Babab\textbackslash{}\+Simphplist\textbackslash{}\+Validate}}
+}
+
+
+Clean static A\+P\+I for type checking and validation.  
+
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classBabab_1_1Simphplist_1_1Validate_a51cdfbb89af6ba182a21fb537b1e2aa5}{is\+Bool} (\$var, \$strict=true)
+\item 
+static \hyperlink{classBabab_1_1Simphplist_1_1Validate_a1b82b4c46c0409d8cfb2c57f11aac5e3}{is\+Time\+String} (\$var)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Clean static A\+P\+I for type checking and validation. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classBabab_1_1Simphplist_1_1Validate_a51cdfbb89af6ba182a21fb537b1e2aa5}{\index{Babab\+::\+Simphplist\+::\+Validate@{Babab\+::\+Simphplist\+::\+Validate}!is\+Bool@{is\+Bool}}
+\index{is\+Bool@{is\+Bool}!Babab\+::\+Simphplist\+::\+Validate@{Babab\+::\+Simphplist\+::\+Validate}}
+\subsubsection[{is\+Bool}]{\setlength{\rightskip}{0pt plus 5cm}static Babab\textbackslash{}\+Simphplist\textbackslash{}\+Validate\+::is\+Bool (
+\begin{DoxyParamCaption}
+\item[{}]{\$var, }
+\item[{}]{\$strict = {\ttfamily true}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classBabab_1_1Simphplist_1_1Validate_a51cdfbb89af6ba182a21fb537b1e2aa5}
+Checks if variable is a true boolean
+
+This is an alias for P\+H\+P's {\ttfamily is\+\_\+bool} function adapted with a non strict test to allow case-\/insensitive strings of \char`\"{}true\char`\"{} and \char`\"{}false\char`\"{} to evaluate as true.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$var} & The variable to test \\
+\hline
+bool & {\em \$strict} & The variable to test \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\hypertarget{classBabab_1_1Simphplist_1_1Validate_a1b82b4c46c0409d8cfb2c57f11aac5e3}{\index{Babab\+::\+Simphplist\+::\+Validate@{Babab\+::\+Simphplist\+::\+Validate}!is\+Time\+String@{is\+Time\+String}}
+\index{is\+Time\+String@{is\+Time\+String}!Babab\+::\+Simphplist\+::\+Validate@{Babab\+::\+Simphplist\+::\+Validate}}
+\subsubsection[{is\+Time\+String}]{\setlength{\rightskip}{0pt plus 5cm}static Babab\textbackslash{}\+Simphplist\textbackslash{}\+Validate\+::is\+Time\+String (
+\begin{DoxyParamCaption}
+\item[{}]{\$var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classBabab_1_1Simphplist_1_1Validate_a1b82b4c46c0409d8cfb2c57f11aac5e3}
+Checks if variable is a valid time string
+
+Valid strings are\+: \char`\"{}18\+:34\char`\"{}, \char`\"{}09\+:00 am\char`\"{}, \char`\"{}8\+:34 P\+M\char`\"{}. Invalid strings are\+: \char`\"{}18\+:63\char`\"{}, \char`\"{}09\+:00 a\+M\char`\"{}, \char`\"{}20\+:34 P\+M\char`\"{}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$var} & The variable to test \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/srv/http/simphplist/src/\+Babab/\+Simphplist/Validate.\+php\end{DoxyCompactItemize}
