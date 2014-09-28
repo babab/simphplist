@@ -108,7 +108,7 @@ $foo = 'bar'; // A string that is used in some routes
 Normally, when the first argument passed to `when()` is a
 string, it will match with any http method (get,post,put,delete, etc.)
 used. It is possible to only match on one or more specified
-`$_SERVER[''REQUEST_METHOD]). By passing an array like
+`$_SERVER['REQUEST_METHOD'])`. By passing an array like
 `['/url/:id/edit/', 'get']` as first argument, only GET requests will
 match.
 
