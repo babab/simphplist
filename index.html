@@ -47,53 +47,6 @@ alongside any other (custom) framework.</p>
 <p>See: <a href="http://simphplist.org/annotated.html">http://simphplist.org/annotated.html</a></p>
 
 <h2>
-<a name="features--components" class="anchor" href="#features--components"><span class="octicon octicon-link"></span></a>Features / Components</h2>
-
-<p>Simphplist is in the initial stages of development. Some components may
-be actually useful already though.</p>
-
-<p><strong>DB\MysqlHandler</strong></p>
-
-<p>MySQL handler with table prefix support
-[25% done of which 50% documented]</p>
-
-<p><strong>DB\Model</strong></p>
-
-<p>Simplistic MySQL Object Mapper
-[20% done of which 0% documented]</p>
-
-<p><strong>Debug</strong></p>
-
-<p>Static methods for dumping vars to a file or screen (html or text)
-[100% done of which 100% documented]</p>
-
-<p><strong>Json</strong></p>
-
-<p>Shortcuts for common idioms in JSON interaction
-[50% done of which 0% documented]</p>
-
-<p><strong>Request</strong></p>
-
-<p>Static methods for secure user input handling via REQUEST superglobal(s):
-(GET, POST, COOKIE)
-[30% done of which 0% documented]</p>
-
-<p><strong>Route</strong></p>
-
-<p>Minimalistic, flexible and extensible routing
-[70% done of which 80% documented]</p>
-
-<p><strong>String</strong></p>
-
-<p>Static methods for common string manipulation / parsing tasks
-[60% done of which 20% documented]</p>
-
-<p><strong>Validate</strong></p>
-
-<p>Clean static API for type checking and validation
-[10% done of which 100% documented]</p>
-
-<h2>
 <a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
 
 <h3>
@@ -181,6 +134,103 @@ arguments of the closure, after the identifier arguments.</p>
 <span class="p">});</span>
 
 </pre></div>
+
+<p>Normally, when the first argument passed to <code>when()</code> is a
+string, it will match with any http method (get,post,put,delete, etc.)
+used. It is possible to only match on one or more specified
+<code>$_SERVER['REQUEST_METHOD'])</code>. By passing an array like
+<code>['/url/:id/edit/', 'get']</code> as first argument, only GET requests will
+match.</p>
+
+<p>You can use this to create a RESTful API interface.</p>
+
+<div class="highlight highlight-php"><pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="c1">// -- Include composer autoloader</span>
+<span class="c1">//    or require 'src/Babab/Simphplist/Route.php'</span>
+
+<span class="p">(</span><span class="k">new</span> <span class="nx">\Babab\Simphplist\Route</span><span class="p">)</span>
+
+<span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/api-route.php'</span><span class="p">)</span>
+
+<span class="c1">// This route will only match with GET requests</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'get'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">'Getting article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+
+<span class="p">})</span>
+<span class="c1">// This route will only match with POST requests</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/new/'</span><span class="p">,</span> <span class="s1">'post'</span><span class="p">],</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">'Adding article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+
+<span class="p">})</span>
+<span class="c1">// This route will only match with DELETE requests</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'delete'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">'Article: '</span> <span class="o">.</span> <span class="nv">$id</span> <span class="o">.</span> <span class="s1">' is going to be deleted'</span><span class="p">;</span>
+
+<span class="p">})</span>
+<span class="c1">// This route will only match with both GET or PUT requests</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/user/:id/'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'put'</span><span class="p">]],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">'User ID: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+
+<span class="p">})</span>
+<span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">'Invalid route'</span><span class="p">;</span>
+
+<span class="p">});</span>
+
+</pre></div>
+
+<h2>
+<a name="features--components" class="anchor" href="#features--components"><span class="octicon octicon-link"></span></a>Features / Components</h2>
+
+<p>Simphplist is in the initial stages of development. Some components may
+be actually useful already though.</p>
+
+<p><strong>DB\MysqlHandler</strong></p>
+
+<p>MySQL handler with table prefix support
+[25% done of which 50% documented]</p>
+
+<p><strong>DB\Model</strong></p>
+
+<p>Simplistic MySQL Object Mapper
+[20% done of which 0% documented]</p>
+
+<p><strong>Debug</strong></p>
+
+<p>Static methods for dumping vars to a file or screen (html or text)
+[100% done of which 100% documented]</p>
+
+<p><strong>Json</strong></p>
+
+<p>Shortcuts for common idioms in JSON interaction
+[50% done of which 0% documented]</p>
+
+<p><strong>Request</strong></p>
+
+<p>Static methods for secure user input handling via REQUEST superglobal(s):
+(GET, POST, COOKIE)
+[30% done of which 0% documented]</p>
+
+<p><strong>Route</strong></p>
+
+<p>Minimalistic, flexible and extensible routing
+[70% done of which 80% documented]</p>
+
+<p><strong>String</strong></p>
+
+<p>Static methods for common string manipulation / parsing tasks
+[60% done of which 20% documented]</p>
+
+<p><strong>Validate</strong></p>
+
+<p>Clean static API for type checking and validation
+[10% done of which 100% documented]</p>
 
 <h2>
 <a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
