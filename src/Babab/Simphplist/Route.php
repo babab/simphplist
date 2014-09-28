@@ -41,19 +41,38 @@ class Route {
 
     /**
      * Run a default closure when no other previous `when()` calls
-     * have matched. The closure cannot accept arguments.
+     * have matched and stop routing.
      *
+     * @param ... optional arguments to pass to closure
      * @param callable $func A closure or variable function to run
-     * @retval bool | array Match success or matched identifier pair
+     * @retval Route object
      */
-    public function otherwise($func)
+    public function otherwise()
     {
         if ($this->_matched)
             return $this;
-
-        $func();
         $this->_matched = true;
-        return $this;
+
+        if (!$n_args = func_num_args())
+            return $this;
+
+        $a_args = func_get_args();
+        $closureArgs = [];
+
+        // add optional arguments to the closure and ultimately call
+        // when a callable is found (which can also be a predefined function
+        for ($i = 0; $i < $n_args; $i++) {
+            // the closure should always be last
+            if (is_callable($a_args[$i])) {
+                $function = new \ReflectionFunction($a_args[$i]);
+                $function->invokeArgs($closureArgs);
+                return $this;
+            }
+            else {
+                // add to closure argument list
+                $closureArgs[] = $a_args[$i];
+            }
+        }
     }
 
     /**
@@ -96,7 +115,7 @@ class Route {
      * @param string $uri The URI format to match for
      * @param ... optional arguments to pass to closure
      * @param callable $func A closure or variable function to run
-     * @retval bool | array Match success or matched identifier pair
+     * @retval Route object
      */
     public function when()
     {
@@ -114,15 +133,15 @@ class Route {
         if (!is_string($path))
             return $this;
 
-        // parse path and save closure arguments in $match
-        if (!$match = $this->parseURI($path))
+        // parse path and save closure arguments in $closureArgs
+        if (!$closureArgs = $this->parseURI($path))
             return $this;
 
-        // if $match is true it means there are no arguments but there
-        // still is a valid match; make sure to pass an array to the
-        // closure
-        if ($match === true)
-            $match = [];
+        // if $closureArgs is true it means there are no arguments
+        // but there still is a valid match; make sure to pass an
+        // array to the closure
+        if ($closureArgs === true)
+            $closureArgs = [];
 
         // When this point has been reached, there seems to be a match,
         // any subsequent calls should not have any effect.
@@ -134,16 +153,24 @@ class Route {
             // the closure should always be last
             if (is_callable($a_args[$i])) {
                 $function = new \ReflectionFunction($a_args[$i]);
-                $function->invokeArgs($match);
+                $function->invokeArgs($closureArgs);
                 return $this;
             }
             else {
                 // add to closure argument list
-                $match[] = $a_args[$i];
+                $closureArgs[] = $a_args[$i];
             }
         }
     }
 
+    /**
+     * Set a prefix (for developing without rewrite support)
+     *
+     * Use this to develop in PHP's built in webserver for example.
+     *
+     * @param string $prefix The prefix to use. E.g.: '/api.php'
+     * @retval Route object
+     */
     public function setPrefix($prefix)
     {
         $this->_prefix = $prefix;

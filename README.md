@@ -68,20 +68,19 @@ Clean static API for type checking and validation
 ### Routing
 
 When a route is valid the closure function will be run with any
-identifier (`{identifier}`) matches made available to the closure /
-anonymous function as function arguments.
+identifier `/url/{identifier}/edit/` matches made available to the
+closure / anonymous function as function arguments.
 
 When a route is matched, any subsequent calls to `when()` or
 `otherwise()` will have no effect. The `setPrefix()`, `when()` and
 `otherwise()` methods can be chained together like below, which will
-read somewhat like a typical `if..elseif..else` construct.
+read somewhat like a typical if..elseif..else construct.
 
-The API design is inspired by:
+The API syntax is inspired by:
 
-- Laravel Routing        : the closure function
-- AngularJS' ngRoute     : `when..otherwise` and `/url/:identifier` syntax
-- AngularJS' ngController: dependency injection based on
-                           postional arguments
+- Laravel Routing      : using a closure function
+- AngularJS' Route     : `when..otherwise` and `/url/:identifier` syntax
+- AngularJS' Controller: dependency injection based on postional arguments
 
 An `$uri` can have identifiers, which are marked with `{}`.
 In the following example there is an 'id' identifier
@@ -142,7 +141,8 @@ $foo = 'bar'; // A string that is used in some routes
 
 })
 // When no previous matches are found, redirect to /articles/.
-// You could also show a 404 error page here.
+// You could also show a 404 error page here. Otherwise can
+// alternatively also accept positional closure arguments, like $foo
 ->otherwise(function() {
 
     \Babab\Simphplist\Route::redirect("/route.php/articles/");
