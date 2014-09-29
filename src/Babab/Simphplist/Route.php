@@ -222,6 +222,12 @@ class Route {
     public function parseURI($referencePath, $methods = 'all')
     {
         $uri = htmlentities($_SERVER['REQUEST_URI']);
+
+        // Check REQUEST_URI for a QUERY_STRING and strip it
+        $querystringDelimiter = strpos($uri, '?');
+        if ($querystringDelimiter !== false)
+            $uri = substr($uri, 0, $querystringDelimiter);
+
         $valid_method = false;
 
         if ($methods === 'all') {
