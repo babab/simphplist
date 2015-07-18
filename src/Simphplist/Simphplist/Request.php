@@ -1,6 +1,6 @@
 <?php
 /*
- * Simphplist Json
+ * Simphplist Request
  *
  * Copyright (c) 2014-2015 Benjamin Althues <benjamin@babab.nl>
  *
@@ -17,43 +17,24 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace Babab\Simphplist;
+namespace Simphplist\Simphplist;
 
 /**
- * @class Json
- * @brief Shortcuts for common idioms in JSON interaction
+ * @class Request
+ * @brief Static methods for secure user input handling via REQUEST superglobal(s):
+ *        (GET, POST, COOKIE)
  */
-
-class Json {
-
-    /* input methods */
-
-    public static function input()
+class Request
+{
+    public static function get($var, $defaultValue='')
     {
-        return json_decode(file_get_contents('php://input'));
+        $filtered = filter_input(INPUT_GET, $var, FILTER_SANITIZE_STRING);
+        return $filtered ?: $defaultValue;
     }
 
-    /* output methods */
-
-    public static function stringify($obj)
+    public static function post($var, $defaultValue='')
     {
-        return print_r(json_encode($obj), true);
-    }
-
-    public static function msgerr($message, $error)
-    {
-        return self::stringify([
-            'message' => $message, 'error' => $error
-        ]);
-    }
-
-    public static function message($message)
-    {
-        return self::msgerr($message, '');
-    }
-
-    public static function error($error)
-    {
-        return self::msgerr('', $error);
+        $filtered = filter_input(INPUT_POST, $var, FILTER_SANITIZE_STRING);
+        return $filtered ?: $defaultValue;
     }
 }

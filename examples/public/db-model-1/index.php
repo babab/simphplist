@@ -8,9 +8,9 @@ if (!defined('SIMPHPLIST_EXAMPLES_NO_LOADER') || !SIMPHPLIST_EXAMPLES_NO_LOADER)
     (@include dirname(dirname(__DIR__)) . "/vendor/autoload.php")
         || die ('Please run `composer install`.');
 
-use \Babab\Simphplist\Debug;
-use \Babab\Simphplist\DB\ModelTest;
-use \Babab\Simphplist\DB\MysqlHandler;
+use \Simphplist\Simphplist\Debug;
+use \Simphplist\Simphplist\DB\ModelTest;
+use \Simphplist\Simphplist\DB\MysqlHandler;
 
 /*
  * You need to explicitly enable debugging before making any calls to

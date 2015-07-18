@@ -2,7 +2,7 @@
 function manual_load()
 {
     $d = dirname(dirname(__DIR__));
-    require $d . "/src/Babab/Simphplist/Route.php";
+    require $d . "/src/Simphplist/Simphplist/Route.php";
 }
 (@include dirname(__DIR__) . "/vendor/autoload.php") || manual_load();
 
@@ -36,7 +36,7 @@ function manual_load()
 
 $foo = 'bar'; // A string that is used in some routes
 
-(new \Babab\Simphplist\Route)
+(new \Simphplist\Simphplist\Route)
 
 // Use a prefix for developing without rewrite support
 // (for example with PHP's excellent built in webserver)
@@ -73,7 +73,7 @@ $foo = 'bar'; // A string that is used in some routes
 
     $y = date('y');
     $m = date('m');
-    \Babab\Simphplist\Route::redirect("/route.php/articles/$y/$m/");
+    \Simphplist\Simphplist\Route::redirect("/route.php/articles/$y/$m/");
 
 })
 // When no previous matches are found, redirect to /articles/.
@@ -81,6 +81,6 @@ $foo = 'bar'; // A string that is used in some routes
 // alternatively also accept positional closure arguments, like $foo
 ->otherwise(function() {
 
-    \Babab\Simphplist\Route::redirect("/route.php/articles/");
+    \Simphplist\Simphplist\Route::redirect("/route.php/articles/");
 
 });

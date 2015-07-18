@@ -10,7 +10,7 @@
                  "homepage": "https://babab.nl/",
                  "role": "Maintainer / Developer"}],
     "autoload": {
-        "psr-0": {"Babab\\Simphplist": "src"}
+        "psr-0": {"Simphplist\\Simphplist": "src"}
     },
     "require": {
         "php": ">=5.4.0"

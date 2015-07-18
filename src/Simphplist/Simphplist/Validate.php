@@ -17,7 +17,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace Babab\Simphplist;
+namespace Simphplist\Simphplist;
 
 /**
  * @class Validate

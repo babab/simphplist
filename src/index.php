@@ -16,8 +16,8 @@ function autoload($className)
     require $fileName;
 }
 
-autoload('\Babab\Simphplist\Request');
+autoload('\Simphplist\Simphplist\Request');
 
-use \Babab\Simphplist\Request;
+use \Simphplist\Simphplist\Request;
 
 echo Request::get('test', 'use ?test=string');

@@ -50,11 +50,11 @@ arguments of the closure, after the identifier arguments.
 
 <?php
 // -- Include composer autoloader
-//    or require 'src/Babab/Simphplist/Route.php'
+//    or require 'src/Simphplist/Simphplist/Route.php'
 
 $foo = 'bar'; // A string that is used in some routes
 
-(new \Babab\Simphplist\Route)
+(new \Simphplist\Simphplist\Route)
 
 // Use a prefix for developing without rewrite support
 // (for example with PHP's excellent built in webserver)
@@ -91,7 +91,7 @@ $foo = 'bar'; // A string that is used in some routes
 
     $y = date('y');
     $m = date('m');
-    \Babab\Simphplist\Route::redirect("/route.php/articles/$y/$m/");
+    \Simphplist\Simphplist\Route::redirect("/route.php/articles/$y/$m/");
 
 })
 // When no previous matches are found, redirect to /articles/.
@@ -99,7 +99,7 @@ $foo = 'bar'; // A string that is used in some routes
 // alternatively also accept positional closure arguments, like $foo
 ->otherwise(function() {
 
-    \Babab\Simphplist\Route::redirect("/route.php/articles/");
+    \Simphplist\Simphplist\Route::redirect("/route.php/articles/");
 
 });
 
@@ -118,9 +118,9 @@ You can use this to create a RESTful API interface.
 
 <?php
 // -- Include composer autoloader
-//    or require 'src/Babab/Simphplist/Route.php'
+//    or require 'src/Simphplist/Simphplist/Route.php'
 
-(new \Babab\Simphplist\Route)
+(new \Simphplist\Simphplist\Route)
 
 ->setPrefix('/api-route.php')
 

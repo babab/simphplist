@@ -1,17 +1,17 @@
 /**
- * @namespace Babab
+ * @namespace Simphplist
  * @brief Vendor namespace of developer Benjamin Althues (babab.nl)
  *
- * @namespace Babab::Simphplist
+ * @namespace Simphplist::Simphplist
  * @brief Framework namespace
  *
- * @namespace Babab::Simphplist::Auth
+ * @namespace Simphplist::Simphplist::Auth
  * @brief Authentication of Users Library
  *
- * @namespace Babab::Simphplist::DB
+ * @namespace Simphplist::Simphplist::DB
  * @brief MySQL Handling and simplistic Object Mapper with a clean API
  *
- * @namespace Babab::SimphplistTests
+ * @namespace Simphplist::SimphplistTests
  * @brief Unit tests namespace
  */
 

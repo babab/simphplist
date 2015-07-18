@@ -17,7 +17,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace Babab\Simphplist;
+namespace Simphplist\Simphplist;
 
 /**
  * @class Route
@@ -84,7 +84,7 @@ class Route {
      *
      *     $foo = 'bar';
      *
-     *     (new \Babab\Simphplist\Routing\Route)
+     *     (new \Simphplist\Simphplist\Routing\Route)
      *
      *     ->when('/articles/:id/, function($id) {
      *          echo 'This is article: ' . $id;
@@ -103,7 +103,7 @@ class Route {
      *     })
      *
      *     ->otherwise(function() {
-     *         \Babab\Simphplist\Route::redirect('/articles/');
+     *         \Simphplist\Simphplist\Route::redirect('/articles/');
      *     });
      *
      * When the url is matched, any values that are matched with

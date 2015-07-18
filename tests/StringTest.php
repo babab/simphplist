@@ -15,9 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace Babab\SimphplistTests;
+namespace Simphplist\SimphplistTests;
 
-use \Babab\Simphplist\String;
+use \Simphplist\Simphplist\String;
 
 
 class StringTest extends \PHPUnit_Framework_TestCase
