@@ -16,29 +16,8 @@ function autoload($className)
     require $fileName;
 }
 
-autoload('\Babab\Simphplist\DB\MysqlHandler');
-autoload('\Babab\Simphplist\DB\Model');
-autoload('\Babab\Simphplist\DB\ModelTest');
+autoload('\Babab\Simphplist\Request');
 
-use \Babab\Simphplist\DB\MysqlHandler;
-use \Babab\Simphplist\DB\ModelTest;
+use \Babab\Simphplist\Request;
 
-$model = new ModelTest(new MysqlHandler(array(
-    'host' => 'localhost',
-    'user' => 'root',
-    'name' => 'simphplist',
-    'pw' => '',
-    'prefix' => 'simphplist_',
-)));
-
-$model->id = 1;
-
-if ($model->isValid())
-    $model->printInfo();
-else {
-    echo 'Model is not valid <pre>';
-    print_r($model->getValidationErrors());
-    echo '</pre>';
-}
-
-/* echo "<h2>Model object</h2><hr /><pre>" . print_r($model, true) . "</pre>"; */
+echo Request::get('test', 'use ?test=string');
