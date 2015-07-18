@@ -36,12 +36,13 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id="introduction">Introduction</h1>
-<pre class="highlight php"><code><span class="cp">&lt;?php</span>
 
+<p><strong>Decoupled (framework) libraries with simplistic API&rsquo;s</strong></p>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="k">include</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"/vendor/autoload.php"</span><span class="p">;</span>
 
-<span class="k">use</span> <span class="nx">\Simphplist\Simphplist</span><span class="p">;</span>
-
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Route</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Debug</span><span class="p">;</span>
 </code></pre>
 
 <p>Simphplist helps you with shortcuts and clean API&rsquo;s for writing the
@@ -53,14 +54,12 @@ for) applications. Simphplist is carefully designed to allow using it
 alongside any other (custom) framework.</p>
 
 <h1 id="installing">Installing</h1>
-<pre class="highlight json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myProject"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"require"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"simphplist/simphplist"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2.*"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre>
 
 <p>Install from packagist using composer, by adding a <code class="prettyprint">composer.json</code> file
@@ -68,12 +67,10 @@ and running <code class="prettyprint">composer install</code>.</p>
 
 <p>Packagist: https://packagist.org/packages/simphplist/simphplist</p>
 
-<h1 id="route">Route</h1>
+<h1 id="route">&ndash; Route</h1>
 
 <h2 id="overview">Overview</h2>
-<pre class="highlight php"><code>
-<span class="cp">&lt;?php</span>
-
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Route</span><span class="p">;</span>
 
 <span class="nv">$foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span> <span class="c1">// A string that is used in some routes
@@ -94,7 +91,6 @@ and running <code class="prettyprint">composer install</code>.</p>
 <span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/index.php/articles/"</span><span class="p">);</span>
 <span class="p">});</span>
-
 </code></pre>
 
 <p>Routing can be done with the <code class="prettyprint">Route</code> class.</p>
@@ -116,7 +112,9 @@ which will read somewhat like a typical if..elseif..else construct.</p>
 <li>AngularJS&rsquo; Controller: dependency injection based on postional arguments</li>
 </ul>
 
-<h2 id="setprefix-prefix">:: setPrefix($prefix)</h2>
+<h2 id="setprefix">:: setPrefix()</h2>
+
+<p><code class="prettyprint">setPrefix($prefix)</code></p>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 
 <span class="nv">$route</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">;</span>
@@ -126,10 +124,6 @@ which will read somewhat like a typical if..elseif..else construct.</p>
 <p>Set a prefix (for developing without rewrite support)</p>
 
 <p>Use this to develop in PHP&rsquo;s built in webserver for example.</p>
-
-<h3 id="returns">Returns</h3>
-
-<p>Always returns the initialized route object (for method chaining)</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -147,7 +141,13 @@ which will read somewhat like a typical if..elseif..else construct.</p>
 </tr>
 </tbody></table>
 
-<h2 id="when-url-func">:: when($url, &hellip;, $func)</h2>
+<h3 id="returns">Returns</h3>
+
+<p>Always returns the initialized route object (for method chaining)</p>
+
+<h2 id="when">:: when()</h2>
+
+<p><code class="prettyprint">when($url, ..., $func)</code></p>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 
 <span class="nv">$foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span>
@@ -208,7 +208,9 @@ arguments of the closure, after the identifier arguments.</p>
 
 <p>Always returns the initialized route object (for method chaining)</p>
 
-<h2 id="otherwise-func">:: otherwise(&hellip;, $func)</h2>
+<h2 id="otherwise">:: otherwise()</h2>
+
+<p><code class="prettyprint">otherwise(..., $func)</code></p>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 
 <span class="nv">$route</span><span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
@@ -218,10 +220,6 @@ arguments of the closure, after the identifier arguments.</p>
 
 <p>Run a default closure when no other previous <code class="prettyprint">when()</code> calls have matched
 and stop routing.</p>
-
-<h3 id="returns">Returns</h3>
-
-<p>Always returns the initialized route object (for method chaining)</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -244,25 +242,21 @@ and stop routing.</p>
 </tr>
 </tbody></table>
 
-<h2 id="parseuri-referencepath-methods-39-all-39">:: parseURI($referencePath, $methods=&#39;all&rsquo;)</h2>
+<h3 id="returns">Returns</h3>
+
+<p>Always returns the initialized route object (for method chaining)</p>
+
+<h2 id="parseuri">:: parseURI()</h2>
 
 <p><strong>A lower level function, used in the when() method for parsing the URI.</strong></p>
+
+<p><code class="prettyprint">parseURI($referencePath, $methods=&#39;all&#39;)</code></p>
 
 <p>Match REQUEST_URI with $reference path. The REQUEST_URI is optionally
 stripped with prefix before matching (useful for developing without
 rewriting rules, with PHP&rsquo;s built in webserver for example). If $methods
 is not &#39;all&rsquo;, but an array of method names, it will return false when
 the REQUEST_METHOD does not exist in that array.</p>
-
-<h3 id="returns">Returns</h3>
-
-<p>Match success or matched identifier pair (bool | array)</p>
-
-<ul>
-<li>Returns an asscoitative array with matched identifier pairs when applicable;</li>
-<li>Returns true when a match is found without identifiers;</li>
-<li>Returns false when no match is found</li>
-</ul>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -285,9 +279,18 @@ the REQUEST_METHOD does not exist in that array.</p>
 </tr>
 </tbody></table>
 
+<h3 id="returns">Returns</h3>
+
+<p>Match success or matched identifier pair (bool | array)</p>
+
+<ul>
+<li>Returns an asscoitative array with matched identifier pairs when applicable;</li>
+<li>Returns true when a match is found without identifiers;</li>
+<li>Returns false when no match is found</li>
+</ul>
+
 <h2 id="creating-a-restful-api">Creating a RESTful API</h2>
-<pre class="highlight php"><code>
-<span class="cp">&lt;?php</span>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
 
 <span class="p">(</span><span class="k">new</span> <span class="nx">\Simphplist\Simphplist\Route</span><span class="p">)</span>
 <span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'get'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
@@ -301,7 +304,6 @@ the REQUEST_METHOD does not exist in that array.</p>
 <span class="p">})</span><span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s1">'Invalid route'</span><span class="p">;</span>
 <span class="p">});</span>
-
 </code></pre>
 
 <p>Normally, when the first argument passed to <code class="prettyprint">when()</code> is a
@@ -314,9 +316,152 @@ match.</p>
 <p>Together with Simphplist&rsquo;s Json library, you can use this to create a
 RESTful API interface.</p>
 
+<h1 id="debug">&ndash; Debug</h1>
+
+<h2 id="overview">Overview</h2>
+
+<blockquote>
+<p>&ldquo;The most effective debugging tool is still careful thought, coupled
+with judiciously placed print statements.&rdquo; &ndash; Brian Kernighan</p>
+</blockquote>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Debug</span><span class="p">;</span>
+
+<span class="nv">$someMapping</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$someMapping</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Debug</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">Debug</span><span class="o">::</span><span class="nv">$file</span> <span class="o">=</span> <span class="s1">'/var/www/dump.log'</span><span class="p">;</span>
+<span class="nx">Debug</span><span class="o">::</span><span class="na">file</span><span class="p">(</span><span class="nv">$someMapping</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</code></pre>
+
+<p>Static methods for dumping vars to a file or screen (html or text).</p>
+
+<p>The Simphplist debug class is just some fancy wrappers around
+<code class="prettyprint">var_dump</code> and <code class="prettyprint">print_r</code>, but provides a straight-forward way of dumping
+values to either the screen or a file.</p>
+
+<aside class="notice">
+You need to explicitly set the value of `Debug::$debug`
+</aside>
+
+<p>Simphplist Debug adds protection (for production environments) and
+flexibility by using a trigger setting <code class="prettyprint">Debug::$debug</code> that needs to be
+explicitly set to true-ish before it will output anything. Leaving or
+setting it at a value that evaluates as false will make sure leftover
+debug calls will not do anything. You can set the $debug value to
+<code class="prettyprint">text</code>, <code class="prettyprint">html</code> or <code class="prettyprint">file</code> to override the dump method used, no mather
+what method is actually called in the code.</p>
+
+<h2 id="debug">:: $debug</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Debug</span><span class="p">;</span>
+
+<span class="c1">// Override all debug calls to html()
+</span><span class="nx">Debug</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="s1">'html'</span><span class="p">;</span>
+
+<span class="c1">// Because of the override, this will actually be dumped as html
+</span><span class="nx">Debug</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+</code></pre>
+
+<p><code class="prettyprint">$debug = false</code></p>
+
+<p>Debug value, can be a boolean or a string with the method used for
+overriding debug method calls.</p>
+
+<h2 id="file">:: $file</h2>
+
+<p><code class="prettyprint">$file = &#39;/tmp/simphplist-debug.log&#39;</code></p>
+
+<p>String with the complete path to the dumpfile used in Debug::file method
+calls.</p>
+
+<h2 id="tags">:: $tags</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Debug</span><span class="p">;</span>
+
+<span class="nx">Debug</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="c1">// Echo in a textarea instead of a &lt;pre&gt; block
+</span><span class="nx">Debug</span><span class="o">::</span><span class="nv">$tags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'&lt;textarea rows="24" style="width: 100%"&gt;'</span><span class="p">,</span> <span class="s1">'&lt;/textarea&gt;'</span><span class="p">];</span>
+<span class="nx">Debug</span><span class="o">::</span><span class="na">html</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+</code></pre>
+
+<p><code class="prettyprint">$tags = [&#39;&lt;pre&gt;&#39;, &#39;&lt;/pre&gt;&#39;]</code></p>
+
+<p>A 2-item array with the start and end tags to use when dumping variables
+with the <code class="prettyprint">html</code> method</p>
+
+<h2 id="text">:: text()</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Debug</span><span class="p">;</span>
+
+<span class="nx">Debug</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="nx">Debug</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+</code></pre>
+
+<p><code class="prettyprint">text(..., ...)</code></p>
+
+<p>Echo variable as a simple text string</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&hellip;</td>
+<td>mixed</td>
+<td>one or more variables to dump</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns-void-string">Returns void | string</h3>
+
+<p>Returns a error string when there are errors, else void</p>
+
+<h2 id="html">:: html()</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Debug</span><span class="p">;</span>
+
+<span class="nx">Debug</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="nx">Debug</span><span class="o">::</span><span class="na">html</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+</code></pre>
+
+<p><code class="prettyprint">html(..., ...)</code></p>
+
+<p>Echo variable dumps in an html formatted text string</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&hellip;</td>
+<td>mixed</td>
+<td>one or more variables to dump</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns-void-string">Returns void | string</h3>
+
+<p>Returns a error string when there are errors, else void</p>
+
 <h1 id="license">License</h1>
-<pre class="highlight plaintext"><code>
-Copyright (c) 2014-2015  Benjamin Althues &lt;benjamin@babab.nl&gt;
+<pre class="highlight plaintext"><code>Copyright (c) 2014-2015  Benjamin Althues &lt;benjamin@babab.nl&gt;
 
 Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
