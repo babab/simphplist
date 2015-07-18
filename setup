@@ -38,9 +38,9 @@ _dist()
 
 _docs()
 {
-    php docs.md.php > docs.md
-    cp docs.md docs/source/index.md
-    cd docs
+    php docs/docs.md.php > docs/docs.md
+    cp docs/docs.md docs/slate/source/index.md
+    cd docs/slate
     rake build
 }
 
