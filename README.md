@@ -1,10 +1,10 @@
 # Simphplist
 
-Simphplist is a mini-framework with anti-framework features. A
-collection of losely coupled components, that helps you with shortcuts
-and clean API's for writing the most common idioms when developing web
-applications in PHP (routing, MySQL handling, object mapper,
-authentication, validation, typechecking).
+Decoupled (framework) libraries with simplistic API's
+
+Simphplist helps you with shortcuts and clean API's for writing the
+most common idioms when developing web applications in PHP (routing,
+validation and $\_GET/$\_POST filtering).
 
 You can use it as a minimalistic base for writing custom (frameworks
 for) applications. Simphplist is carefully designed to allow using it
@@ -226,6 +226,12 @@ Packagist: https://packagist.org/packages/simphplist/simphplist
 
 
 ## License
+
+Springwhiz is released under an ISC license, that is functionally
+equivalent to the simplified BSD and MIT/Expat licenses, with language
+that was deemed unnecessary by the Berne convention removed.
+
+------------------------------------------------------------------------------
 
 Copyright (c) 2014-2015  Benjamin Althues <benjamin@babab.nl>
 

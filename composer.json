@@ -1,7 +1,7 @@
 {
     "name": "simphplist/simphplist",
     "type": "library",
-    "description": "Mini-framework with anti-framework features",
+    "description": "Decoupled (framework) libraries with simplistic API's",
     "keywords": ["debug", "debugging", "requests"],
     "homepage": "http://simphplist.org",
     "license": "ISC",
