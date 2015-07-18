@@ -19,11 +19,6 @@
 
 namespace Simphplist\Simphplist;
 
-/**
- * @class Route
- * @brief Minimalistic, flexible and extensible routing
- */
-
 class Route {
 
     public static function redirect($uri, $httpPrefixer = false)
@@ -39,14 +34,6 @@ class Route {
     // Set to true when a when match is found to stop routing
     private $_matched = false;
 
-    /**
-     * Run a default closure when no other previous `when()` calls
-     * have matched and stop routing.
-     *
-     * @param ... optional arguments to pass to closure
-     * @param callable $func A closure or variable function to run
-     * @retval Route object
-     */
     public function otherwise()
     {
         if ($this->_matched)
@@ -75,48 +62,6 @@ class Route {
         }
     }
 
-    /**
-     * Run a closure when the visited URL matches the defined URI format
-     *
-     * An $uri can have identifiers, which are marked with a leading `:`.
-     * In the following example there is an 'id' identifier
-     * for a blog article:
-     *
-     *     $foo = 'bar';
-     *
-     *     (new \Simphplist\Simphplist\Routing\Route)
-     *
-     *     ->when('/articles/:id/, function($id) {
-     *          echo 'This is article: ' . $id;
-     *     })
-     *
-     *     ->when('/articles/, function() {
-     *          echo 'This is the article list';
-     *     })
-     *
-     *     ->when('/archive/:y/:m/, $foo, function($y, $m, foo) {
-     *          echo 'This is article: ' . $id;
-     *     })
-     *
-     *     ->when('/archive/, $foo, function(foo) {
-     *          echo 'This is article: ' . $id;
-     *     })
-     *
-     *     ->otherwise(function() {
-     *         \Simphplist\Simphplist\Route::redirect('/articles/');
-     *     });
-     *
-     * When the url is matched, any values that are matched with
-     * identifiers are made available as arguments of the closure, in
-     * left-to-right order. Any extra arguments passed between the
-     * URI string and the closure function are also made available as
-     * arguments of the closure, after the identifier arguments.
-     *
-     * @param string $uri The URI format to match for
-     * @param ... optional arguments to pass to closure
-     * @param callable $func A closure or variable function to run
-     * @retval Route object
-     */
     public function when()
     {
         if ($this->_matched)
@@ -185,40 +130,12 @@ class Route {
         }
     }
 
-    /**
-     * Set a prefix (for developing without rewrite support)
-     *
-     * Use this to develop in PHP's built in webserver for example.
-     *
-     * @param string $prefix The prefix to use. E.g.: '/api.php'
-     * @retval Route object
-     */
     public function setPrefix($prefix)
     {
         $this->_prefix = $prefix;
         return $this;
     }
 
-    /**
-     * Match REQUEST_URI with $reference path
-     *
-     * The REQUEST_URI is optionally stripped with prefix before
-     * matching (useful for developing without rewriting rules, with
-     * PHP's built in webserver for example)
-     *
-     * If $methods is not 'all', but an array of method names, it will
-     * return false when the REQUEST_METHOD does not exist in that
-     * array.
-     *
-     * Returns an asscoitative array with matched identifier pairs when
-     * applicable;
-     * Returns true then a match is found without identifiers;
-     * Returns false when no match is found
-     *
-     * @param string $referencePath The URI format to match for
-     * @param string | array $methods String 'all' or an array of methods
-     * @retval bool | array Match success or matched identifier pair
-     */
     public function parseURI($referencePath, $methods = 'all')
     {
         $uri = htmlentities($_SERVER['REQUEST_URI']);
