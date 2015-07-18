@@ -36,20 +36,68 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id="introduction">Introduction</h1>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
 
-<p>Decoupled (framework) libraries with simplistic API&rsquo;s</p>
+<span class="k">include</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"/vendor/autoload.php"</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist</span><span class="p">;</span>
+
+</code></pre>
 
 <p>Simphplist helps you with shortcuts and clean API&rsquo;s for writing the
 most common idioms when developing web applications in PHP (routing,
-validation and $_GET/$_POST filtering).</p>
+debugging, validation and $_GET/$_POST filtering).</p>
 
 <p>You can use it as a minimalistic base for writing custom (frameworks
 for) applications. Simphplist is carefully designed to allow using it
 alongside any other (custom) framework.</p>
 
-<h1 id="routing">Routing</h1>
+<h1 id="installing">Installing</h1>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myProject"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"require"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"simphplist/simphplist"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2.*"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<p>Routing is handled with the <code class="prettyprint">\Simphplist\Simphplist\Route</code> class.</p>
+</span></code></pre>
+
+<p>Install from packagist using composer, by adding a <code class="prettyprint">composer.json</code> file
+and running <code class="prettyprint">composer install</code>.</p>
+
+<p>Packagist: https://packagist.org/packages/simphplist/simphplist</p>
+
+<h1 id="route">Route</h1>
+
+<h2 id="overview">Overview</h2>
+<pre class="highlight php"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">\Simphplist\Simphplist\Route</span><span class="p">;</span>
+
+<span class="nv">$foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span> <span class="c1">// A string that is used in some routes
+</span>
+<span class="p">(</span><span class="k">new</span> <span class="nx">Route</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/index.php'</span><span class="p">)</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'This is the article list'</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:y/:m/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"This is the archive&lt;br&gt;year: </span><span class="nv">$y</span><span class="s2">&lt;br&gt;month: </span><span class="nv">$m</span><span class="s2">"</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"&lt;br&gt;Also, foo = </span><span class="nv">$foo</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:void/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$y</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'y'</span><span class="p">);</span>
+    <span class="nv">$m</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'m'</span><span class="p">);</span>
+    <span class="nx">Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/index.php/articles/</span><span class="nv">$y</span><span class="s2">/</span><span class="nv">$m</span><span class="s2">/"</span><span class="p">);</span>
+<span class="p">})</span>
+<span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/index.php/articles/"</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre>
+
+<p>Routing can be done with the <code class="prettyprint">Route</code> class.</p>
 
 <p>When a route is valid the closure function will be run with any
 identifier <code class="prettyprint">/url/:identifier/edit/</code> matches made available to the
@@ -57,8 +105,8 @@ closure / anonymous function as function arguments.</p>
 
 <p>When a route is matched, any subsequent calls to <code class="prettyprint">when()</code> or
 <code class="prettyprint">otherwise()</code> will have no effect. The <code class="prettyprint">setPrefix()</code>, <code class="prettyprint">when()</code> and
-<code class="prettyprint">otherwise()</code> methods can be chained together like below, which will
-read somewhat like a typical if..elseif..else construct.</p>
+<code class="prettyprint">otherwise()</code> methods can be chained together like in these examples,
+which will read somewhat like a typical if..elseif..else construct.</p>
 
 <p>The API syntax is inspired by:</p>
 
@@ -68,68 +116,61 @@ read somewhat like a typical if..elseif..else construct.</p>
 <li>AngularJS&rsquo; Controller: dependency injection based on postional arguments</li>
 </ul>
 
-<h2 id="basics">Basics</h2>
-<pre class="highlight php"><code>
-<span class="cp">&lt;?php</span>
-<span class="c1">// -- Include composer autoloader
-//    or require 'src/Simphplist/Simphplist/Route.php'
-</span>
-<span class="nv">$foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span> <span class="c1">// A string that is used in some routes
-</span>
-<span class="p">(</span><span class="k">new</span> <span class="nx">\Simphplist\Simphplist\Route</span><span class="p">)</span>
+<h2 id="setprefix-prefix">:: setPrefix($prefix)</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
 
-<span class="c1">// Use a prefix for developing without rewrite support
-// (for example with PHP's excellent built in webserver)
-</span><span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/route.php'</span><span class="p">)</span>
-
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'This is the article list'</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// The identifier is made available to the closure function
-</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/:id/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'This is article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// Here $foo is injected into the closure and used
-</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'This is the archive main page'</span><span class="p">;</span>
-    <span class="k">echo</span> <span class="s2">"&lt;br&gt;Also, foo = </span><span class="nv">$foo</span><span class="s2">"</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// Here $foo is injected into the closure after the identifiers
-</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:y/:m/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s2">"This is the archive&lt;br&gt;year: </span><span class="nv">$y</span><span class="s2">&lt;br&gt;month: </span><span class="nv">$m</span><span class="s2">"</span><span class="p">;</span>
-    <span class="k">echo</span> <span class="s2">"&lt;br&gt;Also, foo = </span><span class="nv">$foo</span><span class="s2">"</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// Here any value for `:void` is matched, but not used in the closure,
-// the user is redirected to the current year/month instead.
-</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:void/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="nv">$y</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'y'</span><span class="p">);</span>
-    <span class="nv">$m</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'m'</span><span class="p">);</span>
-    <span class="nx">\Simphplist\Simphplist\Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/route.php/articles/</span><span class="nv">$y</span><span class="s2">/</span><span class="nv">$m</span><span class="s2">/"</span><span class="p">);</span>
-
-<span class="p">})</span>
-<span class="c1">// When no previous matches are found, redirect to /articles/.
-// You could also show a 404 error page here. Otherwise can
-// alternatively also accept positional closure arguments, like $foo
-</span><span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="nx">\Simphplist\Simphplist\Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/route.php/articles/"</span><span class="p">);</span>
-
-<span class="p">});</span>
-
+<span class="nv">$route</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">;</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'index.php'</span><span class="p">);</span>
 </code></pre>
 
-<p>An <code class="prettyprint">$uri</code> can have identifiers, which are marked with a leading <code class="prettyprint">:</code>.
-In the following example there is an &lsquo;id&rsquo; identifier
-for a blog article.</p>
+<p>Set a prefix (for developing without rewrite support)</p>
+
+<p>Use this to develop in PHP&rsquo;s built in webserver for example.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Always returns the initialized route object (for method chaining)</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>$prefix</td>
+<td>string</td>
+<td>The prefix to use. E.g.: <code class="prettyprint">/api.php</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="when-url-func">:: when($url, &hellip;, $func)</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span>
+
+<span class="nv">$route</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">;</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/:id/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'This is article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'This is the article list'</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:y/:m/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'This is article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'This is article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>Run a closure when the visited URL matches the defined URI format</p>
+
+<p>An $uri can have identifiers, which are marked with a leading <code class="prettyprint">:</code>.
+In the example there is an &lsquo;id&rsquo; identifier for a blog article:</p>
 
 <p>When the url is matched, any values that are matched with
 identifiers are made available as arguments of the closure, in
@@ -137,44 +178,128 @@ left-to-right order. Any extra arguments passed between the
 URI string and the closure function are also made available as
 arguments of the closure, after the identifier arguments.</p>
 
-<h2 id="creating-a-rest-api">Creating a REST API</h2>
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>$uri</td>
+<td>string or array</td>
+<td>The URI and/or methods to match against</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>mixed</td>
+<td>Optional arguments to pass to closure</td>
+</tr>
+<tr>
+<td>$func</td>
+<td>callable</td>
+<td>A closure or variable function to run on match</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns">Returns</h3>
+
+<p>Always returns the initialized route object (for method chaining)</p>
+
+<h2 id="otherwise-func">:: otherwise(&hellip;, $func)</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s1">'/articles/'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>Run a default closure when no other previous <code class="prettyprint">when()</code> calls have matched
+and stop routing.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Always returns the initialized route object (for method chaining)</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&hellip;</td>
+<td>mixed</td>
+<td>optional arguments to pass to closure</td>
+</tr>
+<tr>
+<td>$func</td>
+<td>callable</td>
+<td>A closure or variable function to run on match</td>
+</tr>
+</tbody></table>
+
+<h2 id="parseuri-referencepath-methods-39-all-39">:: parseURI($referencePath, $methods=&#39;all&rsquo;)</h2>
+
+<p><strong>A lower level function, used in the when() method for parsing the URI.</strong></p>
+
+<p>Match REQUEST_URI with $reference path. The REQUEST_URI is optionally
+stripped with prefix before matching (useful for developing without
+rewriting rules, with PHP&rsquo;s built in webserver for example). If $methods
+is not &#39;all&rsquo;, but an array of method names, it will return false when
+the REQUEST_METHOD does not exist in that array.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Match success or matched identifier pair (bool | array)</p>
+
+<ul>
+<li>Returns an asscoitative array with matched identifier pairs when applicable;</li>
+<li>Returns true when a match is found without identifiers;</li>
+<li>Returns false when no match is found</li>
+</ul>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>$referencePath</td>
+<td>string</td>
+<td>The URI format to match for</td>
+</tr>
+<tr>
+<td>$methods</td>
+<td>string or array</td>
+<td>String &#39;all&rsquo; or an array of method names</td>
+</tr>
+</tbody></table>
+
+<h2 id="creating-a-restful-api">Creating a RESTful API</h2>
 <pre class="highlight php"><code>
 <span class="cp">&lt;?php</span>
-<span class="c1">// -- Include composer autoloader
-//    or require 'src/Simphplist/Simphplist/Route.php'
-</span>
+
 <span class="p">(</span><span class="k">new</span> <span class="nx">\Simphplist\Simphplist\Route</span><span class="p">)</span>
-
-<span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/api-route.php'</span><span class="p">)</span>
-
-<span class="c1">// This route will only match with GET requests
-</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'get'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'get'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s1">'Getting article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// This route will only match with POST requests
-</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/new/'</span><span class="p">,</span> <span class="s1">'post'</span><span class="p">],</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/new/'</span><span class="p">,</span> <span class="s1">'post'</span><span class="p">],</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s1">'Adding article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// This route will only match with DELETE requests
-</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'delete'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'delete'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s1">'Article: '</span> <span class="o">.</span> <span class="nv">$id</span> <span class="o">.</span> <span class="s1">' is going to be deleted'</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// This route will only match with both GET or PUT requests
-</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/user/:id/'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'put'</span><span class="p">]],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/user/:id/'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'put'</span><span class="p">]],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s1">'User ID: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s1">'Invalid route'</span><span class="p">;</span>
-
 <span class="p">});</span>
 
 </code></pre>
@@ -186,45 +311,29 @@ used. It is possible to only match on one or more specified
 <code class="prettyprint">[&#39;/url/:id/edit/&#39;, &#39;get&#39;]</code> as first argument, only GET requests will
 match.</p>
 
-<p>You can use this to create a RESTful API interface.</p>
-
-<h1 id="installing">Installing</h1>
-<pre class="highlight json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myProject"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"require"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"simphplist/simphplist"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre>
-
-<p>Install from packagist using composer, by adding a composer.json file
-and running <code class="prettyprint">composer install</code>.</p>
-
-<p>Packagist: https://packagist.org/packages/simphplist/simphplist</p>
+<p>Together with Simphplist&rsquo;s Json library, you can use this to create a
+RESTful API interface.</p>
 
 <h1 id="license">License</h1>
+<pre class="highlight plaintext"><code>
+Copyright (c) 2014-2015  Benjamin Althues &lt;benjamin@babab.nl&gt;
 
-<p>Springwhiz is released under an ISC license, which is functionally
-equivalent to the simplified BSD and MIT/Expat licenses, with language
-that was deemed unnecessary by the Berne convention removed.</p>
-
-<hr>
-
-<p>Copyright &copy; 2014-2015  Benjamin Althues <a href="mailto:benjamin@babab.nl">benjamin@babab.nl</a></p>
-
-<p>Permission to use, copy, modify, and distribute this software for any
+Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
-copyright notice and this permission notice appear in all copies.</p>
+copyright notice and this permission notice appear in all copies.
 
-<p>THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo; AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
 ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+</code></pre>
+
+<p>Springwhiz is released under an ISC license, which is functionally
+equivalent to the simplified BSD and MIT/Expat licenses, with language
+that was deemed unnecessary by the Berne convention removed.</p>
 
       </div>
       <div class="dark-box">
