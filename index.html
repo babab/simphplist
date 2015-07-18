@@ -1,56 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
     <title>Simphplist by babab</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/babab/simphplist">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/babab/simphplist/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/babab/simphplist/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-    <header>
-      <div class="container">
-        <h1>Simphplist</h1>
-        <h2>PHP mini-framework with anti-framework features</h2>
+    <div class="wrapper">
 
-        <section id="downloads">
-          <a href="https://github.com/babab/simphplist/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/babab/simphplist/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/babab/simphplist" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+      <section>
+        <div id="title">
+          <h1>Simphplist</h1>
+          <p> Decoupled (framework) libraries with simplistic API&#39;s</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/babab">babab</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
 
-    <div class="container">
-      <section id="main_content">
         <h1>
-<a name="simphplist" class="anchor" href="#simphplist"><span class="octicon octicon-link"></span></a>Simphplist</h1>
+<a id="simphplist" class="anchor" href="#simphplist" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simphplist</h1>
 
-<p>Simphplist is a mini-framework with anti-framework features. A
-collection of losely coupled components, that helps you with shortcuts
-and clean API's for writing the most common idioms when developing web
-applications in PHP (routing, MySQL handling, object mapper,
-authentication, validation, typechecking).</p>
+<p>Decoupled (framework) libraries with simplistic API's</p>
+
+<p>Simphplist helps you with shortcuts and clean API's for writing the
+most common idioms when developing web applications in PHP (routing,
+validation and $_GET/$_POST filtering).</p>
 
 <p>You can use it as a minimalistic base for writing custom (frameworks
 for) applications. Simphplist is carefully designed to allow using it
 alongside any other (custom) framework.</p>
 
 <h2>
-<a name="api-reference" class="anchor" href="#api-reference"><span class="octicon octicon-link"></span></a>API Reference</h2>
+<a id="api-documentation" class="anchor" href="#api-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>API Documentation</h2>
 
 <p>See: <a href="http://simphplist.org/annotated.html">http://simphplist.org/annotated.html</a></p>
 
 <h2>
-<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
 
 <h3>
-<a name="routing" class="anchor" href="#routing"><span class="octicon octicon-link"></span></a>Routing</h3>
+<a id="routing" class="anchor" href="#routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Routing</h3>
 
 <p>When a route is valid the closure function will be run with any
 identifier <code>/url/:identifier/edit/</code> matches made available to the
@@ -67,7 +77,9 @@ read somewhat like a typical if..elseif..else construct.</p>
 <li>Laravel Routing      : using a closure function</li>
 <li>AngularJS' Route     : <code>when..otherwise</code> and <code>/url/:identifier</code> syntax</li>
 <li>AngularJS' Controller: dependency injection based on postional arguments</li>
-</ul><p>An <code>$uri</code> can have identifiers, which are marked with a leading <code>:</code>.
+</ul>
+
+<p>An <code>$uri</code> can have identifiers, which are marked with a leading <code>:</code>.
 In the following example there is an 'id' identifier
 for a blog article.</p>
 
@@ -77,63 +89,62 @@ left-to-right order. Any extra arguments passed between the
 URI string and the closure function are also made available as
 arguments of the closure, after the identifier arguments.</p>
 
-<div class="highlight highlight-php"><pre>
-<span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// -- Include composer autoloader</span>
-<span class="c1">//    or require 'src/Babab/Simphplist/Route.php'</span>
-
-<span class="nv">$foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span> <span class="c1">// A string that is used in some routes</span>
-
-<span class="p">(</span><span class="k">new</span> <span class="nx">\Babab\Simphplist\Route</span><span class="p">)</span>
-
-<span class="c1">// Use a prefix for developing without rewrite support</span>
-<span class="c1">// (for example with PHP's excellent built in webserver)</span>
-<span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/route.php'</span><span class="p">)</span>
-
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'This is the article list'</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// The identifier is made available to the closure function</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/articles/:id/'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'This is article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// Here $foo is injected into the closure and used</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'This is the archive main page'</span><span class="p">;</span>
-    <span class="k">echo</span> <span class="s2">"&lt;br&gt;Also, foo = </span><span class="si">$foo</span><span class="s2">"</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// Here $foo is injected into the closure after the identifiers</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:y/:m/'</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s2">"This is the archive&lt;br&gt;year: </span><span class="si">$y</span><span class="s2">&lt;br&gt;month: </span><span class="si">$m</span><span class="s2">"</span><span class="p">;</span>
-    <span class="k">echo</span> <span class="s2">"&lt;br&gt;Also, foo = </span><span class="si">$foo</span><span class="s2">"</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// Here any value for `:void` is matched, but not used in the closure,</span>
-<span class="c1">// the user is redirected to the current year/month instead.</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">'/archive/:void/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="nv">$y</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'y'</span><span class="p">);</span>
-    <span class="nv">$m</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'m'</span><span class="p">);</span>
-    <span class="nx">\Babab\Simphplist\Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/route.php/articles/</span><span class="si">$y</span><span class="s2">/</span><span class="si">$m</span><span class="s2">/"</span><span class="p">);</span>
-
-<span class="p">})</span>
-<span class="c1">// When no previous matches are found, redirect to /articles/.</span>
-<span class="c1">// You could also show a 404 error page here. Otherwise can</span>
-<span class="c1">// alternatively also accept positional closure arguments, like $foo</span>
-<span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="nx">\Babab\Simphplist\Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">"/route.php/articles/"</span><span class="p">);</span>
-
-<span class="p">});</span>
-
-</pre></div>
+<div class="highlight highlight-php"><pre><span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">&lt;</span>?<span class="pl-c1">php</span></span>
+<span class="pl-s1"><span class="pl-c">// -- Include composer autoloader</span></span>
+<span class="pl-s1"><span class="pl-c">//    or require 'src/Simphplist/Simphplist/Route.php'</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$foo</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>; <span class="pl-c">// A string that is used in some routes</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1">(<span class="pl-k">new</span> <span class="pl-c1">\Simphplist\Simphplist\</span><span class="pl-c1">Route</span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">// Use a prefix for developing without rewrite support</span></span>
+<span class="pl-s1"><span class="pl-c">// (for example with PHP's excellent built in webserver)</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>setPrefix(<span class="pl-s"><span class="pl-pds">'</span>/route.php<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when(<span class="pl-sr"><span class="pl-pds">'/</span>articles<span class="pl-pds">/'</span></span>, <span class="pl-k">function</span>() {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>This is the article list<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-c">// The identifier is made available to the closure function</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when(<span class="pl-s"><span class="pl-pds">'</span>/articles/:id/<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">$id</span>) {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>This is article: <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$id</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-c">// Here $foo is injected into the closure and used</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when(<span class="pl-sr"><span class="pl-pds">'/</span>archive<span class="pl-pds">/'</span></span>, <span class="pl-smi">$foo</span>, <span class="pl-k">function</span>(<span class="pl-smi">$foo</span>) {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>This is the archive main page<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;br&gt;Also, foo = <span class="pl-smi">$foo</span><span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-c">// Here $foo is injected into the closure after the identifiers</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when(<span class="pl-s"><span class="pl-pds">'</span>/archive/:y/:m/<span class="pl-pds">'</span></span>, <span class="pl-smi">$foo</span>, <span class="pl-k">function</span>(<span class="pl-smi">$y</span>, <span class="pl-smi">$m</span>, <span class="pl-smi">$foo</span>) {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>This is the archive&lt;br&gt;year: <span class="pl-smi">$y</span>&lt;br&gt;month: <span class="pl-smi">$m</span><span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;br&gt;Also, foo = <span class="pl-smi">$foo</span><span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-c">// Here any value for `:void` is matched, but not used in the closure,</span></span>
+<span class="pl-s1"><span class="pl-c">// the user is redirected to the current year/month instead.</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when(<span class="pl-s"><span class="pl-pds">'</span>/archive/:void/<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-smi">$y</span> <span class="pl-k">=</span> <span class="pl-c1">date</span>(<span class="pl-s"><span class="pl-pds">'</span>y<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$m</span> <span class="pl-k">=</span> <span class="pl-c1">date</span>(<span class="pl-s"><span class="pl-pds">'</span>m<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-c1">\Simphplist\Simphplist\</span><span class="pl-c1">Route</span><span class="pl-k">::</span>redirect(<span class="pl-s"><span class="pl-pds">"</span>/route.php/articles/<span class="pl-smi">$y</span>/<span class="pl-smi">$m</span>/<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-c">// When no previous matches are found, redirect to /articles/.</span></span>
+<span class="pl-s1"><span class="pl-c">// You could also show a 404 error page here. Otherwise can</span></span>
+<span class="pl-s1"><span class="pl-c">// alternatively also accept positional closure arguments, like $foo</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>otherwise(<span class="pl-k">function</span>() {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">\Simphplist\Simphplist\</span><span class="pl-c1">Route</span><span class="pl-k">::</span>redirect(<span class="pl-s"><span class="pl-pds">"</span>/route.php/articles/<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">});</span>
+<span class="pl-s1"></span></pre></div>
 
 <p>Normally, when the first argument passed to <code>when()</code> is a
 string, it will match with any http method (get,post,put,delete, etc.)
@@ -144,107 +155,58 @@ match.</p>
 
 <p>You can use this to create a RESTful API interface.</p>
 
-<div class="highlight highlight-php"><pre>
-<span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// -- Include composer autoloader</span>
-<span class="c1">//    or require 'src/Babab/Simphplist/Route.php'</span>
-
-<span class="p">(</span><span class="k">new</span> <span class="nx">\Babab\Simphplist\Route</span><span class="p">)</span>
-
-<span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">'/api-route.php'</span><span class="p">)</span>
-
-<span class="c1">// This route will only match with GET requests</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'get'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'Getting article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// This route will only match with POST requests</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/new/'</span><span class="p">,</span> <span class="s1">'post'</span><span class="p">],</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'Adding article: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// This route will only match with DELETE requests</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/article/:id/'</span><span class="p">,</span> <span class="s1">'delete'</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'Article: '</span> <span class="o">.</span> <span class="nv">$id</span> <span class="o">.</span> <span class="s1">' is going to be deleted'</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="c1">// This route will only match with both GET or PUT requests</span>
-<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">'/user/:id/'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'put'</span><span class="p">]],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'User ID: '</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
-
-<span class="p">})</span>
-<span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="k">echo</span> <span class="s1">'Invalid route'</span><span class="p">;</span>
-
-<span class="p">});</span>
-
-</pre></div>
-
-<h2>
-<a name="features--components" class="anchor" href="#features--components"><span class="octicon octicon-link"></span></a>Features / Components</h2>
-
-<p>Simphplist is in the initial stages of development. Some components may
-be actually useful already though.</p>
-
-<p><strong>DB\MysqlHandler</strong></p>
-
-<p>MySQL handler with table prefix support
-[25% done of which 50% documented]</p>
-
-<p><strong>DB\Model</strong></p>
-
-<p>Simplistic MySQL Object Mapper
-[20% done of which 0% documented]</p>
-
-<p><strong>Debug</strong></p>
-
-<p>Static methods for dumping vars to a file or screen (html or text)
-[100% done of which 100% documented]</p>
-
-<p><strong>Json</strong></p>
-
-<p>Shortcuts for common idioms in JSON interaction
-[50% done of which 0% documented]</p>
-
-<p><strong>Request</strong></p>
-
-<p>Static methods for secure user input handling via REQUEST superglobal(s):
-(GET, POST, COOKIE)
-[30% done of which 0% documented]</p>
-
-<p><strong>Route</strong></p>
-
-<p>Minimalistic, flexible and extensible routing
-[70% done of which 80% documented]</p>
-
-<p><strong>String</strong></p>
-
-<p>Static methods for common string manipulation / parsing tasks
-[60% done of which 20% documented]</p>
-
-<p><strong>Validate</strong></p>
-
-<p>Clean static API for type checking and validation
-[10% done of which 100% documented]</p>
+<div class="highlight highlight-php"><pre><span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">&lt;</span>?<span class="pl-c1">php</span></span>
+<span class="pl-s1"><span class="pl-c">// -- Include composer autoloader</span></span>
+<span class="pl-s1"><span class="pl-c">//    or require 'src/Simphplist/Simphplist/Route.php'</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1">(<span class="pl-k">new</span> <span class="pl-c1">\Simphplist\Simphplist\</span><span class="pl-c1">Route</span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>setPrefix(<span class="pl-s"><span class="pl-pds">'</span>/api-route.php<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">// This route will only match with GET requests</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when([<span class="pl-s"><span class="pl-pds">'</span>/article/:id/<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>get<span class="pl-pds">'</span></span>], <span class="pl-k">function</span>(<span class="pl-smi">$id</span>) {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>Getting article: <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$id</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-c">// This route will only match with POST requests</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when([<span class="pl-s"><span class="pl-pds">'</span>/article/new/<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>post<span class="pl-pds">'</span></span>], <span class="pl-k">function</span>() {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>Adding article: <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$id</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-c">// This route will only match with DELETE requests</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when([<span class="pl-s"><span class="pl-pds">'</span>/article/:id/<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>delete<span class="pl-pds">'</span></span>], <span class="pl-k">function</span>(<span class="pl-smi">$id</span>) {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>Article: <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$id</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span> is going to be deleted<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-c">// This route will only match with both GET or PUT requests</span></span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>when([<span class="pl-s"><span class="pl-pds">'</span>/user/:id/<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>post<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>put<span class="pl-pds">'</span></span>]], <span class="pl-k">function</span>(<span class="pl-smi">$id</span>) {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>User ID: <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$id</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">})</span>
+<span class="pl-s1"><span class="pl-k">-&gt;</span>otherwise(<span class="pl-k">function</span>() {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>Invalid route<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">});</span>
+<span class="pl-s1"></span></pre></div>
 
 <h2>
-<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
+<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing</h2>
 
 <p>Install from packagist using composer, by adding a composer.json file:</p>
 
 <div class="highlight highlight-json"><pre>
-<span class="p">{</span>
-    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"myProject"</span><span class="p">,</span>
-    <span class="nt">"require"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">"simphplist/simphplist"</span><span class="p">:</span> <span class="s2">"dev-master"</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
+{
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>myProject<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>require<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>simphplist/simphplist<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>dev-master<span class="pl-pds">"</span></span>
+    }
+}
 </pre></div>
 
 <p>And running <code>composer install</code>.</p>
@@ -252,9 +214,15 @@ be actually useful already though.</p>
 <p>Packagist: <a href="https://packagist.org/packages/simphplist/simphplist">https://packagist.org/packages/simphplist/simphplist</a></p>
 
 <h2>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
-<p>Copyright (c) 2014  Benjamin Althues <a href="mailto:benjamin@babab.nl">benjamin@babab.nl</a></p>
+<p>Springwhiz is released under an ISC license, that is functionally
+equivalent to the simplified BSD and MIT/Expat licenses, with language
+that was deemed unnecessary by the Berne convention removed.</p>
+
+<hr>
+
+<p>Copyright (c) 2014-2015  Benjamin Althues <a href="mailto:benjamin@babab.nl">benjamin@babab.nl</a></p>
 
 <p>Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -268,8 +236,9 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
       </section>
-    </div>
 
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>
