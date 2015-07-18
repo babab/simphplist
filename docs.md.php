@@ -1,4 +1,11 @@
----
+<?php
+
+function code($code)
+{
+    echo "```php\n<?php\n$code\n```\n";
+}
+
+?>---
 title: Simphplist
 
 toc_footers:
@@ -12,13 +19,13 @@ search: true
 
 **Decoupled (framework) libraries with simplistic API's**
 
-```php
-<?php
+<?php code(<<<'DOC'
 include dirname(__DIR__) . "/vendor/autoload.php";
 
 use \Simphplist\Simphplist\Route;
 use \Simphplist\Simphplist\Debug;
-```
+DOC
+) ?>
 
 Simphplist helps you with shortcuts and clean API's for writing the
 most common idioms when developing web applications in PHP (routing,
@@ -50,8 +57,7 @@ Packagist: https://packagist.org/packages/simphplist/simphplist
 
 ## Overview
 
-```php
-<?php
+<?php code(<<<'DOC'
 use \Simphplist\Simphplist\Route;
 
 $foo = 'bar'; // A string that is used in some routes
@@ -72,7 +78,8 @@ $foo = 'bar'; // A string that is used in some routes
 ->otherwise(function() {
     Route::redirect("/index.php/articles/");
 });
-```
+DOC
+) ?>
 
 Routing can be done with the `Route` class.
 
@@ -96,12 +103,12 @@ The API syntax is inspired by:
 
 `setPrefix($prefix)`
 
-```php
-<?php
+<?php code(<<<'DOC'
 
 $route = new Route;
 $route->setPrefix('index.php');
-```
+DOC
+) ?>
 
 Set a prefix (for developing without rewrite support)
 
@@ -122,8 +129,7 @@ Always returns the initialized route object (for method chaining)
 
 `when($url, ..., $func)`
 
-```php
-<?php
+<?php code(<<<'DOC'
 
 $foo = 'bar';
 
@@ -140,7 +146,8 @@ $route->when('/archive/:y/:m/', $foo, function($y, $m, $foo) {
 $route->when('/archive/', $foo, function($foo) {
     echo 'This is article: ' . $id;
 });
-```
+DOC
+) ?>
 
 Run a closure when the visited URL matches the defined URI format
 
@@ -170,13 +177,13 @@ Always returns the initialized route object (for method chaining)
 
 `otherwise(..., $func)`
 
-```php
-<?php
+<?php code(<<<'DOC'
 
 $route->otherwise(function() {
     Route::redirect('/articles/');
 });
-```
+DOC
+) ?>
 
 Run a default closure when no other previous `when()` calls have matched
 and stop routing.
@@ -223,8 +230,7 @@ Match success or matched identifier pair (bool | array)
 
 ## Creating a RESTful API
 
-```php
-<?php
+<?php code(<<<'DOC'
 
 (new \Simphplist\Simphplist\Route)
 ->when(['/article/:id/', 'get'], function($id) {
@@ -238,7 +244,8 @@ Match success or matched identifier pair (bool | array)
 })->otherwise(function() {
     echo 'Invalid route';
 });
-```
+DOC
+) ?>
 
 Normally, when the first argument passed to `when()` is a
 string, it will match with any http method (get,post,put,delete, etc.)
@@ -257,8 +264,7 @@ RESTful API interface.
 > "The most effective debugging tool is still careful thought, coupled
 > with judiciously placed print statements." -- Brian Kernighan
 
-```php
-<?php
+<?php code(<<<'DOC'
 use \Simphplist\Simphplist\Debug;
 
 $someMapping = [];
@@ -269,7 +275,8 @@ for ($i = 0; $i < 20; $i++) {
 Debug::$debug = true;
 Debug::$file = '/var/www/dump.log';
 Debug::file($someMapping, $_SERVER);
-```
+DOC
+) ?>
 
 Static methods for dumping vars to a file or screen (html or text).
 
@@ -293,8 +300,7 @@ what method is actually called in the code.
 
 ## :: $debug
 
-```php
-<?php
+<?php code(<<<'DOC'
 use \Simphplist\Simphplist\Debug;
 
 // Override all debug calls to html()
@@ -302,7 +308,8 @@ Debug::$debug = 'html';
 
 // Because of the override, this will actually be dumped as html
 Debug::text($_SERVER);
-```
+DOC
+) ?>
 
 `$debug = false`
 
@@ -318,8 +325,7 @@ calls.
 
 ## :: $tags
 
-```php
-<?php
+<?php code(<<<'DOC'
 use \Simphplist\Simphplist\Debug;
 
 Debug::$debug = true;
@@ -327,7 +333,8 @@ Debug::$debug = true;
 // Echo in a textarea instead of a <pre> block
 Debug::$tags = ['<textarea rows="24" style="width: 100%">', '</textarea>'];
 Debug::html($_SERVER);
-```
+DOC
+) ?>
 
 `$tags = ['<pre>', '</pre>']`
 
@@ -336,14 +343,14 @@ with the `html` method
 
 ## :: text()
 
-```php
-<?php
+<?php code(<<<'DOC'
 use \Simphplist\Simphplist\Debug;
 
 Debug::$debug = true;
 
 Debug::text($_SERVER);
-```
+DOC
+) ?>
 
 `text(..., ...)`
 
@@ -361,14 +368,14 @@ Returns a error string when there are errors, else void
 
 ## :: html()
 
-```php
-<?php
+<?php code(<<<'DOC'
 use \Simphplist\Simphplist\Debug;
 
 Debug::$debug = true;
 
 Debug::html($_SERVER);
-```
+DOC
+) ?>
 
 `html(..., ...)`
 
