@@ -18,8 +18,6 @@ VERSION="$(git tag | tail -1 || echo dev)"
 
 _clean()
 {
-    rm -rf  dist
-    rm -rf  docs/html docs/latex
     rm -rf  vendor          examples/vendor
     rm -f   composer.lock   examples/composer.lock
 }
@@ -40,8 +38,9 @@ _dist()
 
 _docs()
 {
+    cp docs.md docs/source/index.md
     cd docs
-    doxygen Doxyfile
+    rake build
 }
 
 _usage()
