@@ -16,7 +16,7 @@ See: http://simphplist.org/ for documentation and examples.
 
 # License
 
-Springwhiz is released under an ISC license, which is functionally
+Simphplist is released under an ISC license, which is functionally
 equivalent to the simplified BSD and MIT/Expat licenses, with language
 that was deemed unnecessary by the Berne convention removed.
 

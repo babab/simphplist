@@ -29,7 +29,7 @@ DOC
 
 Simphplist helps you with shortcuts and clean API's for writing the
 most common idioms when developing web applications in PHP (routing,
-debugging, validation and $\_GET/$\_POST filtering).
+debugging, validation and `$_GET`/`$_POST` filtering).
 
 You can use it as a minimalistic base for writing custom (frameworks
 for) applications. Simphplist is carefully designed to allow using it
@@ -114,13 +114,11 @@ Set a prefix (for developing without rewrite support)
 
 Use this to develop in PHP's built in webserver for example.
 
-### Parameters
-
 Parameter | Type | Description
 --------- | ---- | -----------
 $prefix | string | The prefix to use. E.g.: `/api.php`
 
-### Returns
+**Returns:** Route
 
 Always returns the initialized route object (for method chaining)
 
@@ -160,15 +158,13 @@ left-to-right order. Any extra arguments passed between the
 URI string and the closure function are also made available as
 arguments of the closure, after the identifier arguments.
 
-### Parameters
-
 Parameter | Type | Description
 --------- | ---- | -----------
 $uri | string or array | The URI and/or methods to match against
 ...  | mixed | Optional arguments to pass to closure
 $func | callable | A closure or variable function to run on match
 
-### Returns
+**Returns:** Route
 
 Always returns the initialized route object (for method chaining)
 
@@ -188,14 +184,12 @@ DOC
 Run a default closure when no other previous `when()` calls have matched
 and stop routing.
 
-### Parameters
-
 Parameter | Type | Description
 --------- | ---- | -----------
 ... | mixed | optional arguments to pass to closure
 $func | callable | A closure or variable function to run on match
 
-### Returns
+**Returns:** Route
 
 Always returns the initialized route object (for method chaining)
 
@@ -212,16 +206,14 @@ rewriting rules, with PHP's built in webserver for example). If $methods
 is not 'all', but an array of method names, it will return false when
 the REQUEST_METHOD does not exist in that array.
 
-### Parameters
-
 Parameter | Type | Description
 --------- | ---- | -----------
 $referencePath | string | The URI format to match for
 $methods | string or array | String 'all' or an array of method names
 
-### Returns
+**Returns:** bool | array
 
-Match success or matched identifier pair (bool | array)
+Match success bool or matched identifier array
 
 - Returns an asscoitative array with matched identifier pairs when applicable;
 - Returns true when a match is found without identifiers;
@@ -356,13 +348,11 @@ DOC
 
 Echo variable as a simple text string
 
-### Parameters
-
 Parameter | Type | Description
 --------- | ---- | -----------
 ... | mixed | one or more variables to dump
 
-### Returns void | string
+**Returns:** void | string
 
 Returns a error string when there are errors, else void
 
@@ -381,13 +371,11 @@ DOC
 
 Echo variable dumps in an html formatted text string
 
-### Parameters
-
 Parameter | Type | Description
 --------- | ---- | -----------
 ... | mixed | one or more variables to dump
 
-### Returns void | string
+**Returns:** void | string
 
 Returns a error string when there are errors, else void
 
@@ -410,6 +398,6 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ```
 
-Springwhiz is released under an ISC license, which is functionally
+Simphplist is released under an ISC license, which is functionally
 equivalent to the simplified BSD and MIT/Expat licenses, with language
 that was deemed unnecessary by the Berne convention removed.
