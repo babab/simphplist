@@ -2,7 +2,7 @@
 function manual_load()
 {
     $d = dirname(dirname(__DIR__));
-    require $d . "/src/Simphplist/Simphplist/Route.php";
+    require $d . "/src/Simphplist/Lib/Route.php";
 }
 (@include dirname(__DIR__) . "/vendor/autoload.php") || manual_load();
 
@@ -19,7 +19,7 @@ function manual_load()
 
 $foo = 'bar'; // A string that is used in some routes
 
-(new \Simphplist\Simphplist\Route)
+(new \Simphplist\Lib\Route)
 
 ->setPrefix('/api-route.php')
 

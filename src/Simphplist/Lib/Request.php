@@ -17,7 +17,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace Simphplist\Simphplist;
+namespace Simphplist\Lib;
 
 /**
  * @class Request

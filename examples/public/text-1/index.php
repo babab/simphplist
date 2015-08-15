@@ -8,8 +8,8 @@ if (!defined('SIMPHPLIST_EXAMPLES_NO_LOADER') || !SIMPHPLIST_EXAMPLES_NO_LOADER)
     (@include dirname(dirname(__DIR__)) . "/vendor/autoload.php")
         || die ('Please run `composer install`.');
 
-use \Simphplist\Simphplist\Request;
-use \Simphplist\Simphplist\String;
+use \Simphplist\Lib\Request;
+use \Simphplist\Lib\String;
 
 /* Initialize Twig template (system)
 ** ------------------------------------------------------------------------ */

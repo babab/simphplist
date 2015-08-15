@@ -16,8 +16,8 @@ search: true
 <?php
 include dirname(__DIR__) . "/vendor/autoload.php";
 
-use \Simphplist\Simphplist\Route;
-use \Simphplist\Simphplist\Debug;
+use \Simphplist\Lib\Route;
+use \Simphplist\Lib\Debug;
 ```
 
 Simphplist helps you with shortcuts and clean API's for writing the
@@ -52,7 +52,7 @@ Packagist: https://packagist.org/packages/simphplist/simphplist
 
 ```php
 <?php
-use \Simphplist\Simphplist\Route;
+use \Simphplist\Lib\Route;
 
 $foo = 'bar'; // A string that is used in some routes
 
@@ -218,7 +218,7 @@ Match success bool or matched identifier array
 ```php
 <?php
 
-(new \Simphplist\Simphplist\Route)
+(new \Simphplist\Lib\Route)
 ->when(['/article/:id/', 'get'], function($id) {
     echo 'Getting article: ' . $id;
 })->when(['/article/new/', 'post'], function() {
@@ -251,7 +251,7 @@ RESTful API interface.
 
 ```php
 <?php
-use \Simphplist\Simphplist\Debug;
+use \Simphplist\Lib\Debug;
 
 $someMapping = [];
 for ($i = 0; $i < 20; $i++) {
@@ -287,7 +287,7 @@ what method is actually called in the code.
 
 ```php
 <?php
-use \Simphplist\Simphplist\Debug;
+use \Simphplist\Lib\Debug;
 
 // Override all debug calls to html()
 Debug::$debug = 'html';
@@ -312,7 +312,7 @@ calls.
 
 ```php
 <?php
-use \Simphplist\Simphplist\Debug;
+use \Simphplist\Lib\Debug;
 
 Debug::$debug = true;
 
@@ -330,7 +330,7 @@ with the `html` method
 
 ```php
 <?php
-use \Simphplist\Simphplist\Debug;
+use \Simphplist\Lib\Debug;
 
 Debug::$debug = true;
 
@@ -353,7 +353,7 @@ Returns a error string when there are errors, else void
 
 ```php
 <?php
-use \Simphplist\Simphplist\Debug;
+use \Simphplist\Lib\Debug;
 
 Debug::$debug = true;
 

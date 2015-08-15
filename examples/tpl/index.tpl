@@ -18,7 +18,7 @@
   <div class="col-lg-7">
 
     <h3>
-      <span class="namespace">\Simphplist\Simphplist\</span>Request
+      <span class="namespace">\Simphplistib\</span>Request
       <small>Filter REQUEST (GET/POST/COOKIE) vars</small>
     </h3>
     <ul class="list-unstyled">
@@ -28,7 +28,7 @@
     </ul>
 
     <h3>
-      <span class="namespace">\Simphplist\Simphplist\</span>String
+      <span class="namespace">\Simphplist\Lib\</span>String
       <small>Parse and filter strings</small>
     </h3>
     <ul class="list-unstyled">
@@ -55,21 +55,21 @@
   <div class="col-lg-7">
 
     <h3>
-      <span class="namespace">\Simphplist\Simphplist\</span>Debug
+      <span class="namespace">\Simphplist\Lib\</span>Debug
       <small>Static methods for dumping vars to a file or screen
         (html or text)</small>
     </h3>
     <h3>
-      <span class="namespace">\Simphplist\Simphplist\</span>Model
+      <span class="namespace">\Simphplist\Lib\</span>Model
       <small>Object Mapper – Abstract base class for writing Models that will
         be mapped to database tables</small>
     </h3>
     <h3>
-      <span class="namespace">\Simphplist\Simphplist\</span>ModelTest
+      <span class="namespace">\Simphplist\Lib\</span>ModelTest
       <small>Test model used as code example</small>
     </h3>
     <h3>
-      <span class="namespace">\Simphplist\Simphplist\</span>MysqlHandler
+      <span class="namespace">\Simphplist\Lib\</span>MysqlHandler
       <small>MySQL Handler with table prefix support</small>
     </h3>
     <ul class="list-unstyled">
