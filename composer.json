@@ -1,7 +1,7 @@
 {
     "name": "simphplist/simphplist",
     "type": "library",
-    "description": "Decoupled (framework) libraries with simplistic API's",
+    "description": "A minimalistic MTV framework with simplistic API's",
     "keywords": ["debug", "debugging", "requests"],
     "homepage": "http://simphplist.org",
     "license": "ISC",
@@ -13,9 +13,10 @@
         "psr-0": {"Simphplist": "src"}
     },
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "twig/twig": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.1.*"
+        "phpunit/phpunit": "4.*"
     }
 }

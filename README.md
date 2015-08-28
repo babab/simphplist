@@ -1,16 +1,3 @@
-# Simphplist Lib
-
-Framework libraries with simplistic API's
-
-Simphplist Lib helps you with shortcuts and clean API's for writing the
-most common idioms when developing web applications in PHP (routing,
-validation and $\_GET/$\_POST filtering).
-
-Simphplist Lib can be used alongside any other (custom) framework.
-
-See: http://simphplist.org/ for documentation and examples.
-
-
 # Simphplist Framework
 
 A minimalistic MTV / MVC framework for PHP based upon a small set of
@@ -28,6 +15,11 @@ The framework is in early development right now and may have many
 backwards-incompatible changes between minor versions (0.\*.0) until
 version 1.0 is released.
 
+Simphplist Lib helps you with shortcuts and clean API's for writing the
+most common idioms when developing web applications in PHP (routing,
+validation and $\_GET/$\_POST filtering).
+
+See: http://simphplist.org/ for documentation and examples.
 
 # License
 

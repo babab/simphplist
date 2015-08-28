@@ -1,7 +1,6 @@
 {
     "name": "babab/simphplist-examples",
     "require": {
-        "twig/twig": "1.*",
-        "simphplist/simphplist": "dev-master"
+        "simphplist/simphplist": "dev-devel"
     }
 }
