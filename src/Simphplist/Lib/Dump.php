@@ -1,6 +1,6 @@
 <?php
 /*
- * Simphplist Debug
+ * Simphplist Dump
  *
  * Copyright (c) 2014-2015 Benjamin Althues <benjamin@babab.nl>
  *
@@ -19,7 +19,7 @@
 
 namespace Simphplist\Lib;
 
-class Debug
+class Dump
 {
     public static $debug = false;
     public static $file = '/tmp/simphplist-debug.log';
@@ -31,7 +31,7 @@ class Debug
             return false;
 
         if (!$n_args = func_num_args())
-            return 'Debug::text(): Please pass one or more variables';
+            return 'Dump::text(): Please pass one or more variables';
 
         $str = '';
         $a_args = func_get_args();
@@ -51,7 +51,7 @@ class Debug
             echo self::$tags[0];
 
         if (!$n_args = func_num_args())
-            return 'Debug::html(): Please pass one or more variables';
+            return 'Dump::html(): Please pass one or more variables';
 
         $str = '';
         $a_args = func_get_args();
@@ -68,7 +68,7 @@ class Debug
     /**
      * Echo variable to a file
      *
-     * You can override the file to use by overriding `Debug::$file`.
+     * You can override the file to use by overriding `Dump::$file`.
      *
      * @param one or more variables to dump
      * @retval void | string Returns a string when there are errors, else void
@@ -79,7 +79,7 @@ class Debug
             return;
 
         if (!$n_args = func_num_args())
-            return 'Debug::file(): Please pass one or more variables';
+            return 'Dump::file(): Please pass one or more variables';
 
         $str = '';
         $a_args = func_get_args();
@@ -115,7 +115,7 @@ class Debug
         };
 
         if (!$n_args = func_num_args())
-            return 'Debug::dump(): Please pass one or more variables';
+            return 'Dump::dump(): Please pass one or more variables';
 
         $str = '';
         $a_args = func_get_args();

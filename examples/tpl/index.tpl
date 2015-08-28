@@ -55,7 +55,7 @@
   <div class="col-lg-7">
 
     <h3>
-      <span class="namespace">\Simphplist\Lib\</span>Debug
+      <span class="namespace">\Simphplist\Lib\</span>Dump
       <small>Static methods for dumping vars to a file or screen
         (html or text)</small>
     </h3>

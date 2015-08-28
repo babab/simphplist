@@ -23,7 +23,7 @@ search: true
 include dirname(__DIR__) . "/vendor/autoload.php";
 
 use \Simphplist\Lib\Route;
-use \Simphplist\Lib\Debug;
+use \Simphplist\Lib\Dump;
 DOC
 ) ?>
 
@@ -249,7 +249,7 @@ match.
 Together with Simphplist's Json library, you can use this to create a
 RESTful API interface.
 
-# -- Debug
+# -- Dump
 
 ## Overview
 
@@ -257,16 +257,16 @@ RESTful API interface.
 > with judiciously placed print statements." -- Brian Kernighan
 
 <?php code(<<<'DOC'
-use \Simphplist\Lib\Debug;
+use \Simphplist\Lib\Dump;
 
 $someMapping = [];
 for ($i = 0; $i < 20; $i++) {
     $someMapping[$i] = $i * 2;
 }
 
-Debug::$debug = true;
-Debug::$file = '/var/www/dump.log';
-Debug::file($someMapping, $_SERVER);
+Dump::$debug = true;
+Dump::$file = '/var/www/dump.log';
+Dump::file($someMapping, $_SERVER);
 DOC
 ) ?>
 
@@ -278,11 +278,11 @@ values to either the screen or a file.
 
 
 <aside class="notice">
-You need to explicitly set the value of `Debug::$debug`
+You need to explicitly set the value of `Dump::$debug`
 </aside>
 
-Simphplist Debug adds protection (for production environments) and
-flexibility by using a trigger setting `Debug::$debug` that needs to be
+Simphplist Dump adds protection (for production environments) and
+flexibility by using a trigger setting `Dump::$debug` that needs to be
 explicitly set to true-ish before it will output anything. Leaving or
 setting it at a value that evaluates as false will make sure leftover
 debug calls will not do anything. You can set the $debug value to
@@ -293,13 +293,13 @@ what method is actually called in the code.
 ## :: $debug
 
 <?php code(<<<'DOC'
-use \Simphplist\Lib\Debug;
+use \Simphplist\Lib\Dump;
 
 // Override all debug calls to html()
-Debug::$debug = 'html';
+Dump::$debug = 'html';
 
 // Because of the override, this will actually be dumped as html
-Debug::text($_SERVER);
+Dump::text($_SERVER);
 DOC
 ) ?>
 
@@ -312,19 +312,19 @@ overriding debug method calls.
 
 `$file = '/tmp/simphplist-debug.log'`
 
-String with the complete path to the dumpfile used in Debug::file method
+String with the complete path to the dumpfile used in Dump::file method
 calls.
 
 ## :: $tags
 
 <?php code(<<<'DOC'
-use \Simphplist\Lib\Debug;
+use \Simphplist\Lib\Dump;
 
-Debug::$debug = true;
+Dump::$debug = true;
 
 // Echo in a textarea instead of a <pre> block
-Debug::$tags = ['<textarea rows="24" style="width: 100%">', '</textarea>'];
-Debug::html($_SERVER);
+Dump::$tags = ['<textarea rows="24" style="width: 100%">', '</textarea>'];
+Dump::html($_SERVER);
 DOC
 ) ?>
 
@@ -336,11 +336,11 @@ with the `html` method
 ## :: text()
 
 <?php code(<<<'DOC'
-use \Simphplist\Lib\Debug;
+use \Simphplist\Lib\Dump;
 
-Debug::$debug = true;
+Dump::$debug = true;
 
-Debug::text($_SERVER);
+Dump::text($_SERVER);
 DOC
 ) ?>
 
@@ -359,11 +359,11 @@ Returns a error string when there are errors, else void
 ## :: html()
 
 <?php code(<<<'DOC'
-use \Simphplist\Lib\Debug;
+use \Simphplist\Lib\Dump;
 
-Debug::$debug = true;
+Dump::$debug = true;
 
-Debug::html($_SERVER);
+Dump::html($_SERVER);
 DOC
 ) ?>
 

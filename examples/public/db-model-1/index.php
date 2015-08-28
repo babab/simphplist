@@ -8,15 +8,15 @@ if (!defined('SIMPHPLIST_EXAMPLES_NO_LOADER') || !SIMPHPLIST_EXAMPLES_NO_LOADER)
     (@include dirname(dirname(__DIR__)) . "/vendor/autoload.php")
         || die ('Please run `composer install`.');
 
-use \Simphplist\Lib\Debug;
+use \Simphplist\Lib\Dump;
 use \Simphplist\Lib\DB\ModelTest;
 use \Simphplist\Lib\DB\MysqlHandler;
 
 /*
  * You need to explicitly enable debugging before making any calls to
- * Debug methods
+ * Dump methods
  */
-Debug::$debug = true;
+Dump::$debug = true;
 
 /*
  * Initialize the ModelTest database model by injecting an instance of
