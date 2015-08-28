@@ -7,9 +7,9 @@ freedom in the way you want to put the ends together.
 
 It relies on the following components:
 
-M - Model: The model layer is not yet implemented
-V/T - View/Template:  Twig is used for templating and outputing views by default
-C/V - Controller/View: Controllers are methods of a View class
+- M - Model: The model layer is not yet implemented.
+- V/T - View/Template: Twig is used for templating and outputing views by default.
+- C/V - Controller/View: Controllers are methods of a View class.
 
 The framework is in early development right now and may have many
 backwards-incompatible changes between minor versions (0.\*.0) until
@@ -20,6 +20,7 @@ most common idioms when developing web applications in PHP (routing,
 validation and $\_GET/$\_POST filtering).
 
 See: http://simphplist.org/ for documentation and examples.
+
 
 # License
 
