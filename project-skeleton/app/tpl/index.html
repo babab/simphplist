@@ -1,0 +1,23 @@
+{% extends "_base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+
+  <h2>Welcome to the homepage</h2>
+
+  {% if debug %}
+    <p>Debug: <span class="text-warning">true</span></p>
+    <p>Urls:</p>
+    <ul>
+    {% for k, v in urls  %}
+      <li><a href="/index.php{{ k }}">{{ v }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Debug: <span class="text-info">false</span></p>
+  {% endif %}
+
+{% endblock %}
+{# vim: set ft=htmldjango: #}

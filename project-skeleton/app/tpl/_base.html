@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/cerulean/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js">
+    </script>
+    {% block head %}
+    {% endblock %}
+    <title>My application</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="page-header">
+        <h1>
+          Project Skeleton
+          <small>Simphplist Framework</small>
+        </h1>
+      </div>
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
+{# vim: set ft=htmldjango: #}

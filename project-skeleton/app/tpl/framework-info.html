@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+
+  <h2>Route Configuration</h2>
+  {% include "table-widget.inc.html" with {'items': routes} %}
+
+  <h2>Server Information</h2>
+  {% include "table-widget.inc.html" with {'items': server_info} %}
+
+{% endblock %}
+{# vim: set ft=htmldjango: #}

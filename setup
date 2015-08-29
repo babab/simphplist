@@ -27,6 +27,8 @@ _composer()
     composer update
     cd lib-examples
     composer update
+    cd ../project-skeleton
+    composer update
 }
 
 _dist()
@@ -43,12 +45,26 @@ _docs()
     rake build
 }
 
+_serve()
+{
+    case "$1" in
+        "examples") cd lib-examples/public;;
+        "skeleton") cd project-skeleton/public;;
+        *)
+            echo ./setup serve' <examples | skeleton>'
+            exit 1
+            ;;
+    esac
+    php -S 127.0.0.1:8080
+}
+
 _usage()
 {
     echo ./setup clean
     echo ./setup composer
     echo ./setup dist
     echo ./setup docs
+    echo ./setup serve' <examples | skeleton>'
 }
 
 _main()
@@ -58,7 +74,8 @@ _main()
         "composer") _composer;;
         "dist")     _dist;;
         "docs")     _docs;;
+        "serve")    _serve $2;;
         *)          _usage;;
     esac
 }
-_main $1
+_main $*

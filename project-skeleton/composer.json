@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Application\\": "app/"
+        }
+    },
+    "require": {
+        "simphplist/simphplist": "dev-devel"
+    }
+}
