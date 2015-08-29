@@ -18,14 +18,14 @@ VERSION="$(git tag | tail -1 || echo dev)"
 
 _clean()
 {
-    rm -rf  vendor          examples/vendor
-    rm -f   composer.lock   examples/composer.lock
+    rm -rf  vendor lib-examples/vendor project-skeleton/vendor
+    rm -f   composer.lock lib-examples/composer.lock project-skeleton/composer.lock
 }
 
 _composer()
 {
     composer update
-    cd examples
+    cd lib-examples
     composer update
 }
 

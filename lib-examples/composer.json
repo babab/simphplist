@@ -1,5 +1,5 @@
 {
-    "name": "babab/simphplist-examples",
+    "name": "babab/simphplist-lib-examples",
     "require": {
         "simphplist/simphplist": "dev-devel"
     }

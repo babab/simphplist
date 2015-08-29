@@ -9,12 +9,12 @@
     </script>
     {% block head %}
     {% endblock %}
-    <title>{{ subtitle }} - Simphplist examples</title>
+    <title>{{ subtitle }} - Simphplist lib-examples</title>
   </head>
   <body>
     <div class="container">
       <h1>
-        Simphplist examples <small>{{ subtitle }}</small>
+        Simphplist lib-examples <small>{{ subtitle }}</small>
       </h1>
       <ul class="nav nav-tabs">
         <li><a href="javascript:;">home</a></li>
@@ -22,12 +22,12 @@
         <li><a href="javascript:;">download</a></li>
 
         <li{% if section == "index" %} class="active"{% endif %}>
-          <a href="/">examples index</a>
+          <a href="/">lib-examples index</a>
         </li>
 
         <li class="dropdown{% if section != "index" %} active{% endif %}">
           <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-            examples list <span class="caret"></span>
+            lib-examples list <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li{% if section == "text-1" %} class="active"{% endif %}>
