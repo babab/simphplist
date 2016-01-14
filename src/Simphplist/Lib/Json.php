@@ -19,12 +19,8 @@
 
 namespace Simphplist\Lib;
 
-/**
- * @class Json
- * @brief Shortcuts for common idioms in JSON interaction
- */
-
 class Json {
+    #@ Shortcuts for common idioms in JSON interaction
 
     /* input methods */
 

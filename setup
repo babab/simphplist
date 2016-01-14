@@ -28,7 +28,10 @@ _composer()
     cd lib-examples
     composer update
     cd ../project-skeleton
+    cp composer.json composer.json.bak
+    cp composer-dev.json composer.json
     composer update
+    mv composer.json.bak composer.json
 }
 
 _dist()

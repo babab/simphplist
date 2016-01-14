@@ -12,7 +12,7 @@
     <p>Urls:</p>
     <ul>
     {% for k, v in urls  %}
-      <li><a href="/index.php{{ k }}">{{ v }}</a></li>
+      <li><a href="{{ prefix }}{{ k }}">{{ v }}</a></li>
     {% endfor %}
     </ul>
   {% else %}

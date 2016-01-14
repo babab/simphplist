@@ -12,11 +12,12 @@ class Views {
         $urls[''] = 'index';
         echo App::view('index.html', [
             'debug' => App::config('debug'),
+            'prefix' => App::config('debug_prefix'),
             'urls' => $urls,
         ]);
     }
 
-    public static function info()
+    public static function framework_info()
     {
         if (App::$debug) {
             echo App::view('framework-info.html', [
@@ -29,7 +30,7 @@ class Views {
         }
     }
 
-    public static function debug()
+    public static function php_info()
     {
         if (App::$debug) {
             phpinfo();

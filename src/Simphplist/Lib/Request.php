@@ -19,21 +19,23 @@
 
 namespace Simphplist\Lib;
 
-/**
- * @class Request
- * @brief Static methods for secure user input handling via REQUEST superglobal(s):
- *        (GET, POST, COOKIE)
- */
 class Request
 {
+    #@ Static methods for secure user input handling via REQUEST
+    #@ superglobal(s): (GET, POST, COOKIE)
+
     public static function get($var, $defaultValue='')
     {
+        #@body Filter $_GET input
+        #@return string Sanitized user input
         $filtered = filter_input(INPUT_GET, $var, FILTER_SANITIZE_STRING);
         return $filtered ?: $defaultValue;
     }
 
     public static function post($var, $defaultValue='')
     {
+        #@body Filter $_POST input
+        #@return string Sanitized user input
         $filtered = filter_input(INPUT_POST, $var, FILTER_SANITIZE_STRING);
         return $filtered ?: $defaultValue;
     }
