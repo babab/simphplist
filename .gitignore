@@ -1,6 +1,6 @@
-docs/html/*
-docs/latex/*
-dist/*
-
 composer.lock
 vendor
+
+/dist/*
+/docs/_build/
+/docs/.virtualenv/
