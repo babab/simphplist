@@ -202,9 +202,6 @@ Class reference
       :param string|array $methods: String 'all' or an array of method names
       :returns: bool|array Match success bool or matched identifier array
 
-Static methods
---------------
-
 .. php:method:: redirect($uri, $httpPrefixer)
 
    Redirect to $uri by setting Location header and exit php interpreter

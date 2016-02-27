@@ -20,6 +20,7 @@ Contents
 
    installing
    lib-route
+   lib-dump
 
 
 API index
