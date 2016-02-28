@@ -1,5 +1,5 @@
-Welcome to simphplist's documentation!
-======================================
+simphplist
+==========
 
 **Simplistic PHP library and framework with a clean API**
 
@@ -39,25 +39,8 @@ It relies on the following components:
 - C/V - Controller/View: Controllers are methods of a View class.
 
 
-Contents
---------
-
-.. toctree::
-   :maxdepth: 2
-
-   installing
-   lib-route
-   lib-dump
-
-
-API index
----------
-
-* :ref:`genindex`
-
-
 License
--------
+=======
 
 Simphplist is released under an ISC license, which is functionally
 equivalent to the simplified BSD and MIT/Expat licenses, with language
