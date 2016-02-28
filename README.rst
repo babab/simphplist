@@ -1,4 +1,4 @@
-simphplist
+Simphplist
 ==========
 
 **Simplistic PHP library and framework with a clean API**
