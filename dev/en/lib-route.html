@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Routing component &mdash; simphplist dev-master documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="simphplist dev-master documentation" href="index.html"/>
+        <link rel="next" title="Dump component" href="lib-dump.html"/>
+        <link rel="prev" title="Installing" href="installing.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> simphplist
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                dev-master
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html#autoloading-via-composer">Autoloading via composer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Routing component</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-restful-api">Creating a RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#namespace-Simphplist\Lib">Class reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lib-dump.html">Dump component</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">simphplist</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Routing component</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/lib-route.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="routing-component">
+<h1>Routing component<a class="headerlink" href="#routing-component" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Routing can be handled with the <code class="docutils literal"><span class="pre">Route</span></code> class.</p>
+<p>When a route is valid the closure function will be run with any
+identifier <code class="docutils literal"><span class="pre">/url/:identifier/edit/</span></code> matches made available to the
+closure / anonymous function as function arguments.</p>
+<p>When a route is matched, any subsequent calls to <code class="docutils literal"><span class="pre">when()</span></code> or
+<code class="docutils literal"><span class="pre">otherwise()</span></code> will have no effect. The <code class="docutils literal"><span class="pre">setPrefix()</span></code>, <code class="docutils literal"><span class="pre">when()</span></code> and
+<code class="docutils literal"><span class="pre">otherwise()</span></code> methods can be chained together like in these examples,
+which will read somewhat like a typical if..elseif..else construct.</p>
+<p>The API syntax is inspired by:</p>
+<ul class="simple">
+<li>Laravel Routing      : using a closure function</li>
+<li>AngularJS&#8217; Route     : <code class="docutils literal"><span class="pre">when..otherwise</span></code> and <code class="docutils literal"><span class="pre">/url/:identifier</span></code> syntax</li>
+<li>AngularJS&#8217; Controller: dependency injection based on postional arguments</li>
+</ul>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>index.php:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Lib\Route</span><span class="p">;</span>
+
+<span class="nv">$foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span> <span class="c1">// A string that is used in some routes</span>
+
+<span class="p">(</span><span class="k">new</span> <span class="nx">Route</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">&#39;/index.php&#39;</span><span class="p">)</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">&#39;/articles/&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;This is the article list&#39;</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">&#39;/archive/:y/:m/&#39;</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&quot;This is the archive&lt;br&gt;year: </span><span class="si">$y</span><span class="s2">&lt;br&gt;month: </span><span class="si">$m</span><span class="s2">&quot;</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">&quot;&lt;br&gt;Also, foo = </span><span class="si">$foo</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">&#39;/archive/:void/&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$y</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">);</span>
+    <span class="nv">$m</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">);</span>
+    <span class="nx">Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">&quot;/index.php/articles/</span><span class="si">$y</span><span class="s2">/</span><span class="si">$m</span><span class="s2">/&quot;</span><span class="p">);</span>
+<span class="p">})</span>
+<span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">&quot;/index.php/articles/&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-a-restful-api">
+<h2>Creating a RESTful API<a class="headerlink" href="#creating-a-restful-api" title="Permalink to this headline">¶</a></h2>
+<p>Normally, when the first argument passed to <code class="docutils literal"><span class="pre">when()</span></code> is a
+string, it will match with any http method (get,post,put,delete, etc.)
+used. It is possible to only match on one or more specified
+<code class="docutils literal"><span class="pre">$_SERVER['REQUEST_METHOD'])</span></code>. By passing an array like
+<code class="docutils literal"><span class="pre">['/url/:id/edit/',</span> <span class="pre">'get']</span></code> as first argument, only GET requests will
+match.</p>
+<p>Together with Simphplist&#8217;s Json library, you can use this to create a
+RESTful API interface.</p>
+<p>index.php:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="p">(</span><span class="k">new</span> <span class="nx">\Simphplist\Lib\Route</span><span class="p">)</span>
+<span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">&#39;/article/:id/&#39;</span><span class="p">,</span> <span class="s1">&#39;get&#39;</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">&#39;Getting article: &#39;</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">&#39;/article/new/&#39;</span><span class="p">,</span> <span class="s1">&#39;post&#39;</span><span class="p">],</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">&#39;Adding article: &#39;</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">&#39;/article/:id/&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">&#39;Article: &#39;</span> <span class="o">.</span> <span class="nv">$id</span> <span class="o">.</span> <span class="s1">&#39; is going to be deleted&#39;</span><span class="p">;</span>
+
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">([</span><span class="s1">&#39;/user/:id/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="s1">&#39;put&#39;</span><span class="p">]],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">&#39;User ID: &#39;</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">echo</span> <span class="s1">&#39;Invalid route&#39;</span><span class="p">;</span>
+
+<span class="p">});</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="namespace-Simphplist\Lib">
+<span id="class-reference"></span><h2>Class reference<a class="headerlink" href="#namespace-Simphplist\Lib" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Simphplist\Lib\Route">
+<em class="property">class </em><code class="descclassname">Simphplist\Lib\</code><code class="descname">Route</code><a class="headerlink" href="#Simphplist\Lib\Route" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Simphplist\Lib\Route::setPrefix">
+<code class="descname">setPrefix</code><span class="sig-paren">(</span><em>$prefix</em><span class="sig-paren">)</span><a class="headerlink" href="#Simphplist\Lib\Route::setPrefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a prefix (for developing without rewrite support)</p>
+<p>Use this to develop in PHP&#8217;s built in webserver for example.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$prefix</strong> (<em>string</em>) &#8211; The prefix to use. E.g.: <code class="docutils literal"><span class="pre">/api.php</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Route. Always returns the initialized route object (for
+method chaining)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$route</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">;</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">setPrefix</span><span class="p">(</span><span class="s1">&#39;index.php&#39;</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="Simphplist\Lib\Route::when">
+<code class="descname">when</code><span class="sig-paren">(</span><em>$url</em>, <em>...</em>, <em>$func</em><span class="sig-paren">)</span><a class="headerlink" href="#Simphplist\Lib\Route::when" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a closure when the visited URL matches the defined URI format</p>
+<p>An $url can have identifiers, which are marked with a leading <code class="docutils literal"><span class="pre">:</span></code>.
+In the example there is an &#8216;id&#8217; identifier for a blog article:</p>
+<p>When the url is matched, any values that are matched with
+identifiers are made available as arguments of the closure, in
+left-to-right order. Any extra arguments passed between the
+URL string and the closure function are also made available as
+arguments of the closure, after the identifier arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$url</strong> (<em>string|array</em>) &#8211; The URI and/or methods to match against</li>
+<li><strong>...</strong> (<em>mixed</em>) &#8211; Optional arguments to pass to closure</li>
+<li><strong>$func</strong> (<em>callable</em>) &#8211; A closure or variable function to run on match</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Route. Always returns the initialized route object (for
+method chaining)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+
+<span class="nv">$route</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">;</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">&#39;/articles/:id/&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;This is article: &#39;</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">&#39;/articles/&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;This is the article list&#39;</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">&#39;/archive/:y/:m/&#39;</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$y</span><span class="p">,</span> <span class="nv">$m</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;This is article: &#39;</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="s1">&#39;/archive/&#39;</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;This is article: &#39;</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="Simphplist\Lib\Route::otherwise">
+<code class="descname">otherwise</code><span class="sig-paren">(</span><em>...</em>, <em>$func</em><span class="sig-paren">)</span><a class="headerlink" href="#Simphplist\Lib\Route::otherwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a default closure when no other previous <code class="docutils literal"><span class="pre">when()</span></code> calls have
+matched and stop routing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>...</strong> (<em>mixed</em>) &#8211; Optional arguments to pass to closure</li>
+<li><strong>$func</strong> (<em>callable</em>) &#8211; A closure or variable function to run</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Route. Always returns the initialized route object (for
+method chaining)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$route</span><span class="o">-&gt;</span><span class="na">otherwise</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Route</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s1">&#39;/articles/&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="Simphplist\Lib\Route::parseURI">
+<code class="descname">parseURI</code><span class="sig-paren">(</span><em>$referencePath</em>, <em>$methods='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#Simphplist\Lib\Route::parseURI" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>A lower level function, used in the when() method for parsing the URI.</strong></p>
+<p>Match REQUEST_URI with $reference path. The REQUEST_URI is optionally
+stripped with prefix before matching (useful for developing without
+rewriting rules, with PHP&#8217;s built in webserver for example). If $methods
+is not &#8216;all&#8217;, but an array of method names, it will return false when
+the REQUEST_METHOD does not exist in that array.</p>
+<ul class="simple">
+<li>Returns an asscoitative array with matched identifier pairs when applicable;</li>
+<li>Returns true when a match is found without identifiers;</li>
+<li>Returns false when no match is found</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$referencePath</strong> (<em>string</em>) &#8211; The URI format to match for</li>
+<li><strong>$methods</strong> (<em>string|array</em>) &#8211; String &#8216;all&#8217; or an array of method names</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool|array Match success bool or matched identifier array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="Simphplist\Lib\Route::redirect">
+<code class="descclassname">Simphplist\Lib\Route::</code><code class="descname">redirect</code><span class="sig-paren">(</span><em>$uri</em>, <em>$httpPrefixer</em><span class="sig-paren">)</span><a class="headerlink" href="#Simphplist\Lib\Route::redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redirect to $uri by setting Location header and exit php interpreter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$uri</strong> (<em>string</em>) &#8211; The uri</li>
+<li><strong>$httpPrefixer</strong> (<em>bool</em>) &#8211; Prefix with <a class="reference external" href="http://">http://</a> if no scheme is
+found in $uri</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Void. Sets header and exists the interpreter!</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lib-dump.html" class="btn btn-neutral float-right" title="Dump component" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installing.html" class="btn btn-neutral" title="Installing" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Benjamin Althues.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'dev-master',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

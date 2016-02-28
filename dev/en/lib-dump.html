@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dump component &mdash; simphplist dev-master documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="simphplist dev-master documentation" href="index.html"/>
+        <link rel="prev" title="Routing component" href="lib-route.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> simphplist
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                dev-master
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html#autoloading-via-composer">Autoloading via composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib-route.html">Routing component</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Dump component</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#namespace-Simphplist\Lib">Class reference</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">simphplist</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Dump component</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/lib-dump.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dump-component">
+<h1>Dump component<a class="headerlink" href="#dump-component" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Static methods for dumping vars to a file or screen (html or text).</p>
+<p>The Simphplist debug class is just some fancy wrappers around
+<code class="docutils literal"><span class="pre">var_dump</span></code> and <code class="docutils literal"><span class="pre">print_r</span></code>, but provides a straight-forward way of dumping
+values to either the screen or a file.</p>
+<blockquote>
+<div>&#8220;The most effective debugging tool is still careful thought, coupled
+with judiciously placed print statements.&#8221; &#8211; Brian Kernighan</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You need to explicitly set the value of <code class="docutils literal"><span class="pre">Dump::$debug</span></code></p>
+<p class="last">Simphplist Dump adds protection (for production environments) and
+flexibility by using a trigger setting <code class="docutils literal"><span class="pre">Dump::$debug</span></code> that needs to be
+explicitly set to true-ish before it will output anything. Leaving or
+setting it at a value that evaluates as false will make sure leftover
+debug calls will not do anything.</p>
+</div>
+<p>You can set the <code class="docutils literal"><span class="pre">$debug</span></code> value to <code class="docutils literal"><span class="pre">text</span></code>, <code class="docutils literal"><span class="pre">html</span></code> or <code class="docutils literal"><span class="pre">file</span></code> to
+override the dump method used, no mather what method is actually called
+in the code.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>somefile.php:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Lib\Dump</span><span class="p">;</span>
+
+<span class="nv">$someMapping</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$someMapping</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Dump</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="nx">Dump</span><span class="o">::</span><span class="nv">$file</span> <span class="o">=</span> <span class="s1">&#39;/var/www/dump.log&#39;</span><span class="p">;</span>
+<span class="nx">Dump</span><span class="o">::</span><span class="na">file</span><span class="p">(</span><span class="nv">$someMapping</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="namespace-Simphplist\Lib">
+<span id="class-reference"></span><h2>Class reference<a class="headerlink" href="#namespace-Simphplist\Lib" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Simphplist\Lib\Dump">
+<em class="property">class </em><code class="descclassname">Simphplist\Lib\</code><code class="descname">Dump</code><a class="headerlink" href="#Simphplist\Lib\Dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Static methods for dumping vars to a file or screen (html or text).</p>
+<dl class="attr">
+<dt>
+<code class="descname">$debug = false</code></dt>
+<dd><p>Debug value, can be a boolean or a string with the method used for
+overriding Dump method calls.</p>
+<p>Example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Lib\Dump</span><span class="p">;</span>
+
+<span class="c1">// Override all debug calls to html()</span>
+<span class="nx">Dump</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span><span class="p">;</span>
+
+<span class="c1">// Because of the override, this will actually be dumped as html</span>
+<span class="nx">Dump</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attr">
+<dt>
+<code class="descname">$file = '/tmp/simphplist-debug.log'</code></dt>
+<dd><p>String with the complete path to the dumpfile used in Dump::file
+method calls. Default is <code class="docutils literal"><span class="pre">/tmp/simphplist-debug.log</span></code></p>
+</dd></dl>
+
+<dl class="attr">
+<dt>
+<code class="descname">$tags = ['&lt;pre&gt;', '&lt;/pre&gt;']</code></dt>
+<dd><p>A 2-item array with the start and end tags to use when dumping
+variables with the <code class="docutils literal"><span class="pre">html</span></code> method.</p>
+<p>Example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Lib\Dump</span><span class="p">;</span>
+
+<span class="nx">Dump</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+
+<span class="c1">// Echo in a textarea instead of a &lt;pre&gt; block</span>
+<span class="nx">Dump</span><span class="o">::</span><span class="nv">$tags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&lt;textarea rows=&quot;24&quot; style=&quot;width: 100%&quot;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/textarea&gt;&#39;</span><span class="p">];</span>
+<span class="nx">Dump</span><span class="o">::</span><span class="na">html</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="Simphplist\Lib\Dump::text">
+<code class="descclassname">Simphplist\Lib\Dump::</code><code class="descname">text</code><span class="sig-paren">(</span><em>...</em>, <em>...</em><span class="sig-paren">)</span><a class="headerlink" href="#Simphplist\Lib\Dump::text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Echo variable as a simple text string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>...</strong> (<em>mixed</em>) &#8211; one or more variables to dump</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">(void | string) Error string when there are errors, else void</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Lib\Dump</span><span class="p">;</span>
+
+<span class="nx">Dump</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="nx">Dump</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="Simphplist\Lib\Dump::html">
+<code class="descclassname">Simphplist\Lib\Dump::</code><code class="descname">html</code><span class="sig-paren">(</span><em>...</em>, <em>...</em><span class="sig-paren">)</span><a class="headerlink" href="#Simphplist\Lib\Dump::html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Echo variable dumps in an html formatted text string</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>...</strong> (<em>mixed</em>) &#8211; one or more variables to dump</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">(void | string) Error string when there are errors, else void</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">use</span> <span class="nx">\Simphplist\Lib\Dump</span><span class="p">;</span>
+
+<span class="nx">Dump</span><span class="o">::</span><span class="nv">$debug</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="nx">Dump</span><span class="o">::</span><span class="na">html</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="lib-route.html" class="btn btn-neutral" title="Routing component" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Benjamin Althues.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'dev-master',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
